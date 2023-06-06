@@ -1,29 +1,37 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-html-link-for-pages */
 
+import { faCircleInfo, faCode, faHouse, faLandmark, faPersonChalkboard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import Link from 'next/link';
+// import { useRouter } from 'next/navigation';
 
 const navlinks = [
   {
     title: "市場行情",
-    href: "/",
+    href: "/market",
+    icon: faLandmark,
   },
   {
     title: "會員帶單",
-    href: "/",
+    href: "/copy_trade",
+    icon: faPersonChalkboard,
   },
   {
     title: "智能合約",
-    href: "/",
+    href: "/smart_contract",
+    icon: faCode,
   },
   {
     title: "關於我們",
-    href: "/",
+    href: "/aboutus",
+    icon: faCircleInfo,
   },
 ];
 
 const Navbar = () => {
+  // const router = useRouter();
+
   return (
     <nav>
       <div className="flex h-16 z-50 w-full items-center justify-between bg-white px-3 font-bold text-black shadow md:justify-center md:px-7 mb-1 dark:bg-gray-800 dark:text-white">
@@ -37,13 +45,14 @@ const Navbar = () => {
           {/* 寫一個迴圈 */}
           {navlinks.map((link) => (
             <div className="false" key={link.title}>
-              <a
+              <Link
                 href={link.href}
-                className="mr-10 text-base font-normal hover:text-black/70 dark:hover:text-white/70"
+                prefetch={false}
+                className="mr-10 text-base font-normal hover:text-black/70 dark:hover:text-white/70 flex"
               >
+                <FontAwesomeIcon icon={link.icon} className="w-5 pr-1" />
                 {link.title}
-                <FontAwesomeIcon icon={icon({name: 'coffee', style: 'regular'})} />
-              </a>
+              </Link>
             </div>
           ))}
 
@@ -54,7 +63,7 @@ const Navbar = () => {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 1024 1024"
               className="h-[30px] w-[30px]"
               height="1em"

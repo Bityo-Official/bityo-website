@@ -1,12 +1,12 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
+import { config } from '@fortawesome/fontawesome-svg-core'
 
-library.add(fas, fab)
+config.autoAddCss = false;
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />
 }
+
+export default App;
