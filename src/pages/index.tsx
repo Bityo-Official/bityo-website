@@ -1,16 +1,12 @@
-import Head from "next/head";
+import Navbar from "@/components/Layout/Navbar";
+import Sidebar from "@/components/Sidebar";
 
 const Home = () => {
   return (
     <>
-      <Head>
-        <title>Bityo | 首頁</title>
-      </Head>
-      <h2 className="text-3xl text-center text-black dark:text-white">
-        Bityo 是您的最佳夥伴！
-      </h2>
+      {/* <Sidebar></Sidebar> */}
     </>
-  )
+  );
 }
 
 export default Home;
