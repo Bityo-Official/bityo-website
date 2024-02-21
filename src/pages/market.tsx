@@ -1,13 +1,13 @@
 import Head from "next/head";
 
-const Home = () => {
+const markets = () => {
   return (
     <>
       <Head>
-        <title>Bityo | 首頁</title>
+        <title>市場行情｜Bityo</title>
       </Head>
     </>
   );
 }
 
-export default Home;
+export default markets;

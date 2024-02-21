@@ -1,13 +1,13 @@
 import Head from "next/head";
 
-const Home = () => {
+const about = () => {
   return (
     <>
       <Head>
-        <title>Bityo | 首頁</title>
+        <title>關於我們｜Bityo</title>
       </Head>
     </>
   );
 }
 
-export default Home;
+export default about;

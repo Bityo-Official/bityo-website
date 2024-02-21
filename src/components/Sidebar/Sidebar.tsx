@@ -24,11 +24,13 @@ import {
 import { SidebarProps } from "@/types/Sidebar/Sidebar";
 import Icon from "@/components/Icon";
 import BityoIcon from "@/images/icon/bityo.png";
+import { useRouter } from 'next/navigation';
 
 const Sidebar = (props: SidebarProps) => {
   const [open, setOpen] = React.useState(0);
   const [openAlert, setOpenAlert] = React.useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(props.isDrawerOpen);
+  const router = useRouter();
 
   useEffect(() => {
     setIsDrawerOpen(props.isDrawerOpen);
@@ -56,7 +58,7 @@ const Sidebar = (props: SidebarProps) => {
         <Card
           color="transparent"
           shadow={false}
-          className="h-[calc(100vh-2rem)] w-full p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}        >
+          className="h-[calc(100vh-2rem)] w-full p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
           <div className="mb-2 flex items-center gap-4 p-4">
             <Icon
               icon_light={BityoIcon}
@@ -147,7 +149,7 @@ const Sidebar = (props: SidebarProps) => {
               </AccordionBody>
             </Accordion> */}
             {/* <hr className="my-2 border-blue-gray-50" /> */}
-            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
+            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={() => router.push('/market')}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <ChartBarSquareIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -162,19 +164,19 @@ const Sidebar = (props: SidebarProps) => {
                 />
               </ListItemSuffix> */}
             </ListItem>
-            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
+            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={() => router.push('/community')}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <ChatBubbleLeftRightIcon className="h-5 w-5" />
               </ListItemPrefix>
               社群
             </ListItem>
-            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
+            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={() => router.push('/exchanges')}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <CurrencyDollarIcon className="h-5 w-5" />
               </ListItemPrefix>
               交易所
             </ListItem>
-            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
+            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={() => router.push('/about')}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <InformationCircleIcon className="h-5 w-5" />
               </ListItemPrefix>
