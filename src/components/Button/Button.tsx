@@ -1,31 +1,20 @@
 import { ButtonProps } from "@/types/Button/Button";
-import { useEffect, useState } from "react";
+import { Button } from "@material-tailwind/react";
 
-const Button = (props: ButtonProps) => {
-  const buttonType = props.type;
-  const [buttonSize, setButtonSize] = useState('');
-
-  useEffect(() => {
-    if (buttonType === 'large') {
-      setButtonSize('px-6 py-[9px]');
-    } else if (buttonType === 'medium') {
-      setButtonSize('px-3 py-[5px]');
-    } else if (buttonType === 'small') {
-      setButtonSize('px-2 py-[5px]');
-    }
-  }, []);
+const MyButton = (props: ButtonProps) => {
 
   return (
-    <button
-      disabled={props.disabled}
+    <Button
+      className={`flex items-center ${props.className}`}
+      nonce={undefined}
+      onResize={undefined}
+      onResizeCapture={undefined}
       onClick={props.onClick}
-      className={`
-      border-[1px] rounded-full min-w-32
-      ${props.className}
-      `}
+      disabled={props.disabled}
     >
-      {props.children}
-    </button>
+      { props.children }
+      { props.text }
+    </Button>
   )
 }
-export default Button;
+export default MyButton;

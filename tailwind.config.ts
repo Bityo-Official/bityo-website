@@ -8,6 +8,10 @@ const config = withMT({
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -23,6 +27,7 @@ const config = withMT({
         'h6': ['1.75rem', '2.625rem'],
       },
       colors: {
+        primary: "#4ECE80",
       }
     },
   },

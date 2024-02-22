@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 在 globals.css 或相應的 CSS 模塊文件中 */
+.justify-text {
+  text-align: justify;
+  text-align-last: center; /* 這會使最後一行文字置中 */
+}
+
+/* 或者使用 Tailwind 的 @layer 指令來擴展你的工具類 */
+@layer utilities {
+  .justify-text {
+    @apply text-justify;
+    text-align-last: center;
+  }
+}
