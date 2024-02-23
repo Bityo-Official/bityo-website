@@ -1,4 +1,6 @@
 import Button from "@/components/Button/Button";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { InformationCircleIcon, UserPlusIcon } from "@heroicons/react/20/solid";
 import Head from "next/head";
 import Link from "next/link";
@@ -34,10 +36,10 @@ const Home = () => {
                     <InformationCircleIcon className="w-5 mr-1"></InformationCircleIcon>
                   </Button>
                   <Button
-                    onClick={() => router.push('/join')}
+                    onClick={() => router.push('https://dc.bityo.tw')}
                     className="rounded-sm bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
-                    text="加入幣友">
-                    <UserPlusIcon className="w-5 mr-1"></UserPlusIcon>
+                    text="加入 Discord">
+                    <FontAwesomeIcon icon={ faDiscord } className='mr-1 w-5' />
                   </Button>
                 </div>
               </div>

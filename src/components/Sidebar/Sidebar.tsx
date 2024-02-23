@@ -59,7 +59,13 @@ const Sidebar = (props: SidebarProps) => {
           color="transparent"
           shadow={false}
           className="h-[calc(100vh-2rem)] w-full p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-          <div className="mb-2 flex items-center gap-4 p-4">
+          <button
+            className="mb-2 flex items-center gap-4 p-4"
+            onClick={() => {
+              router.push('/');
+              closeDrawer();
+            }}
+          >
             <Icon
               icon_light={BityoIcon}
               className="h-8 w-8"
@@ -67,7 +73,7 @@ const Sidebar = (props: SidebarProps) => {
             <Typography variant="h5" color="blue-gray" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
               Bityo
             </Typography>
-          </div>
+          </button>
           <div className="p-2">
             <Input
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
