@@ -21,6 +21,11 @@ function TradingViewWidget(props: TradingViewProps) {
       "withdateranges": true,
       "hide_side_toolbar": false,
       "calendar": false,
+      "studies": [
+        "STD;Average_True_Range",
+        "STD;MACD",
+        "STD;RSI"
+      ],
       "support_host": "https://www.tradingview.com"
     });
 
