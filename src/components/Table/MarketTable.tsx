@@ -200,7 +200,7 @@ const MembersTable = (props: TableProps) => {
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
         <Typography variant="small" color="blue-gray" className="font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-          第1頁，共10頁
+          第1頁，共1頁
         </Typography>
         <div className="flex gap-2">
           <Button variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>

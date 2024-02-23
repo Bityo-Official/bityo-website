@@ -10,12 +10,22 @@ import {
   Input,
   Drawer,
   Card,
+  // Accordion,
+  // AccordionHeader,
+  // AccordionBody,
 } from "@material-tailwind/react";
 import {
   InformationCircleIcon,
   CurrencyDollarIcon,
   ChatBubbleLeftRightIcon,
   ChartBarSquareIcon,
+  Square3Stack3DIcon,
+  Cog6ToothIcon,
+  PresentationChartBarIcon,
+  UserCircleIcon,
+  // ChevronDownIcon,
+  // ChevronRightIcon,
+  // ShoppingBagIcon,
 } from "@heroicons/react/24/solid";
 import {
   CubeTransparentIcon,
@@ -25,6 +35,7 @@ import { SidebarProps } from "@/types/Sidebar/Sidebar";
 import Icon from "@/components/Icon";
 import BityoIcon from "@/images/icon/bityo.png";
 import { useRouter } from 'next/navigation';
+import toast from "react-hot-toast";
 
 const Sidebar = (props: SidebarProps) => {
   const [open, setOpen] = React.useState(0);
@@ -119,8 +130,8 @@ const Sidebar = (props: SidebarProps) => {
                   </ListItem>
                 </List>
               </AccordionBody>
-            </Accordion>
-            <Accordion
+            </Accordion> */}
+            {/* <Accordion
               open={open === 2}
               icon={<ChevronDownIcon
                 strokeWidth={2.5}
@@ -156,6 +167,20 @@ const Sidebar = (props: SidebarProps) => {
             </Accordion> */}
             {/* <hr className="my-2 border-blue-gray-50" /> */}
             <ListItem
+              disabled={true}
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/market')
+                closeDrawer();
+              }}>
+              <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+                <UserCircleIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              我的帳戶
+            </ListItem>
+            <ListItem
               nonce={undefined}
               onResize={undefined}
               onResizeCapture={undefined}
@@ -167,17 +192,18 @@ const Sidebar = (props: SidebarProps) => {
                 <ChartBarSquareIcon className="h-5 w-5" />
               </ListItemPrefix>
               市場行情
-              {/* <ListItemSuffix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+              <ListItemSuffix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <Chip
-                  value="14"
+                  value="11"
                   size="sm"
                   variant="ghost"
                   color="light-green"
                   className="rounded-full"
                 />
-              </ListItemSuffix> */}
+              </ListItemSuffix>
             </ListItem>
             <ListItem
+              disabled={true}
               nonce={undefined}
               onResize={undefined}
               onResizeCapture={undefined}
@@ -191,6 +217,7 @@ const Sidebar = (props: SidebarProps) => {
               社群
             </ListItem>
             <ListItem
+              disabled={true}
               nonce={undefined}
               onResize={undefined}
               onResizeCapture={undefined}
@@ -204,6 +231,34 @@ const Sidebar = (props: SidebarProps) => {
               交易所
             </ListItem>
             <ListItem
+              disabled={true}
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/quantify')
+                closeDrawer();
+              }}>
+              <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+                <Square3Stack3DIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              量化交易
+            </ListItem>
+            <ListItem
+              disabled={true}
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/follow')
+                closeDrawer();
+              }}>
+              <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+                <PresentationChartBarIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              跟單平台
+            </ListItem>
+            <ListItem
               nonce={undefined}
               onResize={undefined}
               onResizeCapture={undefined}
@@ -215,6 +270,20 @@ const Sidebar = (props: SidebarProps) => {
                 <InformationCircleIcon className="h-5 w-5" />
               </ListItemPrefix>
               關於我們
+            </ListItem>
+            <ListItem
+              disabled={true}
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/settings')
+                closeDrawer();
+              }}>
+              <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+                <Cog6ToothIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              設定
             </ListItem>
           </List>
           <Alert
@@ -239,6 +308,12 @@ const Sidebar = (props: SidebarProps) => {
                 取消
               </Typography>
               <Typography
+                onClick={() => {
+                  toast.error("此功能尚未開放！\n敬請期待", {
+                    duration: 2000,
+                    position: 'top-left',
+                  })
+                }}
                 as="a"
                 href="#"
                 variant="small"
