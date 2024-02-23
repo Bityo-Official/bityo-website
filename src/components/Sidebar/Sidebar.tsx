@@ -155,7 +155,14 @@ const Sidebar = (props: SidebarProps) => {
               </AccordionBody>
             </Accordion> */}
             {/* <hr className="my-2 border-blue-gray-50" /> */}
-            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={() => router.push('/market')}>
+            <ListItem
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/market')
+                closeDrawer();
+              }}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <ChartBarSquareIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -170,19 +177,40 @@ const Sidebar = (props: SidebarProps) => {
                 />
               </ListItemSuffix> */}
             </ListItem>
-            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={() => router.push('/community')}>
+            <ListItem
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/community')
+                closeDrawer();
+              }}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <ChatBubbleLeftRightIcon className="h-5 w-5" />
               </ListItemPrefix>
               社群
             </ListItem>
-            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={() => router.push('/exchanges')}>
+            <ListItem
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/exchanges')
+                closeDrawer();
+              }}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <CurrencyDollarIcon className="h-5 w-5" />
               </ListItemPrefix>
               交易所
             </ListItem>
-            <ListItem nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={() => router.push('/about')}>
+            <ListItem
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/about')
+                closeDrawer();
+              }}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                 <InformationCircleIcon className="h-5 w-5" />
               </ListItemPrefix>
