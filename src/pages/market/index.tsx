@@ -10,7 +10,7 @@ const markets = () => {
       </Head>
       <div className="mx-5">
         <MarketTable
-          head={['幣種', '價格', '24h%', '24h成交量', '最高', '最低']}
+          head={['幣種', '交易所', '價格', '24h%', '24h成交量', '最高', '最低']}
           rows={[
             {
               img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png',
@@ -138,31 +138,43 @@ const markets = () => {
             {
               label: "Pionex",
               value: "pionex",
+              color: "bg-[#FF702A]",
+              bgColor: "text-white",
               disabled: false,
             },
             {
               label: "Binance",
               value: "binance",
+              color: "bg-[#F0B90C]",
+              bgColor: "text-white",
               disabled: false,
             },
             {
               label: "OKX",
               value: "okx",
+              color: "bg-[#000000]",
+              bgColor: "text-white",
               disabled: false,
             },
             {
               label: "BingX",
               value: "bingx",
+              color: "bg-[#2A54FF]",
+              bgColor: "text-white",
               disabled: false,
             },
             {
               label: "Bitget",
               value: "bitget",
+              color: "bg-[#00F0FF]",
+              bgColor: "text-white",
               disabled: false,
             },
             {
               label: "Bitunix",
               value: "bitunix",
+              color: "bg-[#B9F642]",
+              bgColor: "text-white",
               disabled: true,
             },
           ]}

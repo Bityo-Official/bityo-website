@@ -15,6 +15,8 @@ export interface TableProps {
   tab: {
     label: string;
     value: string;
+    color: string;
+    bgColor: string;
     disabled?: boolean;
   }[];
 }

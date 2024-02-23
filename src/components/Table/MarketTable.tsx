@@ -8,7 +8,6 @@ import {
   Typography,
   Button,
   CardBody,
-  Chip,
   CardFooter,
   Tabs,
   TabsHeader,
@@ -17,14 +16,16 @@ import {
 } from "@material-tailwind/react";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
+import Chip from "@/components/Chip/Chip";
 
-// search name and fullname from row data list
+// 搜尋幣種
 const searchName = (cache: string, rows: any) => {
   return rows.filter((row: any) => {
     return row.name.toLowerCase().includes(cache.toLowerCase()) || row.full_name.toLowerCase().includes(cache.toLowerCase());
   });
 }
 
+// TD 的文字(成交量等)
 const TableText = (props: { classes: string, text: string | number }) => {
   return (
     <td className={props.classes}>
@@ -43,11 +44,14 @@ const TableText = (props: { classes: string, text: string | number }) => {
 const MembersTable = (props: TableProps) => {
   const router = useRouter();
 
+  // 搜尋的暫存
   const [cache, setCache] = useState('');
+
+  // 搜尋後的資料
   const [filteredData, setFilteredData] = useState(props.rows);
 
-  const [exchanges, setExchanges] = useState('pionex');
-  console.log(exchanges)
+  // 目前選取的交易所
+  const [exchangesData, setExchangesData] = useState({ label: props.tab[0].label, exchange: props.tab[0].value, color: props.tab[0].color, bgColor: props.tab[0].bgColor });
 
   useEffect(() => {
     setFilteredData(searchName(cache, props.rows));
@@ -56,6 +60,8 @@ const MembersTable = (props: TableProps) => {
 
   return (
     <Card className={`h-full w-full ${props.className}`} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+
+      {/* 表格頂端列 */}
       <CardHeader floated={false} shadow={false} className="rounded-none" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
@@ -66,25 +72,21 @@ const MembersTable = (props: TableProps) => {
               查看最近火熱的加密貨幣市場
             </Typography>
           </div>
-          {/* <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-						<Button variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-							view all
-						</Button>
-						<Button className="flex items-center gap-3" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-							<UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
-						</Button>
-					</div> */}
         </div>
+
+        {/* 交易所選擇 */}
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <Tabs value="pionex" className="w-full md:w-max">
             <TabsHeader nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-              {props.tab.map(({ label, value, disabled }) => (
-                <Tab disabled={disabled} key={value} onClick={() => { setExchanges(value) }} value={value} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+              {props.tab.map(({ label, value, disabled, color, bgColor }) => (
+                <Tab disabled={disabled} key={value} onClick={() => { setExchangesData({ label: label, exchange: value, color: color, bgColor: bgColor }) }} value={value} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
                 </Tab>
               ))}
             </TabsHeader>
           </Tabs>
+
+          {/* 搜尋對話框 */}
           <div className="w-full md:w-72">
             <Input
               label="Search"
@@ -93,8 +95,12 @@ const MembersTable = (props: TableProps) => {
           </div>
         </div>
       </CardHeader>
+
+      {/* 表格內容 */}
       <CardBody className="overflow-scroll px-0" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
         <table className="mt-4 w-full min-w-max table-auto text-left">
+
+          {/* 表格的標題 */}
           <thead>
             <tr>
               {props.head.map((head) => (
@@ -112,6 +118,8 @@ const MembersTable = (props: TableProps) => {
               ))}
             </tr>
           </thead>
+
+          {/* 表格的內容 */}
           <tbody>
             {filteredData.map(
               ({ img, name, full_name, price }, index) => {
@@ -121,7 +129,7 @@ const MembersTable = (props: TableProps) => {
                   : "p-4 border-b border-blue-gray-50";
 
                 return (
-                  <tr key={name} onClick={() => router.push(`/market/${exchanges}/${name}`)}>
+                  <tr key={name} onClick={() => router.push(`/market/${exchangesData.exchange}/${name}`)}>
                     {/* 幣種 */}
                     <td className={classes}>
                       <div className="flex items-center gap-3">
@@ -140,6 +148,17 @@ const MembersTable = (props: TableProps) => {
                             {full_name}
                           </Typography>
                         </div>
+                      </div>
+                    </td>
+
+                    {/* 交易所 */}
+                    <td className={classes}>
+                      <div className="flex">
+                        <Chip
+                          text={exchangesData.label}
+                          color={exchangesData.color}
+                          bgColor={exchangesData.bgColor}
+                        />
                       </div>
                     </td>
 
