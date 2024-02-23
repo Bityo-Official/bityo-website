@@ -5,7 +5,7 @@ import Head from 'next/head';
 
 const SymbolPage = () => {
   const router = useRouter();
-  const { symbol } = router.query;
+  const { exchange, symbol } = router.query;
 
   return (
     <>
@@ -15,7 +15,7 @@ const SymbolPage = () => {
       {
         typeof symbol === 'string' ? (
           <TradingView
-            symbol={`PIONEX:${symbol}.P`}
+            symbol={`${exchange}:${symbol}.P`}
             timezone={'Asia/Taipei'}
             locale={'zh_TW'}
             theme={'dark'}

@@ -31,6 +31,9 @@ const MembersTable = (props: TableProps) => {
   const [cache, setCache] = useState('');
   const [filteredData, setFilteredData] = useState(props.rows);
 
+  const [exchanges, setExchanges] = useState('pionex');
+  console.log(exchanges)
+
   useEffect(() => {
     setFilteredData(searchName(cache, props.rows));
   }, [cache]);
@@ -56,11 +59,11 @@ const MembersTable = (props: TableProps) => {
 						</Button>
 					</div> */}
 				</div>
-				<div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-					<Tabs value="pionex" className="w-full md:w-max">
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <Tabs value="pionex" className="w-full md:w-max">
 						<TabsHeader nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
 							{props.tab.map(({ label, value, disabled }) => (
-                <Tab disabled={ disabled } key={value} value={value} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+                <Tab disabled={disabled} key={value} onClick={() => { setExchanges(value) }} value={value} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
 									&nbsp;&nbsp;{label}&nbsp;&nbsp;
 								</Tab>
 							))}
@@ -102,7 +105,7 @@ const MembersTable = (props: TableProps) => {
 									: "p-4 border-b border-blue-gray-50";
 
 								return (
-									<tr key={name} onClick={() => router.push(`/market/${name}`)}>
+									<tr key={name} onClick={() => router.push(`/market/${exchanges}/${name}`)}>
 										<td className={classes}>
 											<div className="flex items-center gap-3">
 												<Avatar src={img} alt={name} size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined} />
@@ -110,13 +113,13 @@ const MembersTable = (props: TableProps) => {
 													<Typography
 														variant="small"
 														color="blue-gray"
-														className="font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined}                          >
+														className="font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
 														{name}
 													</Typography>
 													<Typography
 														variant="small"
 														color="blue-gray"
-														className="font-normal opacity-70" nonce={undefined} onResize={undefined} onResizeCapture={undefined}                          >
+														className="font-normal opacity-70" nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
 														{full_name}
 													</Typography>
 												</div>
@@ -127,7 +130,7 @@ const MembersTable = (props: TableProps) => {
 												<Typography
 													variant="small"
 													color="blue-gray"
-													className="font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined}                        >
+													className="font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
 													{price}
 												</Typography>
 											</div>

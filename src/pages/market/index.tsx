@@ -41,9 +41,9 @@ const markets = () => {
               disabled: false,
             },
             {
-              label: "Bitunix",
-              value: "bitunix",
-              disabled: true,
+              label: "BingX",
+              value: "bingx",
+              disabled: false,
             },
             {
               label: "Binance",
@@ -51,8 +51,8 @@ const markets = () => {
               disabled: true,
             },
             {
-              label: "BingX",
-              value: "bingx",
+              label: "Bitunix",
+              value: "bitunix",
               disabled: true,
             },
           ]}
