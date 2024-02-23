@@ -6,7 +6,7 @@ const markets = () => {
   return (
     <>
       <Head>
-        <title>市場行情</title>
+        <title>加密貨幣市場</title>
       </Head>
       <div className="mx-5">
         <MarketTable

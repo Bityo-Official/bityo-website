@@ -9,8 +9,13 @@ const Document = () => {
         <meta name="author" content="TershiXia" />
         <meta name="copyright" content="Bityo" />
         <meta httpEquiv="Content-Language" content="zh-TW" />
+
         <meta property="og:title" content="幣友 Bityo 官方網站" />
+        <meta property="og:image:alt" content="一個致力於研究區塊鏈和程式設計的台灣團隊，發展區塊鏈教育。" />
+        <meta property="og:site_name" content="幣友 Bityo" />
+        <meta property="og:url" content="https://bityo.tw" />
         <meta property="og:description" content="一個致力於研究區塊鏈和程式設計的台灣團隊，發展區塊鏈教育。" />
+        <meta name="hostname" content="bityo.tw" />
         <meta property="og:image" content="https://bityo.tw/imgs/bityo_bg_circle.png" />
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
       </Head>
