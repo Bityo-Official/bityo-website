@@ -28,6 +28,8 @@ const config = withMT({
       },
       colors: {
         primary: "#4ECE80",
+        body: "#788293",
+        'body-dark': "#959CB1",
       }
     },
   },

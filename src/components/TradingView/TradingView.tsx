@@ -44,7 +44,7 @@ function TradingViewWidget(props: TradingViewProps) {
   }, []);
 
   return (
-    <div className='w-full h-[86vh]'>
+    <div className='w-full h-[93vh]'>
       <div className="tradingview-widget-container" ref={container}>
         <div className="tradingview-widget-container__widget"></div>
       </div>
