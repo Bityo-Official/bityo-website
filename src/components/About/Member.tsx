@@ -93,6 +93,7 @@ const Member = () => {
                           position={member.position}
                           description={member.description}
                           socials={member.socials}
+                          uid="000000000"
                         />
                       </div>
                     ))
