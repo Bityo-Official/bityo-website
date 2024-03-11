@@ -29,7 +29,8 @@ const config = withMT({
       colors: {
         primary: "#4ECE80",
         body: "#788293",
-        'body-dark': "#959CB1",
+        'body-dark': "rgb(149,156,177",
+        'txt-dark': "rgba(41,44,53)",
       }
     },
   },

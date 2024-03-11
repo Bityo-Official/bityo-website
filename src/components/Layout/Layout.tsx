@@ -26,7 +26,7 @@ const Layout = ({ children }: LayoutData) => {
         <Navbar />
         <main className="flex-grow">
           <Particles
-            className="absolute inset-0 -z-10 animate-fade-in"
+            className="fixed inset-0 -z-10 animate-fade-in"
             quantity={1000}
           />
           {children}

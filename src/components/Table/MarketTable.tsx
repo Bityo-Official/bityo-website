@@ -32,8 +32,7 @@ const TableText = (props: { classes: string, text: string | number }) => {
       <div className="flex flex-col">
         <Typography
           variant="small"
-          color="blue-gray"
-          className="font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          className="font-normal text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
           {props.text}
         </Typography>
       </div>
@@ -59,16 +58,16 @@ const MembersTable = (props: TableProps) => {
 
 
   return (
-    <Card className={`h-full w-full ${props.className}`} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+    <Card className={`h-full w-full ${props.className} dark:bg-txt-dark`} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
 
       {/* 表格頂端列 */}
-      <CardHeader floated={false} shadow={false} className="rounded-none" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+      <CardHeader floated={false} shadow={false} className="rounded-none dark:bg-txt-dark" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
-            <Typography variant="h3" color="blue-gray" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+            <Typography variant="h3" className="text-black dark:text-white" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
               加密貨幣市場
             </Typography>
-            <Typography color="gray" className="mt-1 font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+            <Typography color="gray" className="mt-1 font-normal dark:text-gray-500" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
               查看最近火熱的加密貨幣市場
             </Typography>
           </div>
@@ -106,12 +105,12 @@ const MembersTable = (props: TableProps) => {
               {props.head.map((head) => (
                 <th
                   key={head}
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                  className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4"
                 >
                   <Typography
                     variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70" nonce={undefined} onResize={undefined} onResizeCapture={undefined}                  >
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                  >
                     {head}
                   </Typography>
                 </th>
@@ -126,10 +125,10 @@ const MembersTable = (props: TableProps) => {
                 const isLast = index === props.rows.length - 1;
                 const classes = isLast
                   ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+                  : "p-4 border-b border-blue-gray-50 dark:border-blue-gray-800";
 
                 return (
-                  <tr key={name} onClick={() => router.push(`/market/${exchangesData.exchange}/${name}`)}>
+                  <tr className="hover:bg-gray-300 dark:hover:bg-gray-800 hover:cursor-pointer" key={name} onClick={() => router.push(`/market/${exchangesData.exchange}/${name}`)}>
                     {/* 幣種 */}
                     <td className={classes}>
                       <div className="flex items-center gap-3">
@@ -137,14 +136,12 @@ const MembersTable = (props: TableProps) => {
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
-                            color="blue-gray"
-                            className="font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
+                            className="font-normal text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
                             {name}
                           </Typography>
                           <Typography
                             variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70" nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
+                            className="font-normal opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
                             {full_name}
                           </Typography>
                         </div>
@@ -198,15 +195,15 @@ const MembersTable = (props: TableProps) => {
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-        <Typography variant="small" color="blue-gray" className="font-normal" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 dark:border-blue-gray-900 p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+        <Typography variant="small" className="font-normal text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
           第1頁，共1頁
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          <Button className="text-gray-800 dark:text-gray-100 border-gray-400" variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
             上一頁
           </Button>
-          <Button variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          <Button className="text-gray-800 dark:text-gray-100 border-gray-400" variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
             下一頁
           </Button>
         </div>

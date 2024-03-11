@@ -65,6 +65,7 @@ const Sidebar = (props: SidebarProps) => {
         onResize={undefined}
         onResizeCapture={undefined}
         placement="right"
+        className="text-white dark:bg-txt-dark"
       >
         <Card
           color="transparent"
@@ -81,7 +82,7 @@ const Sidebar = (props: SidebarProps) => {
               icon_light={BityoIcon}
               className="h-8 w-8"
             />
-            <Typography variant="h5" color="blue-gray" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+            <Typography variant="h5" className="text-black dark:text-white" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
               Bityo
             </Typography>
           </button>
@@ -90,7 +91,7 @@ const Sidebar = (props: SidebarProps) => {
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               label="搜尋" nonce={undefined} onResize={undefined} onResizeCapture={undefined} />
           </div>
-          <List nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          <List nonce={undefined} onResize={undefined} onResizeCapture={undefined} className="dark:text-blue-gray-100">
             {/* <Accordion
               open={open === 1}
               icon={<ChevronDownIcon
@@ -304,7 +305,8 @@ const Sidebar = (props: SidebarProps) => {
                 href="#"
                 variant="small"
                 className="font-medium opacity-80"
-                onClick={() => setOpenAlert(false)} nonce={undefined} onResize={undefined} onResizeCapture={undefined}              >
+                onClick={() => setOpenAlert(false)} nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+              >
                 取消
               </Typography>
               <Typography
@@ -317,7 +319,8 @@ const Sidebar = (props: SidebarProps) => {
                 as="a"
                 href="#"
                 variant="small"
-                className="font-medium" nonce={undefined} onResize={undefined} onResizeCapture={undefined}              >
+                className="font-medium" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+              >
                 取得更多
               </Typography>
             </div>
