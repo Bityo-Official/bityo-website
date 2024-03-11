@@ -26,11 +26,11 @@ const Themes = () => {
       {
         theme === 'dark' || (!theme && resolvedTheme === 'dark') ? (
           <div className="rounded-full w-8 h-8 border-gray-700 dark:bg-gray-700 relative dark:ml-[3.6rem] pointer-events-none transition-all duration-300 ease-out">
-            <MoonIcon className="w-[50%] h-[50%] mr-auto ml-auto inline-block align-middle" />
+            <MoonIcon className="w-[50%] h-[100%] mr-auto ml-auto inline-block align-middle" />
           </div>
         ) : (
           <div className="rounded-full border-gray-300 border-[1px] w-8 h-8 bg-white relative dark:ml-0 pointer-events-none transition-all duration-300 ease-out">
-            <SunIcon className="w-[50%] h-[50%] mr-auto ml-auto inline-block align-middle" />
+            <SunIcon className="w-[50%] h-[100%] mr-auto ml-auto inline-block align-middle" />
           </div>
         )
       }

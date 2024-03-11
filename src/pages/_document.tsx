@@ -19,7 +19,7 @@ const Document = () => {
         <meta property="og:image" content="https://bityo.tw/imgs/bityo_bg_circle.png" />
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
       </Head>
-      <body className='h-full text-black bg-gray-100 dark:bg-transparent dark:text-white /*樣式變更動畫 transition-colors duration-100*/'>
+      <body className='h-full text-black bg-gray-100 dark:bg-transparent dark:text-white transition duration-300 ease-in-out'>
         <Main />
         <NextScript />
       </body>
