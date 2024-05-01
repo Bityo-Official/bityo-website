@@ -23,6 +23,7 @@ import {
   Cog6ToothIcon,
   PresentationChartBarIcon,
   UserCircleIcon,
+  BuildingStorefrontIcon,
   // ChevronDownIcon,
   // ChevronRightIcon,
   // ShoppingBagIcon,
@@ -86,11 +87,11 @@ const Sidebar = (props: SidebarProps) => {
               Bityo
             </Typography>
           </button>
-          <div className="p-2">
+          {/* <div className="p-2">
             <Input
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               label="搜尋" nonce={undefined} onResize={undefined} onResizeCapture={undefined} />
-          </div>
+          </div> */}
           <List nonce={undefined} onResize={undefined} onResizeCapture={undefined} className="dark:text-blue-gray-100">
             {/* <Accordion
               open={open === 1}
@@ -230,6 +231,20 @@ const Sidebar = (props: SidebarProps) => {
                 <CurrencyDollarIcon className="h-5 w-5" />
               </ListItemPrefix>
               交易所
+            </ListItem>
+            <ListItem
+              disabled={true}
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              onClick={() => {
+                router.push('/store')
+                closeDrawer();
+              }}>
+              <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+                <BuildingStorefrontIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              商店
             </ListItem>
             <ListItem
               disabled={true}

@@ -20,6 +20,19 @@ const MemberData = [
     }
   },
   {
+    img: "/avater/yian.jpeg",
+    name: "小霸王",
+    uid: "000000000",
+    position: "秘書兼吉祥物",
+    description: "",
+    socials: {
+      facebook: "",
+      twitter: "",
+      instagram: "",
+      youtube: "",
+    }
+  },
+  {
     img: "",
     name: "Gallace",
     uid: "000000000",
@@ -33,7 +46,7 @@ const MemberData = [
   },
   {
     img: "",
-    name: "Hayronhong",
+    name: "Eric",
     uid: "000000000",
     position: "Co-Founder & 助理",
     description: "",
@@ -41,13 +54,28 @@ const MemberData = [
       facebook: "",
       twitter: "",
       instagram: "",
+      youtube: "",
     }
   },
   {
-    img: "",
-    name: "Roalx (晨光)",
+    img: "/avater/roalx.jpg",
+    name: "ROALX (晨光)",
     uid: "000000000",
-    position: "代理",
+    position: "代理｜行銷部",
+    description: "",
+    socials: {
+      facebook: "https://www.facebook.com/profile.php?id=100085615297125",
+      twitter: "https://twitter.com/ChenGuang0812",
+      instagram: "https://www.instagram.com/roalx._.87/",
+      youtube: "https://www.tiktok.com/@roalx._.87",
+      globe: "https://chenguang.vercel.app/",
+    }
+  },
+  {
+    img: "/avater/salt.jpeg",
+    name: "Salz von Einzbern",
+    uid: "000000000",
+    position: "助教｜開發部",
     description: "",
     socials: {
       facebook: "",
@@ -58,9 +86,22 @@ const MemberData = [
   },
   {
     img: "",
-    name: "Salz von Einzbern",
+    name: "Lonax",
     uid: "000000000",
-    position: "開發部人員",
+    position: "代理｜行銷部",
+    description: "",
+    socials: {
+      facebook: "",
+      twitter: "",
+      instagram: "",
+      youtube: "",
+    }
+  },
+  {
+    img: "",
+    name: "Hong",
+    uid: "000000000",
+    position: "代理｜行銷部",
     description: "",
     socials: {
       facebook: "",
