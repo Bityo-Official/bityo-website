@@ -222,7 +222,7 @@ const Sidebar = (props: SidebarProps) => {
               onResize={undefined}
               onResizeCapture={undefined}
               onClick={() => {
-                router.push('/exchanges')
+                router.push('/exchange')
                 closeDrawer();
               }}>
               <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
