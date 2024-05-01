@@ -39,18 +39,21 @@ const Footer = () => {
 
                   <a
                     href="https://www.instagram.com/bityo.tw/"
+                    target="_blank"
                     className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
                     <FontAwesomeIcon icon={faInstagram} className='w-4' />
                   </a>
 
                   <a
                     href="https://www.tiktok.com/@bityo.tw"
+                    target="_blank"
                     className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
                     <FontAwesomeIcon icon={faTiktok} className='w-4' />
                   </a>
 
                   <a
                     href="https://youtube.com/@bityo_tw"
+                    target="_blank"
                     className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
                     <FontAwesomeIcon icon={faYoutube} className='w-4' />
                   </a>

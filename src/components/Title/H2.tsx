@@ -1,10 +1,10 @@
 import { TitleData } from "@/types/Title/Title";
 
-const H3 = (props: TitleData) => {
+const H2 = (props: TitleData) => {
   return (
     // Font Weight: 700
-    <h3 className={`text-h3 font-blod ${props.className}`}>{ props.title }</h3>
+    <h2 className={`mb-4 text-3xl font-bold !leading-tight text-black dark:text-white sm:text-4xl md:text-[45px] ${props.className}`}>{ props.title }</h2>
   )
 }
 
-export default H3;
+export default H2;
