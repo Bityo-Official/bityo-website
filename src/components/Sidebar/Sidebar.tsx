@@ -205,7 +205,6 @@ const Sidebar = (props: SidebarProps) => {
               </ListItemSuffix>
             </ListItem>
             <ListItem
-              disabled={true}
               nonce={undefined}
               onResize={undefined}
               onResizeCapture={undefined}
@@ -219,7 +218,6 @@ const Sidebar = (props: SidebarProps) => {
               社群
             </ListItem>
             <ListItem
-              disabled={true}
               nonce={undefined}
               onResize={undefined}
               onResizeCapture={undefined}

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from 'next/navigation';
 
 import BityoLogo from "@/images/icon/bityo_with_icon.png";
-import { faFacebookF, faGithub, faInstagram, faTiktok, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord, faFacebookF, faGithub, faInstagram, faTiktok, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   const router = useRouter();
@@ -63,6 +63,13 @@ const Footer = () => {
                     target="_blank"
                     className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
                     <FontAwesomeIcon icon={faGithub} className='w-4' />
+                  </a>
+
+                  <a
+                    href="https://discord.gg/bityo"
+                    target="_blank"
+                    className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
+                    <FontAwesomeIcon icon={faDiscord} className='w-4' />
                   </a>
                 </div>
               </div>

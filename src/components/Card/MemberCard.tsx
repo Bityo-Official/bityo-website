@@ -39,6 +39,7 @@ const ProfileCard = (props: ProfileCardProps) => {
               as="a"
               href={props.socials?.facebook}
               variant="lead"
+              target="_blank"
               color="blue"
               className="flex items-center"
               textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
@@ -54,6 +55,7 @@ const ProfileCard = (props: ProfileCardProps) => {
               as="a"
               href={props.socials?.twitter}
               variant="lead"
+              target="_blank"
               color="blue"
               className="flex items-center"
               textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
@@ -69,6 +71,7 @@ const ProfileCard = (props: ProfileCardProps) => {
               as="a"
               href={props.socials?.youtube}
               variant="lead"
+              target="_blank"
               color="blue"
               className="flex items-center"
               textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
@@ -84,6 +87,7 @@ const ProfileCard = (props: ProfileCardProps) => {
               as="a"
               href={props.socials?.instagram}
               variant="lead"
+              target="_blank"
               color="blue"
               className="flex items-center"
               textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
@@ -99,6 +103,7 @@ const ProfileCard = (props: ProfileCardProps) => {
               as="a"
               href={props.socials?.tiktok}
               variant="lead"
+              target="_blank"
               color="blue"
               className="flex items-center"
               textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
@@ -114,6 +119,7 @@ const ProfileCard = (props: ProfileCardProps) => {
               as="a"
               href={props.socials?.globe}
               variant="lead"
+              target="_blank"
               color="blue"
               className="flex items-center"
               textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>

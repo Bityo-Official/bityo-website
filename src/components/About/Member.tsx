@@ -45,7 +45,7 @@ const MemberData = [
     }
   },
   {
-    img: "",
+    img: "/avater/eric.webp",
     name: "Eric",
     uid: "000000000",
     position: "Co-Founder & 助理",
