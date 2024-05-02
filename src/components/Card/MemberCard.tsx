@@ -67,7 +67,7 @@ const Socials = (props: SocialProps) => {
           color="blue"
           className="flex items-center"
           textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-          <FontAwesomeIcon icon={fasIcons[props.icon] || fabIcons[props.icon]} className={`w-5 text-[${props.color}]`} />
+          <FontAwesomeIcon icon={fasIcons[props.icon] || fabIcons[props.icon]} className={`w-5 ${props.color}`} />
         </Typography>
       </Tooltip>
     </div>

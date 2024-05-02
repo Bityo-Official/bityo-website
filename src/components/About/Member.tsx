@@ -11,11 +11,11 @@ const MemberData = [
     position: "CEO & Co-Founder",
     description: "",
     socials: [
-      { link: "https://www.facebook.com/TershiXia", icon: 'faFacebook', color: "#1F8EF4" },
-      { link: "https://www.twitter.com/TershiXia", icon: 'faTwitter', color: "#D92F7E" },
-      { link: "https://www.instagram.com/TershiXia", icon: 'faInstagram', color: "#FF0000" },
-      { link: "https://www.tiktok.com/tsx526", icon: 'faTiktok', color: "#000" },
-      { link: "https://tershi.com", icon: 'faGlobe', color: "#27A5E4" },
+      { link: "https://www.facebook.com/TershiXia", icon: 'faFacebook', color: "text-[#1F8EF4]" },
+      { link: "https://www.twitter.com/TershiXia", icon: 'faTwitter', color: "text-[#D92F7E]" },
+      { link: "https://www.instagram.com/TershiXia", icon: 'faInstagram', color: "text-[#FF0000]" },
+      { link: "https://www.tiktok.com/tsx526", icon: 'faTiktok', color: "text-[#000]" },
+      { link: "https://tershi.com", icon: 'faGlobe', color: "text-[#27A5E4]" },
     ],
   },
   {
@@ -49,11 +49,11 @@ const MemberData = [
     position: "代理｜行銷部",
     description: "",
     socials: [
-      { link: "https://www.facebook.com/profile.php?id=100085615297125", icon: 'faFacebook', color: "#1F8EF4" },
-      { link: "https://www.youtube.com/@ROALX", icon: 'faYoutube', color: "#FF0000" },
-      { link: "https://www.instagram.com/roalx._.87/", icon: 'faInstagram', color: "#FF0000" },
-      { link: "https://www.tiktok.com/@roalx._.87", icon: 'faTiktok', color: "#000" },
-      { link: "https://chenguang.vercel.app/", icon: 'faGlobe', color: "#27A5E4" },
+      { link: "https://www.facebook.com/profile.php?id=100085615297125", icon: 'faFacebook', color: "text-[#1F8EF4]" },
+      { link: "https://www.youtube.com/@ROALX", icon: 'faYoutube', color: "text-[#FF0000]" },
+      { link: "https://www.instagram.com/roalx._.87/", icon: 'faInstagram', color: "text-[#FF0000]" },
+      { link: "https://www.tiktok.com/@roalx._.87", icon: 'faTiktok', color: "text-[#000]" },
+      { link: "https://chenguang.vercel.app/", icon: 'faGlobe', color: "text-[#27A5E4]" },
     ],
   },
   {
