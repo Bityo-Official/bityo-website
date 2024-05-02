@@ -2,13 +2,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from 'next/navigation';
 
 import BityoLogo from "@/images/icon/bityo_with_icon.png";
-import { faDiscord, faFacebookF, faGithub, faInstagram, faTiktok, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { LinkData, IconData } from "@/config/FooterData";
+
+const fabIcons = require("@fortawesome/free-brands-svg-icons");
+const fasIcons = require("@fortawesome/free-solid-svg-icons");
 
 const Footer = () => {
-  const router = useRouter();
 
   return (
     <>
@@ -30,169 +31,48 @@ const Footer = () => {
                   幣友科技，持續為您服務，提供最新的區塊鏈技術與數位資產資訊。
                 </p>
                 <div className="flex items-center">
-                  <a
-                    href="https://www.facebook.com/bityo.tw"
-                    target="_blank"
-                    className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
-                    <FontAwesomeIcon icon={faFacebookF} className='w-3' />
-                  </a>
-
-                  <a
-                    href="https://www.instagram.com/bityo.tw/"
-                    target="_blank"
-                    className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
-                    <FontAwesomeIcon icon={faInstagram} className='w-4' />
-                  </a>
-
-                  <a
-                    href="https://www.tiktok.com/@bityo.tw"
-                    target="_blank"
-                    className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
-                    <FontAwesomeIcon icon={faTiktok} className='w-4' />
-                  </a>
-
-                  <a
-                    href="https://youtube.com/@bityo_tw"
-                    target="_blank"
-                    className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
-                    <FontAwesomeIcon icon={faYoutube} className='w-4' />
-                  </a>
-
-                  <a
-                    href="https://github.com/bityo-Official/"
-                    target="_blank"
-                    className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
-                    <FontAwesomeIcon icon={faGithub} className='w-4' />
-                  </a>
-
-                  <a
-                    href="https://discord.gg/bityo"
-                    target="_blank"
-                    className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary">
-                    <FontAwesomeIcon icon={faDiscord} className='w-4' />
-                  </a>
+                  {
+                    IconData.map((data, index) => (
+                      <a
+                        key={index}
+                        href={data.link}
+                        target="_blank"
+                        className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
+                      >
+                        <FontAwesomeIcon icon={fasIcons[data.icon] || fabIcons[data.icon]} className={`${data.size}`} />
+                      </a>
+                    ))
+                  }
                 </div>
               </div>
             </div>
 
-            <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  相關連結
-                </h2>
-                <ul>
-                  <li>
-                    <Link
-                      href="/market"
-                      className="mb-4 inline-block text-base text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      市場行情
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/community"
-                      className="mb-4 inline-block text-base text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      社群
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/exchange"
-                      className="mb-4 inline-block text-base text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      交易所
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/about"
-                      className="mb-4 inline-block text-base text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      關於我們
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  條款
-                </h2>
-                <ul>
-                  <li>
-                    <Link
-                      href="/"
-                      className="pointer-events-none mb-4 inline-block text-base text-[#53596c] duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      服務條款
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/"
-                      className="pointer-events-none mb-4 inline-block text-base text-[#53596c] duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      隱私權政策
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/"
-                      className="pointer-events-none mb-4 inline-block text-base text-[#53596c] duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      使用規範
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  幫助 & 支援
-                </h2>
-                <ul>
-                  <li>
-                    <Link
-                      href="/"
-                      aria-disabled={true}
-                      className="pointer-events-none mb-4 inline-block text-base text-[#53596c] duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      幣友合夥人計畫
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/about"
-                      className="mb-4 inline-block text-base text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      關於我們
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/contact"
-                      className="pointer-events-none mb-4 inline-block text-base text-[#53596c] duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      聯絡我們
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/question"
-                      className="pointer-events-none mb-4 inline-block text-base text-[#53596c] duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
-                    >
-                      常見問題
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            {
+              /* 迴圈 */
+              LinkData.map((data, index) => (
+                <div key={index} className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
+                  <div className="mb-12 lg:mb-16">
+                    <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                      {data.title}
+                    </h2>
+                    <ul>
+                      {
+                        data.itemList.map((item, index) => (
+                          <li key={index}>
+                            <Link
+                              href={item.link}
+                              className={`mb-4 inline-block text-base  duration-300 hover:text-primary dark:hover:text-primary ${item.disabled ? 'pointer-events-none text-[#53596c]' : 'text-body dark:text-body-dark'}`}
+                            >
+                              {item.title}
+                            </Link>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                </div>
+              ))
+            }
           </div>
 
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>

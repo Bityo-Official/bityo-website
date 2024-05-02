@@ -17,13 +17,18 @@ import AlertCard from "../Alert/AlertCard";
 import toast from "react-hot-toast";
 
 const SidebarListItem = (props: SidebarListItemProps) => {
+  const router = useRouter();
+
   return (
     <ListItem
       disabled={props.disabled}
       nonce={undefined}
       onResize={undefined}
       onResizeCapture={undefined}
-      onClick={props.onClick}>
+      onClick={() => {
+        props.onClick && props.onClick();
+        router.push(props.link);
+      }}>
       <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
         <props.icon className="h-5 w-5" />
       </ListItemPrefix>
@@ -125,7 +130,7 @@ const Sidebar = (props: SidebarProps) => {
               onClick: () => setOpenAlert(false)
             }}
             rightBtn={{
-              text: "取得更多",
+              text: "了解更多",
               onClick: () => {
                 toast.error("此功能尚未開放！\n敬請期待", {
                   duration: 2000,

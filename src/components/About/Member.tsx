@@ -1,86 +1,7 @@
 import SectionTitle from "@/components/Title/SectionTitle";
 import MemberCard from "../Card/MemberCard";
-import { faFacebook, faInstagram, faTelegram, faTiktok, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
-import { faGlobe } from "@fortawesome/free-solid-svg-icons";
-
-const MemberData = [
-  {
-    img: "/avater/tsx.jpg",
-    name: "夏特稀",
-    uid: "000000000",
-    position: "CEO & Co-Founder",
-    description: "",
-    socials: [
-      { link: "https://www.facebook.com/TershiXia", icon: 'faFacebook', color: "text-[#1F8EF4]" },
-      { link: "https://www.twitter.com/TershiXia", icon: 'faTwitter', color: "text-[#D92F7E]" },
-      { link: "https://www.instagram.com/TershiXia", icon: 'faInstagram', color: "text-[#FF0000]" },
-      { link: "https://www.tiktok.com/tsx526", icon: 'faTiktok', color: "text-[#000]" },
-      { link: "https://tershi.com", icon: 'faGlobe', color: "text-[#27A5E4]" },
-    ],
-  },
-  {
-    img: "/avater/yian.jpeg",
-    name: "小霸王",
-    uid: "000000000",
-    position: "秘書兼吉祥物",
-    description: "",
-    socials: [],
-  },
-  {
-    img: "/avater/gallace.png",
-    name: "Gallace",
-    uid: "000000000",
-    position: "Co-Founder & 助理",
-    description: "",
-    socials: [],
-  },
-  {
-    img: "/avater/eric.webp",
-    name: "Eric",
-    uid: "000000000",
-    position: "Co-Founder & 助理",
-    description: "",
-    socials: [],
-  },
-  {
-    img: "/avater/roalx.jpg",
-    name: "ROALX (晨光)",
-    uid: "000000000",
-    position: "代理｜行銷部",
-    description: "",
-    socials: [
-      { link: "https://www.facebook.com/profile.php?id=100085615297125", icon: 'faFacebook', color: "text-[#1F8EF4]" },
-      { link: "https://www.youtube.com/@ROALX", icon: 'faYoutube', color: "text-[#FF0000]" },
-      { link: "https://www.instagram.com/roalx._.87/", icon: 'faInstagram', color: "text-[#FF0000]" },
-      { link: "https://www.tiktok.com/@roalx._.87", icon: 'faTiktok', color: "text-[#000]" },
-      { link: "https://chenguang.vercel.app/", icon: 'faGlobe', color: "text-[#27A5E4]" },
-    ],
-  },
-  {
-    img: "/avater/salt.jpeg",
-    name: "Salz von Einzbern",
-    uid: "000000000",
-    position: "助教｜開發部",
-    description: "",
-    socials: [],
-  },
-  {
-    img: "/avater/",
-    name: "Lonax",
-    uid: "000000000",
-    position: "代理｜行銷部",
-    description: "",
-    socials: [],
-  },
-  {
-    img: "/avater/",
-    name: "Hong",
-    uid: "000000000",
-    position: "代理｜行銷部",
-    description: "",
-    socials: [],
-  },
-]
+import MemberData from "@/config/MemberData.json";
+import { MemberDataProps } from "@/types/Member/Member";
 
 const Member = () => {
   return (
@@ -96,7 +17,7 @@ const Member = () => {
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
                   {
-                    MemberData.map((member, index) => (
+                    MemberData.map((member: MemberDataProps, index: number) => (
                       <div key={index}>
                         <MemberCard
                           uid="000000000"
