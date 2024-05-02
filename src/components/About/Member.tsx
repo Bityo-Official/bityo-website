@@ -1,6 +1,6 @@
 import SectionTitle from "@/components/Title/SectionTitle";
 import MemberCard from "../Card/MemberCard";
-import { faFacebook, faInstagram, faTelegram, faTiktok, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faInstagram, faTelegram, faTiktok, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 const MemberData = [
@@ -10,14 +10,13 @@ const MemberData = [
     uid: "000000000",
     position: "CEO & Co-Founder",
     description: "",
-    socials: {
-      facebook: "https://www.facebook.com/TershiXia",
-      twitter: "https://www.twitter.com/TershiXia",
-      instagram: "https://www.instagram.com/TershiXia",
-      tiktok: "https://www.tiktok.com/tsx526",
-      globe: "https://tershi.com",
-      telegram: "https://t.me/tershixia",
-    }
+    socials: [
+      { link: "https://www.facebook.com/TershiXia", icon: 'faFacebook', color: "#1F8EF4" },
+      { link: "https://www.twitter.com/TershiXia", icon: 'faTwitter', color: "#D92F7E" },
+      { link: "https://www.instagram.com/TershiXia", icon: 'faInstagram', color: "#FF0000" },
+      { link: "https://www.tiktok.com/tsx526", icon: 'faTiktok', color: "#000" },
+      { link: "https://tershi.com", icon: 'faGlobe', color: "#27A5E4" },
+    ],
   },
   {
     img: "/avater/yian.jpeg",
@@ -25,24 +24,15 @@ const MemberData = [
     uid: "000000000",
     position: "秘書兼吉祥物",
     description: "",
-    socials: {
-      facebook: "",
-      twitter: "",
-      instagram: "",
-      youtube: "",
-    }
+    socials: [],
   },
   {
-    img: "",
+    img: "/avater/gallace.png",
     name: "Gallace",
     uid: "000000000",
     position: "Co-Founder & 助理",
     description: "",
-    socials: {
-      facebook: "",
-      twitter: "",
-      instagram: "",
-    }
+    socials: [],
   },
   {
     img: "/avater/eric.webp",
@@ -50,12 +40,7 @@ const MemberData = [
     uid: "000000000",
     position: "Co-Founder & 助理",
     description: "",
-    socials: {
-      facebook: "",
-      twitter: "",
-      instagram: "",
-      youtube: "",
-    }
+    socials: [],
   },
   {
     img: "/avater/roalx.jpg",
@@ -63,13 +48,13 @@ const MemberData = [
     uid: "000000000",
     position: "代理｜行銷部",
     description: "",
-    socials: {
-      facebook: "https://www.facebook.com/profile.php?id=100085615297125",
-      twitter: "https://twitter.com/ChenGuang0812",
-      instagram: "https://www.instagram.com/roalx._.87/",
-      youtube: "https://www.tiktok.com/@roalx._.87",
-      globe: "https://chenguang.vercel.app/",
-    }
+    socials: [
+      { link: "https://www.facebook.com/profile.php?id=100085615297125", icon: 'faFacebook', color: "#1F8EF4" },
+      { link: "https://www.youtube.com/@ROALX", icon: 'faYoutube', color: "#FF0000" },
+      { link: "https://www.instagram.com/roalx._.87/", icon: 'faInstagram', color: "#FF0000" },
+      { link: "https://www.tiktok.com/@roalx._.87", icon: 'faTiktok', color: "#000" },
+      { link: "https://chenguang.vercel.app/", icon: 'faGlobe', color: "#27A5E4" },
+    ],
   },
   {
     img: "/avater/salt.jpeg",
@@ -77,12 +62,7 @@ const MemberData = [
     uid: "000000000",
     position: "助教｜開發部",
     description: "",
-    socials: {
-      facebook: "",
-      twitter: "",
-      instagram: "",
-      youtube: "",
-    }
+    socials: [],
   },
   {
     img: "",
@@ -90,12 +70,7 @@ const MemberData = [
     uid: "000000000",
     position: "代理｜行銷部",
     description: "",
-    socials: {
-      facebook: "",
-      twitter: "",
-      instagram: "",
-      youtube: "",
-    }
+    socials: [],
   },
   {
     img: "",
@@ -103,12 +78,7 @@ const MemberData = [
     uid: "000000000",
     position: "代理｜行銷部",
     description: "",
-    socials: {
-      facebook: "",
-      twitter: "",
-      instagram: "",
-      youtube: "",
-    }
+    socials: [],
   },
 ]
 
@@ -129,13 +99,28 @@ const Member = () => {
                     MemberData.map((member, index) => (
                       <div key={index}>
                         <MemberCard
-                          img={member.img}
-                          name={member.name}
-                          position={member.position}
-                          description={member.description}
-                          socials={member.socials}
                           uid="000000000"
-                        />
+                        >
+                          <MemberCard.Header
+                            img={member.img}
+                          />
+                          <MemberCard.Infomartion
+                            name={member.name}
+                            position={member.position}
+                          />
+                          <MemberCard.Footer>
+                            {
+                              member.socials.map((social, index) => (
+                                <MemberCard.Socials
+                                  key={index}
+                                  link={social.link}
+                                  icon={social.icon}
+                                  color={social.color}
+                                />
+                              ))
+                            }
+                          </MemberCard.Footer>
+                        </MemberCard>
                       </div>
                     ))
                   }
