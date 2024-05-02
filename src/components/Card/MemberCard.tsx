@@ -28,6 +28,7 @@ const Header = (props: HeaderProps) => {
         src={props.img}
         alt="about-image"
         fill
+        sizes="100%"
         className="mx-auto max-w-full drop-shadow-three dark:drop-shadow-none lg:mr-0"
       />
     </CardHeader>

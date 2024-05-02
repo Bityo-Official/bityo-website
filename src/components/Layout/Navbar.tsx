@@ -1,17 +1,85 @@
 import Image from 'next/image';
-import { useTheme } from 'next-themes';
 import Themes from '@/components/Layout/Themes';
-import Icon from '@/components/Icon';
-import BityoIcon from '@/images/icon/bityo_with_icon.png';
 import { useRouter } from 'next/navigation';
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { useState } from 'react';
 import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import { IconButton } from '@material-tailwind/react';
+import { SidebarListItemProps } from '@/types/Sidebar/Sidebar';
+
+import {
+  InformationCircleIcon,
+  CurrencyDollarIcon,
+  ChatBubbleLeftRightIcon,
+  ChartBarSquareIcon,
+  Square3Stack3DIcon,
+  Cog6ToothIcon,
+  PresentationChartBarIcon,
+  UserCircleIcon,
+  BuildingStorefrontIcon,
+} from "@heroicons/react/24/solid";
 
 const Navbar = () => {
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const ListData: SidebarListItemProps[] = [
+    {
+      text: "我的帳戶",
+      icon: UserCircleIcon,
+      disabled: true,
+      link: "/account",
+    },
+    {
+      text: "市場行情",
+      icon: ChartBarSquareIcon,
+      link: "/market",
+      chip: {
+        value: "11",
+        size: "sm",
+        color: "light-green",
+      }
+    },
+    {
+      text: "社群",
+      icon: ChatBubbleLeftRightIcon,
+      link: "/community",
+    },
+    {
+      text: "交易所",
+      icon: CurrencyDollarIcon,
+      link: "/exchange",
+    },
+    {
+      text: "商店",
+      disabled: true,
+      icon: BuildingStorefrontIcon,
+      link: "/store",
+    },
+    {
+      text: "量化交易",
+      disabled: true,
+      icon: Square3Stack3DIcon,
+      link: "/quantify",
+    },
+    {
+      text: "跟單平台",
+      icon: PresentationChartBarIcon,
+      link: "/follow",
+      disabled: true,
+    },
+    {
+      text: "關於我們",
+      icon: InformationCircleIcon,
+      link: "/about",
+    },
+    {
+      text: "設定",
+      disabled: true,
+      icon: Cog6ToothIcon,
+      link: "/settings",
+    },
+  ]
 
   return (
     <>
@@ -55,6 +123,7 @@ const Navbar = () => {
         </div>
 
         <Sidebar
+          ListData={ ListData }
           isDrawerOpen={isDrawerOpen}
           setIsDrawerOpen={setIsDrawerOpen}
         ></Sidebar>

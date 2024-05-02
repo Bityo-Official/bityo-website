@@ -42,6 +42,8 @@ const Intro = () => {
                     src="/icon/bityo.png"
                     alt="about-image"
                     fill
+                    sizes="100%"
+                    priority
                     className="mx-auto max-w-full drop-shadow-three dark:drop-shadow-none lg:mr-0"
                   />
                 </div>
