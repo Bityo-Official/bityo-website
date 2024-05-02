@@ -136,6 +136,8 @@ const Sidebar = (props: SidebarProps) => {
                   duration: 2000,
                   position: 'top-left',
                 })
+                router.push('/cooperate/partners');
+                closeDrawer();
               }
             }}
           />
