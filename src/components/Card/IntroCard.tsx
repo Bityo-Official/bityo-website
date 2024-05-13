@@ -23,7 +23,7 @@ const IntroCard = (props: IntroCardProps) => {
               priority
               fill
               sizes="100%"
-              className="mx-auto max-w-ful drop-shadow-three dark:drop-shadow-none lg:mr-0"
+              className="mx-auto max-h-full drop-shadow-three dark:drop-shadow-none lg:mr-0"
             />
           </a>
           <div className="p-6 sm:p-8 md:px-6 md:py-8 lg:p-8 xl:px-5 xl:py-8 2xl:p-8">
