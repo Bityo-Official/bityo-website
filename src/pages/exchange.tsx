@@ -12,7 +12,7 @@ const exchange = () => {
       <section className="p-5 sm:pt-10 sm:px-10 sm:pb-20">
         <H2 className="text-center" title="幣友合作的交易所" />
         <p className="text-base text-center text-body dark:text-body-dark">提供市場最低手續費減免反傭</p>
-        <div className="mt-5 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 md:gap-x-6 lg:gap-x-8 "> { /* xl:grid-cols-3 */}
+        <div className="mt-5 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 md:gap-x-6 lg:gap-x-8 "> { /* xl:grid-cols-3 */}
           <IntroCard
             title="Bitunix - 合約交易所"
             img="/background/bitunix.webp"
@@ -75,11 +75,11 @@ const exchange = () => {
             />
           </IntroCard>
           <IntroCard
-            title="Bybit - 加密貨幣交易所龍頭"
+            title="Bybit - 衍生品交易所"
             img="/background/bybit.png"
             link="https://partner.bybit.com/b/bityo"
             type={{
-              name: "合約交易所",
+              name: "衍生品交易所",
               bgColor: "bg-primary",
             }}
           >
@@ -100,6 +100,36 @@ const exchange = () => {
                   title: "現貨/合約 手續費減免",
                   description: "40%/40%",
                   link: "https://partner.bybit.com/b/bityo",
+                }
+              ]}
+            />
+          </IntroCard>
+          <IntroCard
+            title="BingX - 加密貨幣交易所"
+            img="/background/bingx.png"
+            link="https://bingx.com/partner/bityo"
+            type={{
+              name: "加密貨幣交易所",
+              bgColor: "bg-primary",
+            }}
+          >
+            <IntroCard.Description>
+              <List text="最高支援125倍槓桿衍生品" />
+              <List text="支援750+個加密貨幣的交易" />
+              <List text="跟單交易：最小的成本，最大的收益" />
+              <List text="現貨網格 合約網格 智慧機器人自動低買高賣" />
+            </IntroCard.Description>
+            <IntroCard.Footer
+              data={[
+                {
+                  title: "專屬邀請碼",
+                  description: "bityo",
+                  link: "https://bingx.com/partner/bityo",
+                },
+                {
+                  title: "現貨/合約 手續費減免",
+                  description: "25%/25%",
+                  link: "https://bingx.com/partner/bityo",
                 }
               ]}
             />
