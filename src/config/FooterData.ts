@@ -54,7 +54,7 @@ const LinkData = [
       {
         title: '聯絡我們',
         link: '/contact',
-        disabled: true
+        disabled: false
       },
       {
         title: '常見問題',

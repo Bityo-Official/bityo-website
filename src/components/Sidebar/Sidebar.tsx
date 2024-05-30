@@ -80,6 +80,11 @@ const Sidebar = (props: SidebarProps) => {
         onResizeCapture={undefined}
         placement="right"
         className="text-white dark:bg-txt-dark"
+        transition={{type: "spring", duration: 0.8}}
+        overlayProps={{
+          className: "fixed",
+          onClick: closeDrawer
+        }}
       >
         <Card
           color="transparent"
