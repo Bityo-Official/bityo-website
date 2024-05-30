@@ -15,7 +15,7 @@ const fasIcons = require("@fortawesome/free-solid-svg-icons");
 
 const ProfileCard = (props: ProfileCardProps) => {
   return (
-    <Card className="w-72" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+    <Card className="w-72 h-full" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
       {props.children}
     </Card>
   );

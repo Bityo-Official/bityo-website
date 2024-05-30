@@ -5,7 +5,7 @@ const IntroCard = (props: IntroCardProps) => {
   return (
     <>
       <div className="w-full">
-        <div className="group relative overflow-hidden rounded-sm bg-white shadow-one duration-300 hover:shadow-two dark:bg-txt-dark dark:hover:shadow-gray-dark">
+        <div className="h-full group relative overflow-hidden rounded-sm bg-white shadow-one duration-300 hover:shadow-two dark:bg-txt-dark dark:hover:shadow-gray-dark">
           <a className="relative block aspect-[37/22] w-full" href={props.link} target="_blank">
             {
               props.type?.name !== undefined ? (
