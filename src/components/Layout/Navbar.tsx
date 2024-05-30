@@ -98,8 +98,6 @@ const Navbar = () => {
                     alt="about-image"
                     width={1920}
                     height={1920}
-                    sizes='(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px'
-                    quality={0}
                     className="h-8 w-auto drop-shadow-three dark:drop-shadow-none lg:mr-0"
                   />
                 </button>
