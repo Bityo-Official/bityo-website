@@ -48,13 +48,12 @@ const LinkData = [
         link: '/cooperate/partners'
       },
       {
-        title: '關於我們',
-        link: '/about'
+        title: '聯絡我們',
+        link: '/contact'
       },
       {
-        title: '聯絡我們',
-        link: '/contact',
-        disabled: false
+        title: '官方驗證',
+        link: '/verify'
       },
       {
         title: '常見問題',

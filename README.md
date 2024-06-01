@@ -23,10 +23,10 @@ $ yarn
 $ yarn dev
 ```
 
-### if you use npm
+### if you use pnpm
 ```bash
-$ npm i
-$ npm run dev
+$ pnpm i
+$ pnpm run dev
 ```
 ## How to build(compile)
 

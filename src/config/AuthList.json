@@ -1,0 +1,42 @@
+[
+    {
+      "name": "Instagram",
+      "content": "@bityo.tw",
+      "type": "官方帳號"
+    },
+    {
+      "name": "Telegram",
+      "content": "@bityo_tw",
+      "type": "官方帳號"
+    },
+    {
+      "name": "Discord",
+      "content": "https://discord.gg/bityo",
+      "type": "社群"
+    },
+    {
+      "name": "Email",
+      "content": "service@bityo.tw",
+      "type": "官方帳號"
+    },
+    {
+      "name": "Email",
+      "content": "ceo@bityo.tw",
+      "type": "官方帳號"
+    },
+    {
+      "name": "Email",
+      "content": "bd@bityo.tw",
+      "type": "官方帳號"
+    },
+    {
+      "name": "web",
+      "content": "https://bityo.tw",
+      "type": "網站"
+    },
+    {
+      "name": "web",
+      "content": "bityo.tw",
+      "type": "網站"
+    }
+  ]
