@@ -1,12 +1,23 @@
 import PartnerCard from "@/components/Card/PartnerCard";
 import List from "@/components/List/CheckedList";
 import Head from "next/head";
+import SEO from "@/config/SEO.json";
 
 const Partners = () => {
   return (
     <>
       <Head>
-        <title>幣友合夥人計畫｜Bityo</title>
+        <title>{SEO.Partners.title}</title>
+        <meta name="description" content={SEO.Partners.description} />
+        <meta property="og:title" content={SEO.Partners.title} />
+        <meta property="og:description" content={SEO.Partners.description} />
+        <meta property="og:image" content={SEO.Partners.image} />
+        {/* <meta property="og:url" content={`https://yourdomain.com/post/${post.frontMatter.id}`} /> */}
+        <meta property="og:type" content={SEO.Partners.type} />
+        {/* <meta name="twitter:card" content="summary_large_image" /> */}
+        <meta name="twitter:title" content={SEO.Partners.title} />
+        <meta name="twitter:description" content={SEO.Partners.description} />
+        <meta name="twitter:image" content={SEO.Partners.image} />
       </Head>
       <section className="p-5 sm:pt-10 sm:px-10 sm:pb-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

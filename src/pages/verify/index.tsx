@@ -6,10 +6,11 @@ import AuthList from "@/config/AuthList.json";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import DialogVerify from '@/components/Dialog/Dialog';
+import SEO from "@/config/SEO.json";
 
 const UserVerification = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogData, setDialogData] = useState({title: '', message: '', footer: '', icon: faMagnifyingGlass, status: false});
+  const [dialogData, setDialogData] = useState({ title: '', message: '', footer: '', icon: faMagnifyingGlass, status: false });
   const [content, setContent] = useState('');
   const [authType, setAuthType] = useState('');
 
@@ -58,7 +59,17 @@ const UserVerification = () => {
   return (
     <>
       <Head>
-        <title>官方驗證｜Bityo</title>
+        <title>{SEO.Verify.title}</title>
+        <meta name="description" content={SEO.Verify.description} />
+        <meta property="og:title" content={SEO.Verify.title} />
+        <meta property="og:description" content={SEO.Verify.description} />
+        <meta property="og:image" content={SEO.Verify.image} />
+        {/* <meta property="og:url" content={`https://yourdomain.com/post/${post.frontMatter.id}`} /> */}
+        <meta property="og:type" content={SEO.Verify.type} />
+        {/* <meta name="twitter:card" content="summary_large_image" /> */}
+        <meta name="twitter:title" content={SEO.Verify.title} />
+        <meta name="twitter:description" content={SEO.Verify.description} />
+        <meta name="twitter:image" content={SEO.Verify.image} />
       </Head>
 
       <section className="flex flex-col items-center pt-14 sm:pb-28 sm:justify-center h-[calc(100vh-64px)] text-center">

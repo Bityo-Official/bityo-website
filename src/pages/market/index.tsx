@@ -1,12 +1,23 @@
 import Head from "next/head";
 import MarketTable from "@/components/Table/MarketTable";
 import Bitcoin from "@/images/photos/btc.png";
+import SEO from "@/config/SEO.json";
 
 const markets = () => {
   return (
     <>
       <Head>
-        <title>加密貨幣市場</title>
+        <title>{SEO.Market.title}</title>
+        <meta name="description" content={SEO.Market.description} />
+        <meta property="og:title" content={SEO.Market.title} />
+        <meta property="og:description" content={SEO.Market.description} />
+        <meta property="og:image" content={SEO.Market.image} />
+        {/* <meta property="og:url" content={`https://yourdomain.com/post/${post.frontMatter.id}`} /> */}
+        <meta property="og:type" content={SEO.Market.type} />
+        {/* <meta name="twitter:card" content="summary_large_image" /> */}
+        <meta name="twitter:title" content={SEO.Market.title} />
+        <meta name="twitter:description" content={SEO.Market.description} />
+        <meta name="twitter:image" content={SEO.Market.image} />
       </Head>
       <div className="mx-5">
         <MarketTable

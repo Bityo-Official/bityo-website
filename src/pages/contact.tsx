@@ -2,6 +2,7 @@ import React from 'react';
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faHandshake, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import SEO from "@/config/SEO.json";
 
 interface Feature {
   icon: JSX.Element;
@@ -12,7 +13,7 @@ interface Feature {
 const features: Feature[] = [
   {
     icon: (
-      <FontAwesomeIcon className="w-10 h-10" icon={ faHandshake } />
+      <FontAwesomeIcon className="w-10 h-10" icon={faHandshake} />
     ),
     title: '商務合作',
     email:
@@ -20,7 +21,7 @@ const features: Feature[] = [
   },
   {
     icon: (
-      <FontAwesomeIcon className="w-10 h-10" icon={ faEnvelope } />
+      <FontAwesomeIcon className="w-10 h-10" icon={faEnvelope} />
     ),
     title: '其他服務',
     email:
@@ -28,7 +29,7 @@ const features: Feature[] = [
   },
   {
     icon: (
-      <FontAwesomeIcon className="w-10 h-10" icon={ faUserTie } />
+      <FontAwesomeIcon className="w-10 h-10" icon={faUserTie} />
     ),
     title: 'CEO',
     email:
@@ -40,7 +41,17 @@ const Contact = () => {
   return (
     <>
       <Head>
-        <title>聯絡我們｜Bityo</title>
+        <title>{SEO.Contact.title}</title>
+        <meta name="description" content={SEO.Contact.description} />
+        <meta property="og:title" content={SEO.Contact.title} />
+        <meta property="og:description" content={SEO.Contact.description} />
+        <meta property="og:image" content={SEO.Contact.image} />
+        {/* <meta property="og:url" content={`https://yourdomain.com/post/${post.frontMatter.id}`} /> */}
+        <meta property="og:type" content={SEO.Contact.type} />
+        {/* <meta name="twitter:card" content="summary_large_image" /> */}
+        <meta name="twitter:title" content={SEO.Contact.title} />
+        <meta name="twitter:description" content={SEO.Contact.description} />
+        <meta name="twitter:image" content={SEO.Contact.image} />
       </Head>
       <section className="p-5 sm:pt-10 sm:px-10 sm:pb-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
