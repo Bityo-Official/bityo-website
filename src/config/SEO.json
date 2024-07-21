@@ -2,7 +2,7 @@
     "default": {
       "title": "幣友 Bityo",
       "description": "一個致力於研究區塊鏈和程式設計的台灣團隊，發展區塊鏈教育。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -11,7 +11,7 @@
     "Index": {
       "title": "幣友 Bityo",
       "description": "一個致力於研究區塊鏈和程式設計的台灣團隊，發展區塊鏈教育。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -20,7 +20,7 @@
     "NotFound": {
       "title": "404頁面找不到｜幣友 Bityo",
       "description": "喔不！QAQ，找不到這個頁面！",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -29,7 +29,7 @@
     "About": {
       "title": "關於我們｜幣友 Bityo",
       "description": "一個致力於研究區塊鏈和程式設計的台灣團隊，發展區塊鏈教育。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -38,7 +38,7 @@
     "Community": {
       "title": "加入社群｜幣友 Bityo",
       "description": "加入我們的社群，與志同道合的區塊鏈和加密貨幣愛好者交流，共同學習並分享最新的技術資訊。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -47,7 +47,7 @@
     "Contact": {
       "title": "聯絡我們｜幣友 Bityo",
       "description": "需要幫助嗎？聯絡我們的團隊，我們隨時準備提供幫助，幣友提供您最好的服務。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -56,7 +56,7 @@
     "Exchange": {
       "title": "交易所｜幣友 Bityo",
       "description": "幣友提供多個經我們安全審核合作的交易所，讓您在交易之路上，用更低廉的成本及更多的福利進行交易。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -65,7 +65,7 @@
     "Verify": {
       "title": "官方驗證｜幣友 Bityo",
       "description": "官方認證區，驗證您的身份並保證您不被受騙，準確驗證幣友官方連結及聯絡人。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -74,7 +74,7 @@
     "Market": {
       "title": "加密貨幣交易所｜幣友 Bityo",
       "description": "探索新加密貨幣，獲取最新的市場資訊及趨勢分析，讓你在投資上之路走得更順遂。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
@@ -83,7 +83,7 @@
     "Partners": {
       "title": "幣友合夥人計畫｜幣友 Bityo",
       "description": "加入幣友合夥人計畫，與我們一同推動加密貨幣交易及區塊鏈技術的發展與應用。",
-      "image": "/favicon.ico",
+      "image": "/bityo_bg_circle.png",
       "type": "website",
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
