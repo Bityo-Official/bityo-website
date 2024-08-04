@@ -64,7 +64,7 @@ const DialogVerify = ({ open, onClose, title, message, type, content, footer, ic
           <Button
             variant="gradient"
             onClick={onClose}
-            className="text-primary hover:text-primary/80 border border-primary focus:ring-2 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-primary dark:text-primary dark:hover:text-primary/80 dark:focus:ring-primary/90"
+            className="text-web-green hover:text-web-green/80 border border-web-green focus:ring-2 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-web-green dark:text-web-green dark:hover:text-web-green/80 dark:focus:ring-web-green/90"
             nonce={undefined}
             onResize={undefined}
             onResizeCapture={undefined}

@@ -1,6 +1,11 @@
 import SectionTitle from "@/components/Title/SectionTitle";
 import ProfileCard from "../Card/ProfileCard";
 import { MemberDataProps } from "@/types/Member/Member";
+import FaceBookIcon from "@/images/icon/fb.svg";
+import XIcon from "@/images/icon/x.svg";
+import IGIcon from "@/images/icon/ig.svg";
+import TikTokIcon from "@/images/icon/tiktok.svg";
+import GlobeIcon from "@/images/icon/globe.svg";
 
 interface MemberProps {
   members: MemberDataProps[];
@@ -28,33 +33,34 @@ const Member = ({ members }: MemberProps) => {
                         <ProfileCard.Footer>
                           {member.socials.facebook && (
                             <ProfileCard.Socials
-                            icon="faFacebook"
-                            color="text-[#1F8EF4]"
-                            link={member.socials.facebook} />
+                              icon={FaceBookIcon}
+                              link={member.socials.facebook} />
                           )}
                           {member.socials.twitter && (
                             <ProfileCard.Socials
-                            icon="faTwitter"
-                            color="text-[#D92F7E]"
-                            link={member.socials.twitter} />
+                              icon={ XIcon }
+                              link={member.socials.twitter}
+                              className="dark:invert"
+                            />
                           )}
                           {member.socials.instagram && (
                             <ProfileCard.Socials
-                            icon="faInstagram"
-                            color="text-[#FF0000]"
-                            link={member.socials.instagram} />
+                              icon={IGIcon}
+                              link={member.socials.instagram} />
                           )}
                           {member.socials.tiktok && (
                             <ProfileCard.Socials
-                            icon="faTiktok"
-                            color="text-[#000]"
-                            link={member.socials.tiktok} />
+                              icon={TikTokIcon}
+                              link={member.socials.tiktok}
+                              className="invert dark:invert-0"
+                            />
                           )}
                           {member.socials.globe && (
                             <ProfileCard.Socials
-                            icon="faGlobe"
-                            color="text-[#27A5E4]"
-                            link={member.socials.globe} />
+                              icon={GlobeIcon}
+                              link={member.socials.globe}
+                              className="dark:invert"
+                            />
                           )}
                         </ProfileCard.Footer>
                       </ProfileCard>

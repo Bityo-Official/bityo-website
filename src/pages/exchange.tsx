@@ -30,7 +30,7 @@ const exchange = () => {
             link="https://www.bitunix.com/register?vipCode=bityo"
             type={{
               name: "合約交易所",
-              bgColor: "bg-primary",
+              bgColor: "bg-web-green",
             }}
           >
             <IntroCard.Description>
@@ -60,7 +60,7 @@ const exchange = () => {
             link="https://www.pionex.com/signUp?r=bityo"
             type={{
               name: "量化交易所",
-              bgColor: "bg-primary",
+              bgColor: "bg-web-green",
             }}
           >
             <IntroCard.Description>
@@ -91,7 +91,7 @@ const exchange = () => {
             link="https://partner.bybit.com/b/bityo"
             type={{
               name: "衍生品交易所",
-              bgColor: "bg-primary",
+              bgColor: "bg-web-green",
             }}
           >
             <IntroCard.Description>
@@ -121,7 +121,7 @@ const exchange = () => {
             link="https://bingx.com/partner/bityo"
             type={{
               name: "加密貨幣交易所",
-              bgColor: "bg-primary",
+              bgColor: "bg-web-green",
             }}
           >
             <IntroCard.Description>

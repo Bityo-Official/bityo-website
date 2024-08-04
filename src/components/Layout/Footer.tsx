@@ -37,7 +37,7 @@ const Footer = () => {
                         key={index}
                         href={data.link}
                         target="_blank"
-                        className="mr-6 text-body duration-300 hover:text-primary dark:text-body-dark dark:hover:text-primary"
+                        className="mr-6 text-body duration-300 hover:text-web-green dark:text-body-dark dark:hover:text-web-green"
                       >
                         <FontAwesomeIcon icon={fasIcons[data.icon] || fabIcons[data.icon]} className={`${data.size}`} />
                       </a>
@@ -61,7 +61,7 @@ const Footer = () => {
                           <li key={index}>
                             <Link
                               href={item.link}
-                              className={`mb-4 inline-block text-base  duration-300 hover:text-primary dark:hover:text-primary ${item.disabled ? 'pointer-events-none text-[#53596c]' : 'text-body dark:text-body-dark'}`}
+                              className={`mb-4 inline-block text-base  duration-300 hover:text-web-green dark:hover:text-web-green ${item.disabled ? 'pointer-events-none text-[#53596c]' : 'text-body dark:text-body-dark'}`}
                             >
                               {item.title}
                             </Link>

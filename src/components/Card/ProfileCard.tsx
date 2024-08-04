@@ -1,58 +1,54 @@
 import { FooterProps, HeaderProps, InfomartionProps, ProfileCardProps, SocialProps } from "@/types/Card/ProfileCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Tooltip,
-} from "@material-tailwind/react";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tooltip } from "@material-tailwind/react";
 import Image from "next/image";
 
-const fabIcons = require("@fortawesome/free-brands-svg-icons");
-const fasIcons = require("@fortawesome/free-solid-svg-icons");
+// const fabIcons = require("@fortawesome/free-brands-svg-icons");
+// const fasIcons = require("@fortawesome/free-solid-svg-icons");
 
 const ProfileCard = (props: ProfileCardProps) => {
   return (
-    <Card className="w-72 h-full" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+    <div className="w-72 h-full dark:bg-primary-black-200 rounded-xl">
       {props.children}
-    </Card>
+    </div>
   );
 }
 
 const Header = (props: HeaderProps) => {
   return (
-    <CardHeader floated={false} className="h-60" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+    <div className="p-4 items-center">
       <Image
         src={props.img}
         alt="about-image"
-        fill
+        width={500}
+        height={500}
         sizes="100%"
-        className="mx-auto max-w-full drop-shadow-three dark:drop-shadow-none lg:mr-0"
+        className="rounded-xl mx-auto drop-shadow-three dark:drop-shadow-none"
       />
-    </CardHeader>
+    </div>
   )
 }
 
 const Infomartion = (props: InfomartionProps) => {
   return (
-    <CardBody className="text-center" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-      <Typography variant="h4" color="blue-gray" className="mb-2" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+    <div className="text-center">
+      {/* 姓名 */}
+      <p className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900 dark:text-gray-300 mb-2">
         {props.name}
-      </Typography>
-      <Typography color="blue-gray" className="font-medium" textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+      </p>
+      {/* 職位 */}
+      <p className="block antialiased font-sans text-base leading-relaxed bg-clip-text text-transparent bg-gradient-to-tr from-blue-gray-600 to-blue-gray-400 dark:from-blue-gray-300 dark:to-blue-gray-200 font-medium">
         {props.position}
-      </Typography>
-    </CardBody>
+      </p>
+    </div>
   )
 }
 
 const Footer = (props: FooterProps) => {
   return (
-    <CardFooter className="flex justify-center gap-7 pt-2 items-center" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+    <div className="flex justify-center gap-7 py-6 items-center" >
       {props.children}
-    </CardFooter>
+    </div>
   )
 }
 
@@ -60,16 +56,16 @@ const Socials = (props: SocialProps) => {
   return (
     <div className={props.link ? '' : 'hidden'}>
       <Tooltip content={props.link}>
-        <Typography
-          as="a"
-          href={props.link}
-          variant="lead"
-          target="_blank"
-          color="blue"
-          className="flex items-center"
-          textGradient nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-          <FontAwesomeIcon icon={fasIcons[props.icon] || fabIcons[props.icon]} className={`w-5 ${props.color}`} />
-        </Typography>
+        <a
+          href={props.link}>
+          {/* <FontAwesomeIcon icon={fasIcons[props.icon] || fabIcons[props.icon]} className={`w-5 ${props.color}`} /> */}
+          <Image
+            src={props.icon}
+            alt={""}
+            width={20}
+            className={props.className}
+          />
+        </a>
       </Tooltip>
     </div>
   )

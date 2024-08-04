@@ -108,7 +108,7 @@ const UserVerification = () => {
                 unmount: { scale: 0, y: 25 },
               }}
               placement="bottom-start"
-              className="dark:bg-[rgba(50,53,64,0.92)] border-2 border-primary"
+              className="dark:bg-[rgba(50,53,64,0.92)] border-2 border-web-green"
               content={
                 <div className="w-80">
                   <Typography

@@ -59,14 +59,14 @@ const Contact = () => {
             <div key={index} className="">
               <div className="wow fadeInUp" data-wow-delay=".15s">
                 <div className='w-full flex justify-center'>
-                  <div className="mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
+                  <div className="mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-md bg-web-green bg-opacity-10 text-web-green">
                     {feature.icon}
                   </div>
                 </div>
                 <h3 className="mb-5 text-xl font-bold text-black text-center dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                   {feature.title}
                 </h3>
-                <a href={`mailto:${feature.email}`} className="text-base font-medium leading-relaxed text-body-color text-center hover:text-primary">
+                <a href={`mailto:${feature.email}`} className="text-base font-medium leading-relaxed text-body-color text-center hover:text-web-green">
                   {feature.email}
                 </a>
               </div>

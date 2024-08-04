@@ -30,4 +30,5 @@ export interface SocialProps {
   link: string;
   icon: string;
   color?: string;
+  className?: string;
 }

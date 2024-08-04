@@ -29,7 +29,7 @@ const IntroCard = (props: IntroCardProps) => {
           <div className="p-6 sm:p-8 md:px-6 md:py-8 lg:p-8 xl:px-5 xl:py-8 2xl:p-8">
             <h3>
               <a
-                className="mb-4 block text-xl font-bold text-black hover:text-primary dark:text-white dark:hover:text-primary sm:text-2xl"
+                className="mb-4 block text-xl font-bold text-black hover:text-web-green dark:text-white dark:hover:text-web-green sm:text-2xl"
                 href={props.link}>
                 {props.title}
               </a>
@@ -60,7 +60,7 @@ const Footer = (props: FooterProps) => {
               <div
                 key={index}
                 className={`flex items-center pr-5 dark:border-white dark:border-opacity-10 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5 ${index !== props.data.length-1? 'border-r border-text-body border-opacity-10 mr-5' : ''}`}>
-                <a className="inline-block mr-4 text-black hover:text-primary dark:text-white dark:hover:text-primary" href={ item.link }>
+                <a className="inline-block mr-4 text-black hover:text-web-green dark:text-white dark:hover:text-web-green" href={ item.link }>
                   <h4 className="mb-1 text-base font-medium">{item.title}</h4>
                   <p className="text-sm text-body">
                     {item.description}
