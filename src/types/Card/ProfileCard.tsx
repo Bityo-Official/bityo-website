@@ -18,8 +18,16 @@ export interface FooterProps {
   children: React.ReactNode;
 }
 
+export interface SocialsProps {
+  facebook?: string | undefined;
+  twitter?: string | undefined;
+  instagram?: string | undefined;
+  tiktok?: string | undefined;
+  globe?: string | undefined;
+}
+
 export interface SocialProps {
   link: string;
   icon: string;
-  color: string;
+  color?: string;
 }
