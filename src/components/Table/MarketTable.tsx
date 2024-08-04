@@ -51,7 +51,14 @@ const TableText = (props: { classes: string, text: string | number }) => {
       <div className="flex flex-col">
         <Typography
           variant="small"
-          className="font-normal text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          className="font-normal text-gray-800 dark:text-gray-100"
+          nonce={undefined}
+          onResize={undefined}
+          onResizeCapture={undefined}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
           {props.text}
         </Typography>
       </div>
@@ -135,14 +142,49 @@ const MarketTable = (props: TableProps) => {
   };
 
   return (
-    <Card className={`h-full w-full ${props.className} dark:bg-txt-dark`} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-      <CardHeader floated={false} shadow={false} className="rounded-none dark:bg-txt-dark" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+    <Card
+      className={`h-full w-full ${props.className} dark:bg-txt-dark`}
+      nonce={undefined}
+      onResize={undefined}
+      onResizeCapture={undefined}
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
+    >
+      <CardHeader
+        floated={false}
+        shadow={false}
+        className="rounded-none dark:bg-txt-dark"
+        nonce={undefined}
+        onResize={undefined}
+        onResizeCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
-            <Typography variant="h3" className="text-black dark:text-white" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+            <Typography
+              variant="h3"
+              className="text-black dark:text-white"
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
               加密貨幣市場
             </Typography>
-            <Typography color="gray" className="mt-1 font-normal dark:text-gray-500" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+            <Typography
+              color="gray"
+              className="mt-1 font-normal dark:text-gray-500"
+              nonce={undefined} onResize={undefined}
+              onResizeCapture={undefined}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
               查看最近火熱的加密貨幣市場
             </Typography>
           </div>
@@ -151,9 +193,27 @@ const MarketTable = (props: TableProps) => {
         {/* 交易所選擇 */}
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <Tabs value="pionex" className="w-full md:w-max">
-            <TabsHeader nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+            <TabsHeader
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
               {props.tab.map(({ label, value, disabled, color, bgColor }) => (
-                <Tab disabled={disabled} key={value} onClick={() => { setExchangesData({ label: label, exchange: value, color: color, bgColor: bgColor }) }} value={value} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+                <Tab
+                  disabled={disabled}
+                  key={value}
+                  onClick={() => { setExchangesData({ label: label, exchange: value, color: color, bgColor: bgColor }); }}
+                  value={value}
+                  nonce={undefined}
+                  onResize={undefined}
+                  onResizeCapture={undefined}
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
                 </Tab>
               ))}
@@ -169,13 +229,25 @@ const MarketTable = (props: TableProps) => {
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               nonce={undefined}
               onResize={undefined}
-              onResizeCapture={undefined} />
+              onResizeCapture={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
           </div>
         </div>
       </CardHeader>
 
       {/* 表格內容 */}
-      <CardBody className="overflow-scroll px-0" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+      <CardBody
+        className="overflow-scroll px-0"
+        nonce={undefined}
+        onResize={undefined}
+        onResizeCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
         <table className="mt-4 w-full min-w-max table-auto text-left">
 
           {/* 表格的標題 */}
@@ -189,7 +261,12 @@ const MarketTable = (props: TableProps) => {
                 <div className="flex items-center">
                   <Typography
                     variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                   >
                     幣種名稱
                   </Typography>
@@ -208,7 +285,12 @@ const MarketTable = (props: TableProps) => {
                 <div className="flex items-center">
                   <Typography
                     variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                   >
                     交易所
                   </Typography>
@@ -221,7 +303,13 @@ const MarketTable = (props: TableProps) => {
                 <div className="flex items-center">
                   <Typography
                     variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
+                    nonce={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                   >
                     價格
                   </Typography>
@@ -239,7 +327,13 @@ const MarketTable = (props: TableProps) => {
                 <div className="flex items-center">
                   <Typography
                     variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
+                    nonce={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                   >
                     24h%
                   </Typography>
@@ -257,7 +351,11 @@ const MarketTable = (props: TableProps) => {
                 <div className="flex items-center">
                   <Typography
                     variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
+                    nonce={undefined} onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
                   >
                     24h成交量
                   </Typography>
@@ -275,7 +373,13 @@ const MarketTable = (props: TableProps) => {
                 <div className="flex items-center">
                   <Typography
                     variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
+                    nonce={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                   >
                     最高
                   </Typography>
@@ -293,7 +397,13 @@ const MarketTable = (props: TableProps) => {
                 <div className="flex items-center">
                   <Typography
                     variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
+                    nonce={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                   >
                     最低
                   </Typography>
@@ -317,13 +427,28 @@ const MarketTable = (props: TableProps) => {
                   : "p-4 border-b border-blue-gray-50 dark:border-blue-gray-800";
 
                 return (
-                  <tr className="hover:bg-gray-300 dark:hover:bg-gray-800 hover:cursor-pointer" key={name} onClick={() => router.push(`/market/${exchangesData.exchange}/${name}`)}>
+                  <tr
+                    className="hover:bg-gray-300 dark:hover:bg-gray-800 hover:cursor-pointer"
+                    key={name}
+                    onClick={() => router.push(`/market/${exchangesData.exchange}/${name}`)}
+                  >
                     {/* 幣種 */}
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         {
                           img !== '' ?
-                            <Avatar src={img} alt={name} size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined} className="w-9 h-9"/>
+                            <Avatar
+                              src={img}
+                              alt={name}
+                              size="sm"
+                              nonce={undefined}
+                              onResize={undefined}
+                              onResizeCapture={undefined}
+                              className="w-9 h-9"
+                              placeholder={undefined}
+                              onPointerEnterCapture={undefined}
+                              onPointerLeaveCapture={undefined}
+                            />
                             :
                             <Image
                               src={BityoIcon}
@@ -334,12 +459,26 @@ const MarketTable = (props: TableProps) => {
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
-                            className="font-normal text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
+                            className="font-normal text-gray-800 dark:text-gray-100"
+                            nonce={undefined}
+                            onResize={undefined}
+                            onResizeCapture={undefined}
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
+                          >
                             {name}
                           </Typography>
                           <Typography
                             variant="small"
-                            className="font-normal opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined} >
+                            className="font-normal opacity-70 text-gray-800 dark:text-gray-100"
+                            nonce={undefined}
+                            onResize={undefined}
+                            onResizeCapture={undefined}
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
+                          >
                             {full_name}
                           </Typography>
                         </div>
@@ -393,15 +532,51 @@ const MarketTable = (props: TableProps) => {
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 dark:border-blue-gray-900 p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-        <Typography variant="small" className="font-normal text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+      <CardFooter
+        className="flex items-center justify-between border-t border-blue-gray-50 dark:border-blue-gray-900 p-4"
+        nonce={undefined}
+        onResize={undefined}
+        onResizeCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
+        <Typography
+          variant="small"
+          className="font-normal text-gray-800 dark:text-gray-100"
+          nonce={undefined}
+          onResize={undefined}
+          onResizeCapture={undefined}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
           第 {currentPage} 頁，共 {Math.ceil(filteredData.length / itemsPerPage)} 頁
         </Typography>
         <div className="flex gap-2">
-          <Button className="text-gray-800 dark:text-gray-100 border-gray-400" variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={prevPage}>
+          <Button
+            className="text-gray-800 dark:text-gray-100 border-gray-400"
+            variant="outlined"
+            size="sm"
+            nonce={undefined}
+            onResize={undefined}
+            onResizeCapture={undefined} onClick={prevPage}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
             上一頁
           </Button>
-          <Button className="text-gray-800 dark:text-gray-100 border-gray-400" variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={nextPage}>
+          <Button className="text-gray-800 dark:text-gray-100 border-gray-400"
+            variant="outlined" size="sm"
+            nonce={undefined}
+            onResize={undefined}
+            onResizeCapture={undefined}
+            onClick={nextPage}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
             下一頁
           </Button>
         </div>

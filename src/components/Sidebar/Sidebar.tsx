@@ -28,15 +28,32 @@ const SidebarListItem = (props: SidebarListItemProps) => {
       onClick={() => {
         props.onClick && props.onClick();
         router.push(props.link);
-      }}>
-      <ListItemPrefix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+      }}
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
+    >
+      <ListItemPrefix
+        nonce={undefined}
+        onResize={undefined}
+        onResizeCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
         <props.icon className="h-5 w-5" />
       </ListItemPrefix>
       {props.text}
       {
         props.chip && (
-          <ListItemSuffix nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-
+          <ListItemSuffix
+            nonce={undefined}
+            onResize={undefined}
+            onResizeCapture={undefined}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
             <Chip
               value={props.chip.value}
               size={props.chip.size}
@@ -80,16 +97,15 @@ const Sidebar = (props: SidebarProps) => {
         onResizeCapture={undefined}
         placement="right"
         className="text-white dark:bg-txt-dark"
-        transition={{type: "spring", duration: 0.8}}
+        transition={{ type: "spring", duration: 0.8 }}
         overlayProps={{
           className: "fixed",
           onClick: closeDrawer
-        }}
-      >
+        }} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      >
         <Card
           color="transparent"
           shadow={false}
-          className="h-[calc(100vh-2rem)] w-full p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          className="h-[calc(100vh-2rem)] w-full p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           <button
             className="mb-2 flex items-center gap-4 p-4"
             onClick={() => {
@@ -102,11 +118,11 @@ const Sidebar = (props: SidebarProps) => {
               alt="Bityo"
               className="h-8 w-8"
             />
-            <Typography variant="h5" className="text-black dark:text-white" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+            <Typography variant="h5" className="text-black dark:text-white" nonce={undefined} onResize={undefined} onResizeCapture={undefined} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
               Bityo
             </Typography>
           </button>
-          <List nonce={undefined} onResize={undefined} onResizeCapture={undefined} className="dark:text-blue-gray-100">
+          <List nonce={undefined} onResize={undefined} onResizeCapture={undefined} className="dark:text-blue-gray-100" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             {
               props.ListData.map((item, index) => (
                 <SidebarListItem

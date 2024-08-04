@@ -11,9 +11,12 @@ const MyButton = (props: ButtonProps) => {
       onResizeCapture={undefined}
       onClick={props.onClick}
       disabled={props.disabled}
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
     >
-      { props.children }
-      { props.text }
+      {props.children}
+      {props.text}
     </Button>
   )
 }

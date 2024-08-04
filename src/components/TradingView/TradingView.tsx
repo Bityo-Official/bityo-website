@@ -5,7 +5,6 @@ function TradingViewWidget(props: TradingViewProps) {
   const container = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // 创建 script 标签并设置其内容
     const script = document.createElement("script");
     script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
     script.async = true;
@@ -29,19 +28,17 @@ function TradingViewWidget(props: TradingViewProps) {
       "support_host": "https://www.tradingview.com"
     });
 
-    // 将 script 标签添加到容器中
     const currentContainer = container.current;
     if (currentContainer) {
       currentContainer.appendChild(script);
     }
 
-    // 清理函数，当组件卸载时移除 script 标签
     return () => {
       if (currentContainer) {
         currentContainer.innerHTML = '';
       }
     };
-  }, []);
+  }, [props.symbol, props.timezone, props.theme, props.locale]);
 
   return (
     <div className='w-full h-[93vh]'>

@@ -114,7 +114,17 @@ const Navbar = () => {
               </div> */}
               {/* 更多 */}
               <div className="relative ml-3">
-                <IconButton variant="text" size="lg" onClick={() => setIsDrawerOpen(true)} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+                <IconButton
+                  variant="text"
+                  size="lg"
+                  onClick={() => setIsDrawerOpen(true)}
+                  nonce={undefined}
+                  onResize={undefined}
+                  onResizeCapture={undefined}
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
                   <Bars3Icon className="h-8 w-8 stroke-2 dark:invert" />
                 </IconButton>
               </div>
@@ -123,7 +133,7 @@ const Navbar = () => {
         </div>
 
         <Sidebar
-          ListData={ ListData }
+          ListData={ListData}
           isDrawerOpen={isDrawerOpen}
           setIsDrawerOpen={setIsDrawerOpen}
         ></Sidebar>

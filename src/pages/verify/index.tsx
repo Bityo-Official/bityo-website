@@ -82,6 +82,9 @@ const UserVerification = () => {
           onResizeCapture={undefined}
           withBorder={true}
           className="p-1 border-bityo"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         />
         <p className="mt-4 text-3xl tracking-tighter sm:tracking-widest">幣友 BITYO｜官方驗證渠道</p>
 
@@ -101,6 +104,9 @@ const UserVerification = () => {
             nonce={undefined}
             onResize={undefined}
             onResizeCapture={undefined}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
           >
             <Tooltip
               animate={{
@@ -117,6 +123,9 @@ const UserVerification = () => {
                     nonce={undefined}
                     onResize={undefined}
                     onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                   >
                     <FontAwesomeIcon icon={faTriangleExclamation} className='w-5' />
                     請檢查您輸入的內容
@@ -128,6 +137,9 @@ const UserVerification = () => {
                     nonce={undefined}
                     onResize={undefined}
                     onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
                   >
                     <ul className="list-disc pl-5">
                       <li>IG：前面必須加入「@」</li>

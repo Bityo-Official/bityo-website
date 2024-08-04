@@ -24,6 +24,9 @@ const DialogVerify = ({ open, onClose, title, message, type, content, footer, ic
       nonce={undefined}
       onResize={undefined}
       onResizeCapture={undefined}
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
     >
       <div className="bg-white dark:bg-[#212121] text-black dark:text-white rounded-lg shadow-lg p-6">
         <DialogHeader
@@ -31,12 +34,15 @@ const DialogVerify = ({ open, onClose, title, message, type, content, footer, ic
           onResize={undefined}
           onResizeCapture={undefined}
           className="flex flex-col items-center "
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         >
           <FontAwesomeIcon icon={icon} className={`w-16 h-16 mb-2 ${status ? 'text-green-500' : 'text-red-500'}`} />
           <p className="text-2xl text-black dark:text-white">{title}</p>
           {
             type && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">（{ type }）</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">（{type}）</p>
             )
           }
         </DialogHeader>
@@ -45,13 +51,16 @@ const DialogVerify = ({ open, onClose, title, message, type, content, footer, ic
           onResize={undefined}
           onResizeCapture={undefined}
           className="text-center text-lg font-medium text-black dark:text-white"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         >
           <Chip
             variant="ghost"
             className="text-base text-black dark:text-white bg-[#0D0D13] lowercase"
             color="light-blue"
-            value={ content }
-            size="lg" 
+            value={content}
+            size="lg"
           />
           <p className="mt-5">{message}</p>
         </DialogBody>
@@ -59,6 +68,9 @@ const DialogVerify = ({ open, onClose, title, message, type, content, footer, ic
           nonce={undefined}
           onResize={undefined}
           onResizeCapture={undefined}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         >
 
           <Button
@@ -68,6 +80,9 @@ const DialogVerify = ({ open, onClose, title, message, type, content, footer, ic
             nonce={undefined}
             onResize={undefined}
             onResizeCapture={undefined}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
           >
             <span>確認</span>
           </Button>
