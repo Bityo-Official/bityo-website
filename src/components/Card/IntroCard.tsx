@@ -1,4 +1,5 @@
 import { DescriptionProps, FooterProps, IntroCardProps } from "@/types/Card/IntroCard";
+import { Tooltip } from "@material-tailwind/react";
 import Image from "next/image";
 
 const IntroCard = (props: IntroCardProps) => {
@@ -45,7 +46,7 @@ const IntroCard = (props: IntroCardProps) => {
 const Description = (props: DescriptionProps) => {
   return (
     <div className="pb-6 text-base font-medium text-body">
-      { props.children }
+      {props.children}
     </div>
   );
 }
@@ -57,15 +58,25 @@ const Footer = (props: FooterProps) => {
         {
           props.data.map((item, index) => {
             return (
+              // 如果是最後一個就不要加右邊框
               <div
                 key={index}
-                className={`flex items-center pr-5 dark:border-white dark:border-opacity-10 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5 ${index !== props.data.length-1? 'border-r border-text-body border-opacity-10 mr-5' : ''}`}>
-                <a className="inline-block mr-4 text-black hover:text-web-green dark:text-white dark:hover:text-web-green" href={ item.link }>
-                  <h4 className="mb-1 text-base font-medium">{item.title}</h4>
-                  <p className="text-sm text-body">
-                    {item.description}
-                  </p>
-                </a>
+                className={`flex items-center dark:border-white dark:border-opacity-10 ${index !== props.data.length - 1 ? 'border-r border-text-body border-opacity-10' : ''}`}>
+                <Tooltip content={
+                  <>
+                    <p>{item.tooltip}</p>
+                    <p>網址：{ item.link }</p>
+                  </>
+                }>
+                  {/* 如果是最後一個就不要 margin right */}
+                  {/* 如果是第一個就不要 margin left */}
+                  <a className={`inline-block text-black hover:text-web-green dark:text-white dark:hover:text-web-green ${index !== props.data.length - 1 ? 'mr-2' : ''} ${index === 1 ? 'ml-2' : ''}`} href={item.link}>
+                    <h4 className="mb-1 text-base font-medium">{item.title}</h4>
+                    <p className="text-sm text-body">
+                      {item.description}
+                    </p>
+                  </a>
+                </Tooltip>
               </div>
             );
           })

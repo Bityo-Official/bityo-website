@@ -16,6 +16,7 @@ export interface DescriptionProps {
 export interface FooterProps {
   data: {
     title: string | number;
+    tooltip?: string;
     description: string | number;
     link?: string;
   }[];

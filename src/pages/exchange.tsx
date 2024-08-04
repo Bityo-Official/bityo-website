@@ -47,7 +47,7 @@ const exchange = () => {
                   link: "https://www.bitunix.com/register?vipCode=bityo",
                 },
                 {
-                  title: "現貨/合約 手續費減免",
+                  title: "手續費減免",
                   description: "30%/20%",
                   link: "https://www.bitunix.com/register?vipCode=bityo",
                 }
@@ -74,11 +74,13 @@ const exchange = () => {
               data={[
                 {
                   title: "專屬邀請碼",
+                  tooltip: "要使用幣友專屬邀請碼才能享有優惠喔！",
                   description: "Bityo",
                   link: "https://www.pionex.com/signUp?r=bityo",
                 },
                 {
-                  title: "現貨/合約 手續費減免",
+                  title: "手續費減免",
+                  tooltip: "現貨：20%；合約：20% 手續費減免",
                   description: "20%/20%",
                   link: "https://www.pionex.com/signUp?r=bityo",
                 }
@@ -104,11 +106,13 @@ const exchange = () => {
               data={[
                 {
                   title: "專屬邀請碼",
+                  tooltip: "要使用幣友專屬邀請碼才能享有優惠喔！",
                   description: "BITYO",
                   link: "https://partner.bybit.com/b/bityo",
                 },
                 {
-                  title: "現貨/合約 手續費減免",
+                  title: "手續費減免",
+                  tooltip: "現貨：40%；合約：40% 手續費減免",
                   description: "40%/40%",
                   link: "https://partner.bybit.com/b/bityo",
                 }
@@ -134,11 +138,13 @@ const exchange = () => {
               data={[
                 {
                   title: "專屬邀請碼",
+                  tooltip: "要使用幣友專屬邀請碼才能享有優惠喔！",
                   description: "bityo",
                   link: "https://bingx.com/partner/bityo",
                 },
                 {
-                  title: "現貨/合約 手續費減免",
+                  title: "手續費減免",
+                  tooltip: "現貨：25%；合約：25% 手續費減免",
                   description: "25%/25%",
                   link: "https://bingx.com/partner/bityo",
                 }
