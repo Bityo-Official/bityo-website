@@ -18,6 +18,7 @@ config.autoAddCss = false;
 const App = ({ Component, pageProps }: AppProps) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const router = useRouter();
+  const currentPath = router.asPath;
 
   useEffect(() => {
     const handleRouteChangeStart = () => {

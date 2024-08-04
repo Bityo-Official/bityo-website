@@ -19,6 +19,7 @@ import { useEffect, useState, useRef } from "react";
 import Chip from "@/components/Chip/Chip";
 import Image from "next/image";
 import BityoIcon from "@/images/icon/bityo_bg2.png";
+import { useTheme } from "next-themes";
 
 interface SortConfig {
   key: keyof RowData;
@@ -82,6 +83,8 @@ const MarketTable = (props: TableProps) => {
 
   // 計算顯示的資料
   const currentItems = sortedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setFilteredData(searchName(cache, props.rows));
@@ -161,8 +164,12 @@ const MarketTable = (props: TableProps) => {
           <div className="w-full md:w-72">
             <Input
               label="Search"
+              color={theme === 'dark' ? 'white' : 'black'}
               onChange={(e) => setCache(e.target.value)}
-              icon={<MagnifyingGlassIcon className="h-5 w-5" />} nonce={undefined} onResize={undefined} onResizeCapture={undefined} />
+              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+              nonce={undefined}
+              onResize={undefined}
+              onResizeCapture={undefined} />
           </div>
         </div>
       </CardHeader>
