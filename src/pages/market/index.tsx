@@ -1,9 +1,56 @@
 import Head from "next/head";
 import MarketTable from "@/components/Table/MarketTable";
-import Bitcoin from "@/images/photos/btc.png";
 import SEO from "@/config/SEO.json";
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { GetServerSideProps } from "next";
+import { MarketsProps } from "@/types/Market/Merket";
+import { Crypto } from "@/types/Market/Merket";
 
-const markets = () => {
+const Markets = ({ coinInfo }: MarketsProps) => {
+  const [cryptos, setCryptos] = useState<Crypto[]>([]);
+  const tempData = useRef<Crypto[]>([]);
+
+  useEffect(() => {
+    // 初始化 WebSocket 連接
+    const ws = new WebSocket('wss://stream.binance.com:9443/ws/!ticker@arr');
+
+    // 當收到消息時更新數據
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      const updatedCryptos = data
+        .filter((crypto: any) => crypto.s.endsWith('USDT')) // 過濾出只保留 USDT 交易對
+        .map((crypto: any) => {
+          const symbolWithoutUSDT = crypto.s.replace('USDT', '').toLowerCase();
+          const matchingCoin = coinInfo.find(c => c.symbol.toLowerCase() === symbolWithoutUSDT);
+
+          return {
+            symbol: crypto.s,
+            name: symbolWithoutUSDT,
+            current_price: parseFloat(crypto.c),
+            total_volume: parseFloat(crypto.v),
+            high_24h: parseFloat(crypto.h),
+            low_24h: parseFloat(crypto.l),
+            price_change_percentage_24h: parseFloat(crypto.P),
+            full_name: matchingCoin ? matchingCoin.name.replace(' ', '-') : '', // 設置全名
+          };
+        });
+      updatedCryptos.sort((a: Crypto, b: Crypto) => b.current_price - a.current_price); // 按價格降序排序
+      tempData.current = updatedCryptos;
+    };
+
+    // 每兩秒更新一次數據
+    const interval = setInterval(() => {
+      setCryptos([...tempData.current]);
+    }, 2000);
+
+    // 清理 WebSocket 和定時器
+    return () => {
+      ws.close();
+      clearInterval(interval);
+    };
+  }, [coinInfo]);
+
   return (
     <>
       <Head>
@@ -12,9 +59,7 @@ const markets = () => {
         <meta property="og:title" content={SEO.Market.title} />
         <meta property="og:description" content={SEO.Market.description} />
         <meta property="og:image" content={SEO.Market.image} />
-        {/* <meta property="og:url" content={`https://yourdomain.com/post/${post.frontMatter.id}`} /> */}
         <meta property="og:type" content={SEO.Market.type} />
-        {/* <meta name="twitter:card" content="summary_large_image" /> */}
         <meta name="twitter:title" content={SEO.Market.title} />
         <meta name="twitter:description" content={SEO.Market.description} />
         <meta name="twitter:image" content={SEO.Market.image} />
@@ -22,129 +67,16 @@ const markets = () => {
       <div className="mx-5">
         <MarketTable
           head={['幣種', '交易所', '價格', '24h%', '24h成交量', '最高', '最低']}
-          rows={[
-            {
-              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png',
-              name: "BTCUSDT",
-              full_name: "比特幣 Bitcoin",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://d1f183e4ae.cbaul-cdnwnd.com/ab81c757821eaba4888325c25f532c0e/200000034-98f7799f0b/ETH.png?ph=d1f183e4ae',
-              name: "ETHUSDT",
-              full_name: "以太坊 Ethereum",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://s3.coinmarketcap.com/static-gravity/image/4aec70f6f1254e4f89650cc68ae49f3c.png',
-              name: "ADAUSDT",
-              full_name: "愛達幣 Cardano",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://d1f183e4ae.cbaul-cdnwnd.com/ab81c757821eaba4888325c25f532c0e/200000049-b382fb4824/BNB.png?ph=d1f183e4ae',
-              name: "BNBUSDT",
-              full_name: "幣安幣 Binance Coin",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png',
-              name: "SOLUSDT",
-              full_name: "Solana",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://upload.wikimedia.org/wikipedia/zh/d/d0/Dogecoin_Logo.png',
-              name: "DOGEUSDT",
-              full_name: "狗狗幣 Doge Coin",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://assets.coingecko.com/coins/images/25244/large/Optimism.png?1696524385',
-              name: "OPUSDT",
-              full_name: "Optimism",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://s2.coinmarketcap.com/static/img/coins/200x200/11841.png',
-              name: "ARBUSDT",
-              full_name: "Arbitrum",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://s2.coinmarketcap.com/static/img/coins/200x200/21794.png',
-              name: "APTUSDT",
-              full_name: "Aptos",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://s3.coinmarketcap.com/static-gravity/image/5bd0f43855f6434386c59f2341c5aaf0.png',
-              name: "SUIUSDT",
-              full_name: "Sui",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-            {
-              img: 'https://s2.coinmarketcap.com/static/img/coins/200x200/28177.png',
-              name: "PYTHUSDT",
-              full_name: "PYTH Network",
-              price: 0,
-              vol24h: 0,
-              vol24p: 0,
-              high: 0,
-              low: 0,
-              // online: true,
-            },
-          ]}
+          rows={cryptos.length > 0 ? cryptos.map(crypto => ({
+            img: crypto.full_name ? `https://cryptologos.cc/logos/${crypto.full_name?.toLowerCase()}-${crypto.name}-logo.png?v=032` : '',
+            name: crypto.symbol.toUpperCase(),
+            price: crypto.current_price,
+            vol24h: crypto.total_volume,
+            vol24p: crypto.price_change_percentage_24h,
+            high: crypto.high_24h,
+            low: crypto.low_24h,
+            full_name: crypto.full_name || '',
+          })) : []}
           tab={[
             {
               label: "Pionex",
@@ -193,6 +125,31 @@ const markets = () => {
       </div>
     </>
   );
-}
+};
 
-export default markets;
+// 使用 getServerSideProps 在服務器端獲取初始數據
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  try {
+    const baseUrl = req.headers.host?.startsWith('localhost')
+      ? `http://${req.headers.host}`
+      : `https://${req.headers.host}`;
+
+    const response = await axios.get(`${baseUrl}/api/getCryptos`);
+    const coinInfo = response.data;
+
+    return {
+      props: {
+        coinInfo,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching cryptocurrency data:', error);
+    return {
+      props: {
+        coinInfo: [],
+      },
+    };
+  }
+};
+
+export default Markets;

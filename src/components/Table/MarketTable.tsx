@@ -1,6 +1,6 @@
 import { TableProps } from "@/types/Table/MarketTable";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -15,12 +15,30 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import { useRouter } from 'next/router';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Chip from "@/components/Chip/Chip";
+import Image from "next/image";
+import BityoIcon from "@/images/icon/bityo_bg2.png";
+
+interface SortConfig {
+  key: keyof RowData;
+  direction: 'ascending' | 'descending';
+}
+
+interface RowData {
+  img: string;
+  name: string;
+  full_name: string;
+  price: number;
+  vol24h: number;
+  vol24p: number;
+  high: number;
+  low: number;
+}
 
 // 搜尋幣種
-const searchName = (cache: string, rows: any) => {
-  return rows.filter((row: any) => {
+const searchName = (cache: string, rows: RowData[]) => {
+  return rows.filter((row: RowData) => {
     return row.name.toLowerCase().includes(cache.toLowerCase()) || row.full_name.toLowerCase().includes(cache.toLowerCase());
   });
 }
@@ -40,27 +58,81 @@ const TableText = (props: { classes: string, text: string | number }) => {
   )
 }
 
-const MembersTable = (props: TableProps) => {
+const MarketTable = (props: TableProps) => {
   const router = useRouter();
 
   // 搜尋的暫存
   const [cache, setCache] = useState('');
 
   // 搜尋後的資料
-  const [filteredData, setFilteredData] = useState(props.rows);
+  const [filteredData, setFilteredData] = useState<RowData[]>(props.rows);
+
+  // 排序後的資料
+  const [sortedData, setSortedData] = useState<RowData[]>(props.rows);
 
   // 目前選取的交易所
   const [exchangesData, setExchangesData] = useState({ label: props.tab[0].label, exchange: props.tab[0].value, color: props.tab[0].color, bgColor: props.tab[0].bgColor });
 
+  // 分頁狀態
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  // 排序狀態
+  const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
+
+  // 計算顯示的資料
+  const currentItems = sortedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
   useEffect(() => {
     setFilteredData(searchName(cache, props.rows));
-  }, [cache]);
+  }, [cache, props.rows]);
 
+  useEffect(() => {
+    let sortedData = [...filteredData];
+    if (sortConfig !== null) {
+      sortedData.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    setSortedData(sortedData);
+  }, [sortConfig, filteredData]);
+
+  useEffect(() => {
+    if (sortConfig === null) {
+      setSortedData(filteredData);
+    }
+  }, [filteredData, sortConfig]);
+
+  // 換頁功能
+  const nextPage = () => {
+    if (currentPage < Math.ceil(sortedData.length / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // 排序功能
+  const requestSort = (key: keyof RowData) => {
+    let direction: 'ascending' | 'descending' = 'ascending';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
 
   return (
     <Card className={`h-full w-full ${props.className} dark:bg-txt-dark`} nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-
-      {/* 表格頂端列 */}
       <CardHeader floated={false} shadow={false} className="rounded-none dark:bg-txt-dark" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
@@ -102,26 +174,136 @@ const MembersTable = (props: TableProps) => {
           {/* 表格的標題 */}
           <thead>
             <tr>
-              {props.head.map((head) => (
-                <th
-                  key={head}
-                  className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4"
-                >
+              {/* 幣種 */}
+              <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                onClick={() => requestSort('name')}
+              >
+                <div className="flex items-center">
                   <Typography
                     variant="small"
                     className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
                   >
-                    {head}
+                    幣種名稱
                   </Typography>
-                </th>
-              ))}
+                  {sortConfig && sortConfig.key === 'name' && (
+                    sortConfig.direction === 'ascending' ?
+                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                      <ArrowDownIcon className="ml-1 h-4 w-4" />
+                  )}
+                </div>
+              </th>
+
+              {/* 交易所 */}
+              <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+              >
+                <div className="flex items-center">
+                  <Typography
+                    variant="small"
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                  >
+                    交易所
+                  </Typography>
+                </div>
+              </th>
+              <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                onClick={() => requestSort('price')}
+              >
+                <div className="flex items-center">
+                  <Typography
+                    variant="small"
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                  >
+                    價格
+                  </Typography>
+                  {sortConfig && sortConfig.key === 'price' && (
+                    sortConfig.direction === 'ascending' ?
+                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                      <ArrowDownIcon className="ml-1 h-4 w-4" />
+                  )}
+                </div>
+              </th>
+              <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                onClick={() => requestSort('vol24p')}
+              >
+                <div className="flex items-center">
+                  <Typography
+                    variant="small"
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                  >
+                    24h%
+                  </Typography>
+                  {sortConfig && sortConfig.key === 'vol24p' && (
+                    sortConfig.direction === 'ascending' ?
+                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                      <ArrowDownIcon className="ml-1 h-4 w-4" />
+                  )}
+                </div>
+              </th>
+              <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                onClick={() => requestSort('vol24h')}
+              >
+                <div className="flex items-center">
+                  <Typography
+                    variant="small"
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                  >
+                    24h成交量
+                  </Typography>
+                  {sortConfig && sortConfig.key === 'vol24h' && (
+                    sortConfig.direction === 'ascending' ?
+                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                      <ArrowDownIcon className="ml-1 h-4 w-4" />
+                  )}
+                </div>
+              </th>
+              <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                onClick={() => requestSort('high')}
+              >
+                <div className="flex items-center">
+                  <Typography
+                    variant="small"
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                  >
+                    最高
+                  </Typography>
+                  {sortConfig && sortConfig.key === 'high' && (
+                    sortConfig.direction === 'ascending' ?
+                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                      <ArrowDownIcon className="ml-1 h-4 w-4" />
+                  )}
+                </div>
+              </th>
+              <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                onClick={() => requestSort('low')}
+              >
+                <div className="flex items-center">
+                  <Typography
+                    variant="small"
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}
+                  >
+                    最低
+                  </Typography>
+                  {sortConfig && sortConfig.key === 'low' && (
+                    sortConfig.direction === 'ascending' ?
+                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                      <ArrowDownIcon className="ml-1 h-4 w-4" />
+                  )}
+                </div>
+              </th>
             </tr>
           </thead>
 
           {/* 表格的內容 */}
           <tbody>
-            {filteredData.map(
-              ({ img, name, full_name, price }, index) => {
+            {currentItems.map(
+              ({ img, name, full_name, price, vol24h, vol24p, high, low }, index) => {
                 const isLast = index === props.rows.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -132,7 +314,16 @@ const MembersTable = (props: TableProps) => {
                     {/* 幣種 */}
                     <td className={classes}>
                       <div className="flex items-center gap-3">
-                        <Avatar src={img} alt={name} size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined} />
+                        {
+                          img !== '' ?
+                            <Avatar src={img} alt={name} size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined} className="w-9 h-9"/>
+                            :
+                            <Image
+                              src={BityoIcon}
+                              alt={name}
+                              sizes="100%"
+                              className="rounded-full w-9 h-9" />
+                        }
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
@@ -168,25 +359,25 @@ const MembersTable = (props: TableProps) => {
                     {/* 24h% */}
                     <TableText
                       classes={classes}
-                      text={price}
+                      text={vol24p}
                     />
 
                     {/* 24h 成交量 */}
                     <TableText
                       classes={classes}
-                      text={price}
+                      text={vol24h}
                     />
 
                     {/* 最高 */}
                     <TableText
                       classes={classes}
-                      text={price}
+                      text={high}
                     />
 
                     {/* 最低 */}
                     <TableText
                       classes={classes}
-                      text={price}
+                      text={low}
                     />
                   </tr>
                 );
@@ -197,13 +388,13 @@ const MembersTable = (props: TableProps) => {
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 dark:border-blue-gray-900 p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
         <Typography variant="small" className="font-normal text-gray-800 dark:text-gray-100" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
-          第1頁，共1頁
+          第 {currentPage} 頁，共 {Math.ceil(filteredData.length / itemsPerPage)} 頁
         </Typography>
         <div className="flex gap-2">
-          <Button className="text-gray-800 dark:text-gray-100 border-gray-400" variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          <Button className="text-gray-800 dark:text-gray-100 border-gray-400" variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={prevPage}>
             上一頁
           </Button>
-          <Button className="text-gray-800 dark:text-gray-100 border-gray-400" variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined}>
+          <Button className="text-gray-800 dark:text-gray-100 border-gray-400" variant="outlined" size="sm" nonce={undefined} onResize={undefined} onResizeCapture={undefined} onClick={nextPage}>
             下一頁
           </Button>
         </div>
@@ -212,4 +403,4 @@ const MembersTable = (props: TableProps) => {
   );
 }
 
-export default MembersTable;
+export default MarketTable;
