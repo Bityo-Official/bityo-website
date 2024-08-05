@@ -6,6 +6,7 @@ import { GetServerSideProps } from "next";
 import { MemberDataProps } from "@/types/Member/Member";
 import { initAdmin } from "../../lib/firebaseAdmin";
 import admin from "firebase-admin";
+import SkeletionMember from "@/components/Skeletion/SkeletionMember";
 
 interface AboutProps {
   members: MemberDataProps[];
@@ -26,7 +27,14 @@ const About = ({ members }: AboutProps) => {
         <meta name="twitter:image" content={SEO.About.image} />
       </Head>
       <Intro />
-      <Member members={members} />
+      {
+        members.length !== 0 ?
+          <Member members={members} />
+          :
+          <div className="container my-3">
+            <SkeletionMember />
+          </div>
+      }
     </>
   );
 };
