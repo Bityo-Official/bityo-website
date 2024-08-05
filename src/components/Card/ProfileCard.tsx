@@ -1,14 +1,10 @@
 import { FooterProps, HeaderProps, InfomartionProps, ProfileCardProps, SocialProps } from "@/types/Card/ProfileCard";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@material-tailwind/react";
 import Image from "next/image";
 
-// const fabIcons = require("@fortawesome/free-brands-svg-icons");
-// const fasIcons = require("@fortawesome/free-solid-svg-icons");
-
 const ProfileCard = (props: ProfileCardProps) => {
   return (
-    <div className="w-72 h-full dark:bg-primary-black-200 rounded-xl">
+    <div className="w-72 h-full dark:bg-primary-black-200 rounded-xl transform transition-transform duration-300 hover:scale-105">
       {props.children}
     </div>
   );
@@ -58,11 +54,11 @@ const Socials = (props: SocialProps) => {
       <Tooltip content={props.link}>
         <a
           href={props.link}>
-          {/* <FontAwesomeIcon icon={fasIcons[props.icon] || fabIcons[props.icon]} className={`w-5 ${props.color}`} /> */}
           <Image
             src={props.icon}
-            alt={""}
+            alt=""
             width={20}
+            height={20}
             className={props.className}
           />
         </a>
