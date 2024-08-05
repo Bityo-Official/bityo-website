@@ -105,7 +105,7 @@ const Sidebar = (props: SidebarProps) => {
         <Card
           color="transparent"
           shadow={false}
-          className="h-[calc(100vh-2rem)] w-full p-4" nonce={undefined} onResize={undefined} onResizeCapture={undefined} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          className="h-full w-full p-4 overflow-y-auto" nonce={undefined} onResize={undefined} onResizeCapture={undefined} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           <button
             className="mb-2 flex items-center gap-4 p-4"
             onClick={() => {
