@@ -6,6 +6,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { MarketsProps } from "@/types/Market/Merket";
 import { Crypto } from "@/types/Market/Merket";
+import SkeletionTable from "@/components/Skeletion/SkeletionTable";
 
 const Markets = ({ coinInfo }: MarketsProps) => {
   const [cryptos, setCryptos] = useState<Crypto[]>([]);
@@ -64,64 +65,69 @@ const Markets = ({ coinInfo }: MarketsProps) => {
         <meta name="twitter:description" content={SEO.Market.description} />
         <meta name="twitter:image" content={SEO.Market.image} />
       </Head>
-      <div className="mx-5">
-        <MarketTable
-          head={['幣種', '交易所', '價格', '24h%', '24h成交量', '最高', '最低']}
-          rows={cryptos.length > 0 ? cryptos.map(crypto => ({
-            img: crypto.full_name ? `https://cryptologos.cc/logos/${crypto.full_name?.toLowerCase()}-${crypto.name}-logo.png?v=032` : '',
-            name: crypto.symbol.toUpperCase(),
-            price: crypto.current_price,
-            vol24h: crypto.total_volume,
-            vol24p: crypto.price_change_percentage_24h,
-            high: crypto.high_24h,
-            low: crypto.low_24h,
-            full_name: crypto.full_name || '',
-          })) : []}
-          tab={[
-            {
-              label: "Pionex",
-              value: "pionex",
-              color: "bg-[#FF702A]",
-              bgColor: "text-white",
-              disabled: false,
-            },
-            {
-              label: "Binance",
-              value: "binance",
-              color: "bg-[#F0B90C]",
-              bgColor: "text-white",
-              disabled: false,
-            },
-            {
-              label: "OKX",
-              value: "okx",
-              color: "bg-[#000000]",
-              bgColor: "text-white",
-              disabled: false,
-            },
-            {
-              label: "BingX",
-              value: "bingx",
-              color: "bg-[#2A54FF]",
-              bgColor: "text-white",
-              disabled: false,
-            },
-            {
-              label: "Bitget",
-              value: "bitget",
-              color: "bg-[#00F0FF]",
-              bgColor: "text-white",
-              disabled: false,
-            },
-            {
-              label: "Bitunix",
-              value: "bitunix",
-              color: "bg-[#B9F642]",
-              bgColor: "text-white",
-              disabled: true,
-            },
-          ]}
-        />
+      <div className="mx-5 my-2">
+        {
+          cryptos.length > 0 ?
+            <MarketTable
+              head={['幣種', '交易所', '價格', '24h%', '24h成交量', '最高', '最低']}
+              rows={cryptos.length > 0 ? cryptos.map(crypto => ({
+                img: crypto.full_name ? `https://cryptologos.cc/logos/${crypto.full_name?.toLowerCase()}-${crypto.name}-logo.png?v=032` : '',
+                name: crypto.symbol.toUpperCase(),
+                price: crypto.current_price,
+                vol24h: crypto.total_volume,
+                vol24p: crypto.price_change_percentage_24h,
+                high: crypto.high_24h,
+                low: crypto.low_24h,
+                full_name: crypto.full_name || '',
+              })) : []}
+              tab={[
+                {
+                  label: "Pionex",
+                  value: "pionex",
+                  color: "bg-[#FF702A]",
+                  bgColor: "text-white",
+                  disabled: false,
+                },
+                {
+                  label: "Binance",
+                  value: "binance",
+                  color: "bg-[#F0B90C]",
+                  bgColor: "text-white",
+                  disabled: false,
+                },
+                {
+                  label: "OKX",
+                  value: "okx",
+                  color: "bg-[#000000]",
+                  bgColor: "text-white",
+                  disabled: false,
+                },
+                {
+                  label: "BingX",
+                  value: "bingx",
+                  color: "bg-[#2A54FF]",
+                  bgColor: "text-white",
+                  disabled: false,
+                },
+                {
+                  label: "Bitget",
+                  value: "bitget",
+                  color: "bg-[#00F0FF]",
+                  bgColor: "text-white",
+                  disabled: false,
+                },
+                {
+                  label: "Bitunix",
+                  value: "bitunix",
+                  color: "bg-[#B9F642]",
+                  bgColor: "text-white",
+                  disabled: true,
+                },
+              ]}
+            />
+            :
+            <SkeletionTable />
+        }
       </div>
     </>
   );

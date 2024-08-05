@@ -88,5 +88,14 @@
       "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
       "author": "TershiXia",
       "copyright": "Bityo"
+    },
+    "APIDoc": {
+      "title": "API 文件｜幣友 Bityo",
+      "description": "幣友提供多個API服務，讓您更方便的使用我們的服務，查看我們的API文件，開始使用我們的服務。",
+      "image": "/bityo_bg_circle.png",
+      "type": "website",
+      "keyword": "Bityo,幣友,Crypto,加密,CryptoCurrency,加密貨幣,BTC,Bitcoin,比特幣,ETH,Ethereum,以太坊",
+      "author": "TershiXia",
+      "copyright": "Bityo"
     }
   }

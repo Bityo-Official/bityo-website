@@ -22,7 +22,7 @@ const Themes = () => {
   }
 
   return (
-    <button onClick={toggleTheme} className="w-[6.125rem] h-[2.5rem] rounded-full p-1 bg-gray-200 dark:bg-[#6B6B6B] relative transition-colors duration-500 ease-in">
+    <button onClick={toggleTheme} className="w-[6.125rem] h-[2.5rem] rounded-full p-1 bg-gray-200 dark:bg-[#6B6B6B] border-[1px] border-neutral-300 dark:border-neutral-600 relative transition-colors duration-500 ease-in">
       {
         theme === 'dark' || (!theme && resolvedTheme === 'dark') ? (
           <div className="rounded-full w-8 h-8 border-gray-700 dark:bg-gray-700 relative dark:ml-[3.6rem] pointer-events-none transition-all duration-300 ease-out">

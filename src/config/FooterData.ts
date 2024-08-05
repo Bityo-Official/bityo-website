@@ -61,6 +61,15 @@ const LinkData = [
         disabled: true
       }
     ]
+  },
+  {
+    title: '開發者',
+    itemList: [
+      {
+        title: 'API',
+        link: '/doc/api'
+      }
+    ]
   }
 ];
 

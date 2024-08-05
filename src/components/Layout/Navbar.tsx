@@ -34,11 +34,11 @@ const Navbar = () => {
       text: "市場行情",
       icon: ChartBarSquareIcon,
       link: "/market",
-      chip: {
-        value: "11",
-        size: "sm",
-        color: "light-green",
-      }
+      // chip: {
+      //   value: "新",
+      //   size: "sm",
+      //   color: "light-green",
+      // }
     },
     {
       text: "社群",
@@ -83,7 +83,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-[#fcfcfc] dark:bg-[rgba(41,44,53,0.3)]">
+      <nav className="bg-[rgba(41,44,53,0.1)] dark:bg-[rgba(41,44,53,0.3)]">
         <div className="mx-auto px-2 sm:px-6 lg:px-5">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
