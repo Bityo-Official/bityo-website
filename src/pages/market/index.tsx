@@ -28,6 +28,7 @@ const Markets = ({ coinInfo }: MarketsProps) => {
           return {
             symbol: crypto.s,
             name: symbolWithoutUSDT,
+            image: matchingCoin ? matchingCoin.image : '',
             current_price: parseFloat(crypto.c),
             total_volume: parseFloat(crypto.v),
             high_24h: parseFloat(crypto.h),
@@ -71,7 +72,7 @@ const Markets = ({ coinInfo }: MarketsProps) => {
             <MarketTable
               head={['幣種', '交易所', '價格', '24h%', '24h成交量', '最高', '最低']}
               rows={cryptos.length > 0 ? cryptos.map(crypto => ({
-                img: crypto.full_name ? `https://cryptologos.cc/logos/${crypto.full_name?.toLowerCase()}-${crypto.name}-logo.png?v=032` : '',
+                img: crypto.image,
                 name: crypto.symbol.toUpperCase(),
                 price: crypto.current_price,
                 vol24h: crypto.total_volume,
