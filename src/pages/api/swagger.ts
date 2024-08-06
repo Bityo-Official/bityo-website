@@ -10,7 +10,7 @@ const swaggerHandler = (req: NextApiRequest, res: NextApiResponse) => {
         version: '1.0.0',
       },
     },
-    apis: ['src/pages/api/*.ts'],
+    apis: ['./**/*.ts'],
   });
   res.status(200).json(spec);
 };
