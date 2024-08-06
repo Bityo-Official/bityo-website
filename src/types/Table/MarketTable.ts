@@ -16,23 +16,17 @@ export interface TableProps {
   tab: {
     label: string;
     value: string;
-    color: string;
-    bgColor: string;
     disabled: boolean;
   }[];
   selectedTab: {
     label: string;
     value: string;
-    color: string;
-    bgColor: string;
     disabled: boolean;
   };
   setSelectedTab: (
     tab: {
       label: string;
       value: string;
-      color: string;
-      bgColor: string;
       disabled: boolean;
     }
   ) => void;

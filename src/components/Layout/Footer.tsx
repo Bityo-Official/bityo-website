@@ -13,7 +13,7 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="relative z-10 bg-white pt-16 dark:bg-[rgba(41,44,53,0.3)] md:pt-20 lg:pt-24">
+      <footer className="relative z-10 bg-neutral-200 pt-16 dark:bg-[rgba(41,44,53,0.3)] md:pt-20 lg:pt-24">
         <div className="container">
           <div className="-mx-4 flex flex-col md:flex-row">
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">

@@ -136,6 +136,45 @@ const MarketTable = (props: TableProps) => {
     router.push(`/market/${exchange}/${symbol}`)
   }
 
+  // 表格的標題
+  const RowTitle = (
+    props: {
+      text: string,
+      name: string,
+      className?: string,
+      sortable?: boolean
+    }) => {
+    return (
+
+      <th
+        className={`${props.className} border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer`}
+        onClick={() => props.sortable && requestSort(props.name as keyof CryptoProps)}
+      >
+        <div className="flex items-center">
+          <Typography
+            variant="small"
+            className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
+            nonce={undefined}
+            onResize={undefined}
+            onResizeCapture={undefined}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            {props.text}
+          </Typography>
+          {
+            props.sortable && sortConfig && sortConfig.key === props.name && (
+              sortConfig.direction === 'ascending' ?
+                <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                <ArrowDownIcon className="ml-1 h-4 w-4" />
+            )
+          }
+        </div>
+      </th>
+    )
+  }
+
   return (
     <Card
       className={`h-full w-full ${props.className} dark:bg-txt-dark`}
@@ -195,14 +234,21 @@ const MarketTable = (props: TableProps) => {
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
+              className="border-[1px] border-neutral-300 dark:border-neutral-700"
+              indicatorProps={{
+                className:
+                  "border-b-2 bg-neutral-200 rounded-md shadow-sm",
+              }}
+
             >
-              {props.tab.map(({ label, value, disabled, color, bgColor }) => (
+              {props.tab.map(({ label, value, disabled }) => (
                 <Tab
                   disabled={disabled}
                   key={value}
+                  className=""
                   onClick={() => {
                     if (props.selectedTab.value !== value) {
-                      props.setSelectedTab({ label, value, color, bgColor, disabled })
+                      props.setSelectedTab({ label, value, disabled })
                       toast.success(`切換至 ${label} 交易所成功！`, {
                         duration: 2000,
                         position: 'top-center',
@@ -226,10 +272,10 @@ const MarketTable = (props: TableProps) => {
           {/* 搜尋對話框 */}
           <div className="w-full md:w-72">
             <Input
-              label="Search"
+              label="搜尋加密貨幣"
               color={theme === 'dark' ? 'white' : 'black'}
               onChange={(e) => setCache(e.target.value)}
-              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+              icon={<MagnifyingGlassIcon className="h-5 w-5 dark:text-neutral-300" />}
               nonce={undefined}
               onResize={undefined}
               onResizeCapture={undefined}
@@ -281,191 +327,91 @@ const MarketTable = (props: TableProps) => {
                 </div>
               </th> */}
 
-              {/* 幣種 */}
-              <th
-                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('name')}
-              >
-                <div className="flex items-center">
-                  <Typography
-                    variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
+              {/* {
+                props.rows.map((row, index) => (
+                  <th
+                    key={index}
+                    className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                    onClick={() => requestSort(row.key)}
                   >
-                    幣種名稱
-                  </Typography>
-                  {sortConfig && sortConfig.key === 'name' && (
-                    sortConfig.direction === 'ascending' ?
-                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
-                      <ArrowDownIcon className="ml-1 h-4 w-4" />
-                  )}
-                </div>
-              </th>
+                    <div className="flex items-center">
+                      <Typography
+                        variant="small"
+                        className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined}
+                        onResize={undefined}
+                        onResizeCapture={undefined}
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      >
+                        {row.label}
+                      </Typography>
+                      {sortConfig && sortConfig.key === row.key && (
+                        sortConfig.direction === 'ascending' ?
+                          <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                          <ArrowDownIcon className="ml-1 h-4 w-4" />
+                      )}
+                    </div>
+                  </th>
+                ))
+              } */}
 
-              {/* 交易所 */}
-              <th
-                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-              >
-                <div className="flex items-center">
-                  <Typography
-                    variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    交易所
-                  </Typography>
-                </div>
-              </th>
-              <th
-                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('market_cap')}
-              >
-                <div className="flex items-center">
-                  <Typography
-                    variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
-                    nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    市值
-                  </Typography>
-                  {sortConfig && sortConfig.key === 'market_cap' && (
-                    sortConfig.direction === 'ascending' ?
-                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
-                      <ArrowDownIcon className="ml-1 h-4 w-4" />
-                  )}
-                </div>
-              </th>
-              <th
-                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('current_price')}
-              >
-                <div className="flex items-center">
-                  <Typography
-                    variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
-                    nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    價格
-                  </Typography>
-                  {sortConfig && sortConfig.key === 'current_price' && (
-                    sortConfig.direction === 'ascending' ?
-                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
-                      <ArrowDownIcon className="ml-1 h-4 w-4" />
-                  )}
-                </div>
-              </th>
-              <th
-                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('price_change_percentage_24h')}
-              >
-                <div className="flex items-center">
-                  <Typography
-                    variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
-                    nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    24h%
-                  </Typography>
-                  {sortConfig && sortConfig.key === 'price_change_percentage_24h' && (
-                    sortConfig.direction === 'ascending' ?
-                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
-                      <ArrowDownIcon className="ml-1 h-4 w-4" />
-                  )}
-                </div>
-              </th>
-              <th
-                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('total_volume')}
-              >
-                <div className="flex items-center">
-                  <Typography
-                    variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
-                    nonce={undefined} onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
-                  >
-                    24h成交量
-                  </Typography>
-                  {sortConfig && sortConfig.key === 'total_volume' && (
-                    sortConfig.direction === 'ascending' ?
-                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
-                      <ArrowDownIcon className="ml-1 h-4 w-4" />
-                  )}
-                </div>
-              </th>
-              <th
-                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('high_24h')}
-              >
-                <div className="flex items-center">
-                  <Typography
-                    variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
-                    nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    最高
-                  </Typography>
-                  {sortConfig && sortConfig.key === 'high_24h' && (
-                    sortConfig.direction === 'ascending' ?
-                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
-                      <ArrowDownIcon className="ml-1 h-4 w-4" />
-                  )}
-                </div>
-              </th>
-              <th
-                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('low_24h')}
-              >
-                <div className="flex items-center">
-                  <Typography
-                    variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
-                    nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    最低
-                  </Typography>
-                  {sortConfig && sortConfig.key === 'low_24h' && (
-                    sortConfig.direction === 'ascending' ?
-                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
-                      <ArrowDownIcon className="ml-1 h-4 w-4" />
-                  )}
-                </div>
-              </th>
+              {/* 市值排名 */}
+              <RowTitle
+                text="#"
+                name="market_cap_rank"
+                sortable={false}
+              />
+
+              {/* 幣種 */}
+              <RowTitle
+                text="幣種名稱"
+                name="name"
+                className="w-[15%]"
+                sortable={true}
+              />
+
+              {/* 價格 */}
+              <RowTitle
+                text="價格"
+                name="current_price"
+                sortable={true}
+              />
+
+              {/* 市值 */}
+              <RowTitle
+                text="市值"
+                name="market_cap"
+                sortable={true}
+              />
+
+              {/* 24h% */}
+              <RowTitle
+                text="24h%"
+                name="price_change_percentage_24h"
+                sortable={true}
+              />
+
+              {/* 24h 成交量 */}
+              <RowTitle
+                text="24h成交量"
+                name="total_volume"
+                sortable={true}
+              />
+
+              {/* 24h 最高 */}
+              <RowTitle
+                text="最高"
+                name="high_24h"
+                sortable={true}
+              />
+
+              {/* 24h 最低 */}
+              <RowTitle
+                text="最低"
+                name="low_24h"
+                sortable={true}
+              />
             </tr>
           </thead>
 
@@ -483,6 +429,16 @@ const MarketTable = (props: TableProps) => {
                     className="hover:bg-gray-300 dark:hover:bg-gray-800 hover:cursor-pointer"
                     key={item.name}
                   >
+                    {/* 市值排名 */}
+                    <TableText
+                      className={classes}
+                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                    >
+                      <span className="">
+                        {parseFloat(item.market_cap_rank.toFixed(3)).toLocaleString()}
+                      </span>
+                    </TableText>
+
                     {/* 自選 */}
                     {/* <TableText className={classes}>
                       <HeartIconOutLine className="w-8 hover:text-red-500" />
@@ -583,19 +539,13 @@ const MarketTable = (props: TableProps) => {
                       </Tooltip>
                     </td>
 
-                    {/* 交易所 */}
-                    <td
+                    {/* 價格 */}
+                    <TableText
                       className={classes}
                       onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
                     >
-                      <div className="flex">
-                        <Chip
-                          text={props.selectedTab.label}
-                          color={props.selectedTab.color}
-                          bgColor={props.selectedTab.bgColor}
-                        />
-                      </div>
-                    </td>
+                      {parseFloat(item.current_price.toFixed(3)).toLocaleString()}
+                    </TableText>
 
                     {/* 市值 */}
                     <TableText
@@ -605,14 +555,6 @@ const MarketTable = (props: TableProps) => {
                       {parseFloat(item.market_cap.toFixed(3)).toLocaleString()}
                     </TableText>
 
-                    {/* 價格 */}
-                    <TableText
-                      className={classes}
-                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
-                    >
-                      {parseFloat(item.current_price.toFixed(3)).toLocaleString()}
-                    </TableText>
-
                     {/* 24h% */}
                     {
                       item.price_change_percentage_24h > 0 ?
@@ -620,7 +562,7 @@ const MarketTable = (props: TableProps) => {
                           className={classes}
                           onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
                         >
-                          <span className="text-green-500 flex items-center">
+                          <span className="dark:text-bityo text-[#16c784] flex items-center">
                             <ArrowUpIcon className="h-4 w-4" />
                             {item.price_change_percentage_24h.toFixed(2)}%
                           </span>
@@ -630,7 +572,7 @@ const MarketTable = (props: TableProps) => {
                           className={classes}
                           onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
                         >
-                          <span className="text-red-500 flex items-center" >
+                          <span className="text-[#ea3943] flex items-center" >
                             <ArrowDownIcon className="h-4 w-4" />
                             {(item.price_change_percentage_24h * -1).toFixed(2)}%
                           </span>
@@ -686,7 +628,8 @@ const MarketTable = (props: TableProps) => {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          第 {currentPage} 頁，共 {Math.ceil(filteredData.length / itemsPerPage)} 頁
+          第 {currentPage} 頁，共 {Math.ceil(filteredData.length / itemsPerPage)} 頁。 <br />
+          共 {filteredData.length} 個加密貨幣
         </Typography>
         <div className="flex gap-2">
           <Button

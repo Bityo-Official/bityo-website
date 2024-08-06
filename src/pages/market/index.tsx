@@ -14,8 +14,6 @@ const Markets = ({ coinInfo }: MarketsProps) => {
   const [selectedTab, setSelectedTab] = useState({
     label: "Pionex",
     value: "pionex",
-    color: "bg-[#FF702A]",
-    bgColor: "text-white",
     disabled: false
   });
 
@@ -84,7 +82,7 @@ const Markets = ({ coinInfo }: MarketsProps) => {
         {
           cryptos.length > 0 ?
             <MarketTable
-              head={['幣種', '交易所', '價格', '24h%', '24h成交量', '24h最高', '24h最低']}
+              head={['#','幣種', '交易所', '價格', '24h%', '24h成交量', '24h最高', '24h最低']}
               rows={cryptos.length > 0 ? cryptos.map(crypto => ({
                 name: crypto.name,
                 image: crypto.image,
@@ -101,43 +99,31 @@ const Markets = ({ coinInfo }: MarketsProps) => {
                 {
                   label: "Pionex",
                   value: "pionex",
-                  color: "bg-[#FF702A]",
-                  bgColor: "text-white",
                   disabled: false,
                 },
                 {
                   label: "Binance",
                   value: "binance",
-                  color: "bg-[#F0B90C]",
-                  bgColor: "text-white",
                   disabled: false,
                 },
                 {
                   label: "OKX",
                   value: "okx",
-                  color: "bg-[#000000]",
-                  bgColor: "text-white",
                   disabled: false,
                 },
                 {
                   label: "BingX",
                   value: "bingx",
-                  color: "bg-[#2A54FF]",
-                  bgColor: "text-white",
                   disabled: false,
                 },
                 {
                   label: "Bitget",
                   value: "bitget",
-                  color: "bg-[#00F0FF]",
-                  bgColor: "text-white",
                   disabled: false,
                 },
                 {
                   label: "Bitunix",
                   value: "bitunix",
-                  color: "bg-[#B9F642]",
-                  bgColor: "text-white",
                   disabled: true,
                 },
               ]}

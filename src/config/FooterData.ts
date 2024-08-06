@@ -3,10 +3,6 @@ const LinkData = [
     title: '相關連結',
     itemList: [
       {
-        title: '市場行情',
-        link: '/market'
-      },
-      {
         title: '社群',
         link: '/community'
       },
@@ -59,6 +55,19 @@ const LinkData = [
         title: '常見問題',
         link: '/question',
         disabled: true
+      }
+    ]
+  },
+  {
+    title: '市場資料',
+    itemList: [
+      {
+        title: '市場行情',
+        link: '/market'
+      },
+      {
+        title: '恐懼與貪婪指數',
+        link: '/market/FearAndGreed'
       }
     ]
   },
