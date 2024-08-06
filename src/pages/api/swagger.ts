@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createSwaggerSpec } from 'next-swagger-doc';
+import path from 'path';
 
 const swaggerHandler = (req: NextApiRequest, res: NextApiResponse) => {
   const spec = createSwaggerSpec({
@@ -10,7 +11,7 @@ const swaggerHandler = (req: NextApiRequest, res: NextApiResponse) => {
         version: '1.0.0',
       },
     },
-    apis: ['./**/*.ts'],
+    apis: [path.resolve(process.cwd(), 'src/pages/api/**/*.ts')],
   });
   res.status(200).json(spec);
 };
