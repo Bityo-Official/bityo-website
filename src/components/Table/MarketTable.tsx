@@ -1,6 +1,6 @@
 import { TableProps } from "@/types/Table/MarketTable";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon, HeartIcon as HeartIconOutLine } from "@heroicons/react/24/outline";
+import { ArrowUpIcon, ArrowDownIcon, HeartIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -22,6 +22,8 @@ import Image from "next/image";
 import BityoIcon from "@/images/icon/bityo_bg2.png";
 import { useTheme } from "next-themes";
 import { CryptoProps } from "@/types/Market/Merket";
+import toast from "react-hot-toast";
+
 
 interface SortConfig {
   key: keyof CryptoProps;
@@ -36,9 +38,9 @@ const searchName = (cache: string, rows: CryptoProps[]) => {
 }
 
 // TD 的文字(成交量等)
-const TableText = (props: { className: string, children: React.ReactNode }) => {
+const TableText = (props: { className: string, children: React.ReactNode, onClick?: () => void }) => {
   return (
-    <td className={props.className}>
+    <td className={props.className} onClick={props.onClick}>
       <div className="flex flex-col">
         <Typography
           variant="small"
@@ -68,9 +70,6 @@ const MarketTable = (props: TableProps) => {
 
   // 排序後的資料
   const [sortedData, setSortedData] = useState<CryptoProps[]>([]);
-
-  // 目前選取的交易所
-  const [exchangesData, setExchangesData] = useState({ label: props.tab[0].label, exchange: props.tab[0].value, color: props.tab[0].color, bgColor: props.tab[0].bgColor });
 
   // 分頁狀態
   const [currentPage, setCurrentPage] = useState(1);
@@ -131,6 +130,11 @@ const MarketTable = (props: TableProps) => {
     }
     setSortConfig({ key, direction });
   };
+
+  // 切換到盤面
+  const switchToMarket = (exchange: string, symbol: string) => {
+    router.push(`/market/${exchange}/${symbol}`)
+  }
 
   return (
     <Card
@@ -196,7 +200,13 @@ const MarketTable = (props: TableProps) => {
                 <Tab
                   disabled={disabled}
                   key={value}
-                  onClick={() => { setExchangesData({ label: label, exchange: value, color: color, bgColor: bgColor }); }}
+                  onClick={() => {
+                    props.setSelectedTab({ label, value, color, bgColor, disabled })
+                    toast.success(`切換至 ${label} 交易所成功！`, {
+                      duration: 2000,
+                      position: 'top-center',
+                    })
+                  }}
                   value={value}
                   nonce={undefined}
                   onResize={undefined}
@@ -244,6 +254,31 @@ const MarketTable = (props: TableProps) => {
           {/* 表格的標題 */}
           <thead>
             <tr>
+              {/* 自選 */}
+              {/* <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                onClick={() => requestSort('name')}
+              >
+                <div className="flex items-center">
+                  <Typography
+                    variant="small"
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    自選
+                  </Typography>
+                  {sortConfig && sortConfig.key === 'name' && (
+                    sortConfig.direction === 'ascending' ?
+                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                      <ArrowDownIcon className="ml-1 h-4 w-4" />
+                  )}
+                </div>
+              </th> */}
+
               {/* 幣種 */}
               <th
                 className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
@@ -445,10 +480,18 @@ const MarketTable = (props: TableProps) => {
                   <tr
                     className="hover:bg-gray-300 dark:hover:bg-gray-800 hover:cursor-pointer"
                     key={item.name}
-                    onClick={() => router.push(`/market/${exchangesData.exchange}/${item.symbol}`)}
                   >
+                    {/* 自選 */}
+                    {/* <TableText className={classes}>
+                      <HeartIconOutLine className="w-8 hover:text-red-500" />
+                      <HeartIcon className="w-8 text-red-500 hover:text-white" />
+                    </TableText> */}
+
                     {/* 幣種 */}
-                    <td className={classes}>
+                    <td
+                      className={classes}
+                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                    >
                       <Tooltip
                         className="bg-[rgba(50,53,64,0.6)] dark:bg-[rgba(50,53,64,0.92)] border-2 border-web-green"
                         placement="right-start"
@@ -535,56 +578,80 @@ const MarketTable = (props: TableProps) => {
                     </td>
 
                     {/* 交易所 */}
-                    <td className={classes}>
+                    <td
+                      className={classes}
+                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                    >
                       <div className="flex">
                         <Chip
-                          text={exchangesData.label}
-                          color={exchangesData.color}
-                          bgColor={exchangesData.bgColor}
+                          text={props.selectedTab.label}
+                          color={props.selectedTab.color}
+                          bgColor={props.selectedTab.bgColor}
                         />
                       </div>
                     </td>
 
                     {/* 市值 */}
-                    <TableText className={classes}>
+                    <TableText
+                      className={classes}
+                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                    >
                       {parseFloat(item.market_cap.toFixed(3)).toLocaleString()}
                     </TableText>
-                    
+
                     {/* 價格 */}
-                    <TableText className={classes}>
+                    <TableText
+                      className={classes}
+                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                    >
                       {parseFloat(item.current_price.toFixed(3)).toLocaleString()}
                     </TableText>
 
                     {/* 24h% */}
                     {
                       item.price_change_percentage_24h > 0 ?
-                        <TableText className={classes}>
-                          <p className="text-green-500 flex items-center">
+                        <TableText
+                          className={classes}
+                          onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                        >
+                          <span className="text-green-500 flex items-center">
                             <ArrowUpIcon className="h-4 w-4" />
                             {item.price_change_percentage_24h.toFixed(2)}%
-                          </p>
+                          </span>
                         </TableText>
                         :
-                        <TableText className={classes}>
-                          <p className="text-red-500 flex items-center" >
+                        <TableText
+                          className={classes}
+                          onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                        >
+                          <span className="text-red-500 flex items-center" >
                             <ArrowDownIcon className="h-4 w-4" />
                             {(item.price_change_percentage_24h * -1).toFixed(2)}%
-                          </p>
+                          </span>
                         </TableText>
                     }
 
                     {/* 24h 成交量 */}
-                    <TableText className={classes}>
+                    <TableText
+                      className={classes}
+                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                    >
                       {parseFloat(item.total_volume.toFixed(3)).toLocaleString()}
                     </TableText>
 
                     {/* 最高 */}
-                    <TableText className={classes}>
+                    <TableText
+                      className={classes}
+                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                    >
                       {parseFloat(item.high_24h.toFixed(3)).toLocaleString()}
                     </TableText>
 
                     {/* 最低 */}
-                    <TableText className={classes}>
+                    <TableText
+                      className={classes}
+                      onClick={() => switchToMarket(props.selectedTab.label, item.symbol)}
+                    >
                       {parseFloat(item.low_24h.toFixed(3)).toLocaleString()}
                     </TableText>
                   </tr>
@@ -643,7 +710,7 @@ const MarketTable = (props: TableProps) => {
           </Button>
         </div>
       </CardFooter>
-    </Card>
+    </Card >
   );
 }
 

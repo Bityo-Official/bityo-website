@@ -1,7 +1,6 @@
 import { CryptoProps } from '../Market/Merket';
 
 export interface TableProps {
-  // data: any;
   className?: string;
   head: string[];
   rows: {
@@ -19,6 +18,22 @@ export interface TableProps {
     value: string;
     color: string;
     bgColor: string;
-    disabled?: boolean;
+    disabled: boolean;
   }[];
+  selectedTab: {
+    label: string;
+    value: string;
+    color: string;
+    bgColor: string;
+    disabled: boolean;
+  };
+  setSelectedTab: (
+    tab: {
+      label: string;
+      value: string;
+      color: string;
+      bgColor: string;
+      disabled: boolean;
+    }
+  ) => void;
 }

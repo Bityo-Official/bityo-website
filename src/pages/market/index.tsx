@@ -11,16 +11,21 @@ import SkeletionTable from "@/components/Skeletion/SkeletionTable";
 const Markets = ({ coinInfo }: MarketsProps) => {
   const [cryptos, setCryptos] = useState<CryptoProps[]>([]);
   const tempData = useRef<CryptoProps[]>([]);
+  const [selectedTab, setSelectedTab] = useState({
+    label: "Pionex",
+    value: "pionex",
+    color: "bg-[#FF702A]",
+    bgColor: "text-white",
+    disabled: false
+  });
 
   useEffect(() => {
-    // 初始化 WebSocket 連接
     const ws = new WebSocket('wss://stream.binance.com:9443/ws/!ticker@arr');
 
-    // 當收到消息時更新數據
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       const updatedCryptos = data
-        .filter((crypto: any) => crypto.s.endsWith('USDT')) // 過濾出只保留 USDT 交易對
+        .filter((crypto: any) => crypto.s.endsWith('USDT'))
         .map((crypto: any) => {
           const symbolWithoutUSDT = crypto.s.replace('USDT', '').toLowerCase();
           const matchingCoin = coinInfo.find(c => c.symbol.toLowerCase() === symbolWithoutUSDT);
@@ -34,7 +39,7 @@ const Markets = ({ coinInfo }: MarketsProps) => {
             high_24h: parseFloat(crypto.h),
             low_24h: parseFloat(crypto.l),
             price_change_percentage_24h: parseFloat(crypto.P),
-            full_name: matchingCoin ? matchingCoin.name.replace(' ', '-') : '', // 設置全名
+            full_name: matchingCoin ? matchingCoin.name.replace(' ', '-') : '',
             market_cap: matchingCoin ? matchingCoin.market_cap : 0,
             market_cap_rank: matchingCoin ? matchingCoin.market_cap_rank : 0,
             circulating_supply: matchingCoin ? matchingCoin.circulating_supply : 0,
@@ -44,22 +49,23 @@ const Markets = ({ coinInfo }: MarketsProps) => {
             ath_change_percentage: matchingCoin ? matchingCoin.ath_change_percentage : 0,
           };
         });
-      // 按市值降序排序
       updatedCryptos.sort((a: CryptoProps, b: CryptoProps) => b.market_cap - a.market_cap);
       tempData.current = updatedCryptos;
     };
 
-    // 每兩秒更新一次數據
     const interval = setInterval(() => {
       setCryptos([...tempData.current]);
     }, 2000);
 
-    // 清理 WebSocket 和定時器
     return () => {
       ws.close();
       clearInterval(interval);
     };
   }, [coinInfo]);
+
+  useEffect(() => {
+    console.log(selectedTab);
+  }, [selectedTab]);
 
   return (
     <>
@@ -89,6 +95,8 @@ const Markets = ({ coinInfo }: MarketsProps) => {
                 low_24h: crypto.low_24h,
               })) : []}
               data={cryptos}
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
               tab={[
                 {
                   label: "Pionex",
@@ -142,7 +150,6 @@ const Markets = ({ coinInfo }: MarketsProps) => {
   );
 };
 
-// 使用 getServerSideProps 在服務器端獲取初始數據
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const baseUrl = req.headers.host?.startsWith('localhost')

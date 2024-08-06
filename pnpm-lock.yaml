@@ -35,6 +35,9 @@ dependencies:
   '@tailwindcss/typography':
     specifier: ^0.5.13
     version: 0.5.13(tailwindcss@3.4.7)
+  '@types/pako':
+    specifier: ^2.0.3
+    version: 2.0.3
   '@types/swagger-ui-react':
     specifier: ^4.18.3
     version: 4.18.3
@@ -83,6 +86,9 @@ dependencies:
   nextjs-progressbar:
     specifier: ^0.0.16
     version: 0.0.16(next@14.2.5)(react@18.3.1)
+  pako:
+    specifier: ^2.1.0
+    version: 2.1.0
   react:
     specifier: ^18.3.1
     version: 18.3.1
@@ -1543,6 +1549,7 @@ packages:
 
   /@swagger-api/apidom-ns-json-schema-draft-4@1.0.0-alpha.7:
     resolution: {integrity: sha512-TB1IzEoA49ymcpB3JEtZXY4VxDgj1MqdbKhVRbRzJLU42B7K0NdW8WtXEOWJ+6awNBYE2PHJjKTvVxlnOLOuKg==}
+    requiresBuild: true
     dependencies:
       '@babel/runtime-corejs3': 7.25.0
       '@swagger-api/apidom-ast': 1.0.0-alpha.7
@@ -2062,6 +2069,10 @@ packages:
 
   /@types/nprogress@0.2.3:
     resolution: {integrity: sha512-k7kRA033QNtC+gLc4VPlfnue58CM1iQLgn1IMAU8VPHGOj7oIHPp9UlhedEnD/Gl8evoCjwkZjlBORtZ3JByUA==}
+    dev: false
+
+  /@types/pako@2.0.3:
+    resolution: {integrity: sha512-bq0hMV9opAcrmE0Byyo0fY3Ew4tgOevJmQ9grUhpXQhYfyLJ1Kqg3P33JT5fdbT2AjeAjR51zqqVjAL/HMkx7Q==}
     dev: false
 
   /@types/prop-types@15.7.12:
@@ -5649,6 +5660,10 @@ packages:
 
   /package-json-from-dist@1.0.0:
     resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
+
+  /pako@2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
+    dev: false
 
   /parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
