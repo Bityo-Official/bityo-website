@@ -5,12 +5,12 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { MarketsProps } from "@/types/Market/Merket";
-import { Crypto } from "@/types/Market/Merket";
+import { CryptoProps } from "@/types/Market/Merket";
 import SkeletionTable from "@/components/Skeletion/SkeletionTable";
 
 const Markets = ({ coinInfo }: MarketsProps) => {
-  const [cryptos, setCryptos] = useState<Crypto[]>([]);
-  const tempData = useRef<Crypto[]>([]);
+  const [cryptos, setCryptos] = useState<CryptoProps[]>([]);
+  const tempData = useRef<CryptoProps[]>([]);
 
   useEffect(() => {
     // 初始化 WebSocket 連接
@@ -35,9 +35,16 @@ const Markets = ({ coinInfo }: MarketsProps) => {
             low_24h: parseFloat(crypto.l),
             price_change_percentage_24h: parseFloat(crypto.P),
             full_name: matchingCoin ? matchingCoin.name.replace(' ', '-') : '', // 設置全名
+            market_cap: matchingCoin ? matchingCoin.market_cap : 0,
+            market_cap_rank: matchingCoin ? matchingCoin.market_cap_rank : 0,
+            circulating_supply: matchingCoin ? matchingCoin.circulating_supply : 0,
+            total_supply: matchingCoin ? matchingCoin.total_supply : 0,
+            max_supply: matchingCoin ? matchingCoin.max_supply : 0,
+            ath: matchingCoin ? matchingCoin.ath : 0,
+            ath_change_percentage: matchingCoin ? matchingCoin.ath_change_percentage : 0,
           };
         });
-      updatedCryptos.sort((a: Crypto, b: Crypto) => b.current_price - a.current_price); // 按價格降序排序
+      updatedCryptos.sort((a: CryptoProps, b: CryptoProps) => b.current_price - a.current_price); // 按價格降序排序
       tempData.current = updatedCryptos;
     };
 
@@ -72,15 +79,15 @@ const Markets = ({ coinInfo }: MarketsProps) => {
             <MarketTable
               head={['幣種', '交易所', '價格', '24h%', '24h成交量', '最高', '最低']}
               rows={cryptos.length > 0 ? cryptos.map(crypto => ({
-                img: crypto.image,
-                name: crypto.symbol.toUpperCase(),
-                price: crypto.current_price,
-                vol24h: crypto.total_volume,
-                vol24p: crypto.price_change_percentage_24h,
-                high: crypto.high_24h,
-                low: crypto.low_24h,
-                full_name: crypto.full_name || '',
+                name: crypto.name,
+                image: crypto.image,
+                current_price: crypto.current_price,
+                price_change_percentage_24h: crypto.price_change_percentage_24h,
+                total_volume: crypto.total_volume,
+                high_24h: crypto.high_24h,
+                low_24h: crypto.low_24h,
               })) : []}
+              data={cryptos}
               tab={[
                 {
                   label: "Pionex",

@@ -13,6 +13,7 @@ import {
   TabsHeader,
   Tab,
   Avatar,
+  Tooltip,
 } from "@material-tailwind/react";
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from "react";
@@ -20,34 +21,24 @@ import Chip from "@/components/Chip/Chip";
 import Image from "next/image";
 import BityoIcon from "@/images/icon/bityo_bg2.png";
 import { useTheme } from "next-themes";
+import { CryptoProps } from "@/types/Market/Merket";
 
 interface SortConfig {
-  key: keyof RowData;
+  key: keyof CryptoProps;
   direction: 'ascending' | 'descending';
 }
 
-interface RowData {
-  img: string;
-  name: string;
-  full_name: string;
-  price: number;
-  vol24h: number;
-  vol24p: number;
-  high: number;
-  low: number;
-}
-
 // 搜尋幣種
-const searchName = (cache: string, rows: RowData[]) => {
-  return rows.filter((row: RowData) => {
+const searchName = (cache: string, rows: CryptoProps[]) => {
+  return rows.filter((row: CryptoProps) => {
     return row.name.toLowerCase().includes(cache.toLowerCase()) || row.full_name.toLowerCase().includes(cache.toLowerCase());
   });
 }
 
 // TD 的文字(成交量等)
-const TableText = (props: { classes: string, text: string | number }) => {
+const TableText = (props: { className: string, children: React.ReactNode }) => {
   return (
-    <td className={props.classes}>
+    <td className={props.className}>
       <div className="flex flex-col">
         <Typography
           variant="small"
@@ -59,7 +50,7 @@ const TableText = (props: { classes: string, text: string | number }) => {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          {props.text}
+          {props.children}
         </Typography>
       </div>
     </td>
@@ -73,10 +64,10 @@ const MarketTable = (props: TableProps) => {
   const [cache, setCache] = useState('');
 
   // 搜尋後的資料
-  const [filteredData, setFilteredData] = useState<RowData[]>(props.rows);
+  const [filteredData, setFilteredData] = useState<CryptoProps[]>([]);
 
   // 排序後的資料
-  const [sortedData, setSortedData] = useState<RowData[]>(props.rows);
+  const [sortedData, setSortedData] = useState<CryptoProps[]>([]);
 
   // 目前選取的交易所
   const [exchangesData, setExchangesData] = useState({ label: props.tab[0].label, exchange: props.tab[0].value, color: props.tab[0].color, bgColor: props.tab[0].bgColor });
@@ -94,7 +85,7 @@ const MarketTable = (props: TableProps) => {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setFilteredData(searchName(cache, props.rows));
+    setFilteredData(searchName(cache, props.data));
   }, [cache, props.rows]);
 
   useEffect(() => {
@@ -133,7 +124,7 @@ const MarketTable = (props: TableProps) => {
   };
 
   // 排序功能
-  const requestSort = (key: keyof RowData) => {
+  const requestSort = (key: keyof CryptoProps) => {
     let direction: 'ascending' | 'descending' = 'ascending';
     if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
       direction = 'descending';
@@ -298,7 +289,7 @@ const MarketTable = (props: TableProps) => {
               </th>
               <th
                 className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('price')}
+                onClick={() => requestSort('current_price')}
               >
                 <div className="flex items-center">
                   <Typography
@@ -313,7 +304,7 @@ const MarketTable = (props: TableProps) => {
                   >
                     價格
                   </Typography>
-                  {sortConfig && sortConfig.key === 'price' && (
+                  {sortConfig && sortConfig.key === 'current_price' && (
                     sortConfig.direction === 'ascending' ?
                       <ArrowUpIcon className="ml-1 h-4 w-4" /> :
                       <ArrowDownIcon className="ml-1 h-4 w-4" />
@@ -322,7 +313,7 @@ const MarketTable = (props: TableProps) => {
               </th>
               <th
                 className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('vol24p')}
+                onClick={() => requestSort('price_change_percentage_24h')}
               >
                 <div className="flex items-center">
                   <Typography
@@ -337,7 +328,7 @@ const MarketTable = (props: TableProps) => {
                   >
                     24h%
                   </Typography>
-                  {sortConfig && sortConfig.key === 'vol24p' && (
+                  {sortConfig && sortConfig.key === 'price_change_percentage_24h' && (
                     sortConfig.direction === 'ascending' ?
                       <ArrowUpIcon className="ml-1 h-4 w-4" /> :
                       <ArrowDownIcon className="ml-1 h-4 w-4" />
@@ -346,7 +337,7 @@ const MarketTable = (props: TableProps) => {
               </th>
               <th
                 className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('vol24h')}
+                onClick={() => requestSort('total_volume')}
               >
                 <div className="flex items-center">
                   <Typography
@@ -359,7 +350,7 @@ const MarketTable = (props: TableProps) => {
                   >
                     24h成交量
                   </Typography>
-                  {sortConfig && sortConfig.key === 'vol24h' && (
+                  {sortConfig && sortConfig.key === 'total_volume' && (
                     sortConfig.direction === 'ascending' ?
                       <ArrowUpIcon className="ml-1 h-4 w-4" /> :
                       <ArrowDownIcon className="ml-1 h-4 w-4" />
@@ -368,7 +359,7 @@ const MarketTable = (props: TableProps) => {
               </th>
               <th
                 className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('high')}
+                onClick={() => requestSort('high_24h')}
               >
                 <div className="flex items-center">
                   <Typography
@@ -383,7 +374,7 @@ const MarketTable = (props: TableProps) => {
                   >
                     最高
                   </Typography>
-                  {sortConfig && sortConfig.key === 'high' && (
+                  {sortConfig && sortConfig.key === 'high_24h' && (
                     sortConfig.direction === 'ascending' ?
                       <ArrowUpIcon className="ml-1 h-4 w-4" /> :
                       <ArrowDownIcon className="ml-1 h-4 w-4" />
@@ -392,7 +383,7 @@ const MarketTable = (props: TableProps) => {
               </th>
               <th
                 className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
-                onClick={() => requestSort('low')}
+                onClick={() => requestSort('low_24h')}
               >
                 <div className="flex items-center">
                   <Typography
@@ -407,7 +398,7 @@ const MarketTable = (props: TableProps) => {
                   >
                     最低
                   </Typography>
-                  {sortConfig && sortConfig.key === 'low' && (
+                  {sortConfig && sortConfig.key === 'low_24h' && (
                     sortConfig.direction === 'ascending' ?
                       <ArrowUpIcon className="ml-1 h-4 w-4" /> :
                       <ArrowDownIcon className="ml-1 h-4 w-4" />
@@ -420,7 +411,7 @@ const MarketTable = (props: TableProps) => {
           {/* 表格的內容 */}
           <tbody>
             {currentItems.map(
-              ({ img, name, full_name, price, vol24h, vol24p, high, low }, index) => {
+              (item, index) => {
                 const isLast = index === props.rows.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -429,60 +420,94 @@ const MarketTable = (props: TableProps) => {
                 return (
                   <tr
                     className="hover:bg-gray-300 dark:hover:bg-gray-800 hover:cursor-pointer"
-                    key={name}
-                    onClick={() => router.push(`/market/${exchangesData.exchange}/${name}`)}
+                    key={item.name}
+                    onClick={() => router.push(`/market/${exchangesData.exchange}/${item.symbol}`)}
                   >
                     {/* 幣種 */}
                     <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        {
-                          img !== '' ?
-                            <Avatar
-                              src={img}
-                              alt={name}
-                              size="sm"
+                      <Tooltip
+                        className="bg-[rgba(50,53,64,0.6)] dark:bg-[rgba(50,53,64,0.92)] border-2 border-web-green"
+                        placement="right-start"
+                        content={
+                          <p className="font-medium">
+                            <table>
+                              <tr>
+                                <td>市值排名</td>
+                                <td>{item.market_cap_rank}</td>
+                              </tr>
+                              <tr>
+                                <td>市值</td>
+                                <td>{parseFloat(item.market_cap.toFixed(3)).toLocaleString()}</td>
+                              </tr>
+                              <tr>
+                                <td>流通供給量</td>
+                                <td>{parseFloat(item.circulating_supply.toFixed(3)).toLocaleString()}</td>
+                              </tr>
+                              <tr>
+                                <td>總供給量</td>
+                                <td>{parseFloat(item.total_supply.toFixed(3)).toLocaleString()}</td>
+                              </tr>
+                              <tr>
+                                <td>最大供給量</td>
+                                <td>{parseFloat(item.max_supply?.toFixed(3)).toLocaleString()}</td>
+                              </tr>
+                              <tr>
+                                <td>ATH</td>
+                                <td>{parseFloat(item.ath.toFixed(3)).toLocaleString()}</td>
+                              </tr>
+                              <tr>
+                                <td>ATH%</td>
+                                {item.ath_change_percentage.toFixed(2)}%
+                              </tr>
+                            </table>
+                          </p>
+                        }
+                      >
+                        <div className="flex items-center gap-3">
+                          {
+                            item.image !== '' ?
+                              <Avatar
+                                src={item.image}
+                                alt={item.name}
+                                size="sm"
+                                nonce={undefined}
+                                onResize={undefined}
+                                onResizeCapture={undefined}
+                                className="w-9 h-9"
+                                placeholder={undefined}
+                                onPointerEnterCapture={undefined}
+                                onPointerLeaveCapture={undefined}
+                              />
+                              :
+                              <Image
+                                src={BityoIcon}
+                                alt={item.name}
+                                sizes="100%"
+                                className="rounded-full w-9 h-9"
+                              />
+                          }
+                          <div className="flex flex-col">
+                            {/* 幣種代號 */}
+                            <p className="text-[15px] font-normal text-gray-800 dark:text-gray-100">
+                              {item.name.toUpperCase()}
+                            </p>
+
+                            {/* 幣種全稱 */}
+                            <Typography
+                              variant="small"
+                              className="font-normal opacity-70 text-gray-800 dark:text-gray-100"
                               nonce={undefined}
                               onResize={undefined}
                               onResizeCapture={undefined}
-                              className="w-9 h-9"
                               placeholder={undefined}
                               onPointerEnterCapture={undefined}
                               onPointerLeaveCapture={undefined}
-                            />
-                            :
-                            <Image
-                              src={BityoIcon}
-                              alt={name}
-                              sizes="100%"
-                              className="rounded-full w-9 h-9" />
-                        }
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            className="font-normal text-gray-800 dark:text-gray-100"
-                            nonce={undefined}
-                            onResize={undefined}
-                            onResizeCapture={undefined}
-                            placeholder={undefined}
-                            onPointerEnterCapture={undefined}
-                            onPointerLeaveCapture={undefined}
-                          >
-                            {name}
-                          </Typography>
-                          <Typography
-                            variant="small"
-                            className="font-normal opacity-70 text-gray-800 dark:text-gray-100"
-                            nonce={undefined}
-                            onResize={undefined}
-                            onResizeCapture={undefined}
-                            placeholder={undefined}
-                            onPointerEnterCapture={undefined}
-                            onPointerLeaveCapture={undefined}
-                          >
-                            {full_name}
-                          </Typography>
+                            >
+                              {item.full_name}
+                            </Typography>
+                          </div>
                         </div>
-                      </div>
+                      </Tooltip>
                     </td>
 
                     {/* 交易所 */}
@@ -497,34 +522,42 @@ const MarketTable = (props: TableProps) => {
                     </td>
 
                     {/* 價格 */}
-                    <TableText
-                      classes={classes}
-                      text={price}
-                    />
+                    <TableText className={classes}>
+                      {parseFloat(item.current_price.toFixed(3)).toLocaleString()}
+                    </TableText>
 
                     {/* 24h% */}
-                    <TableText
-                      classes={classes}
-                      text={vol24p}
-                    />
+                    {
+                      item.price_change_percentage_24h > 0 ?
+                        <TableText className={classes}>
+                          <p className="text-green-500 flex items-center">
+                            <ArrowUpIcon className="h-4 w-4" />
+                            {item.price_change_percentage_24h.toFixed(2)}%
+                          </p>
+                        </TableText>
+                        :
+                        <TableText className={classes}>
+                          <p className="text-red-500 flex items-center" >
+                            <ArrowDownIcon className="h-4 w-4" />
+                            {(item.price_change_percentage_24h * -1).toFixed(2)}%
+                          </p>
+                        </TableText>
+                    }
 
                     {/* 24h 成交量 */}
-                    <TableText
-                      classes={classes}
-                      text={vol24h}
-                    />
+                    <TableText className={classes}>
+                      {parseFloat(item.total_volume.toFixed(3)).toLocaleString()}
+                    </TableText>
 
                     {/* 最高 */}
-                    <TableText
-                      classes={classes}
-                      text={high}
-                    />
+                    <TableText className={classes}>
+                      {parseFloat(item.high_24h.toFixed(3)).toLocaleString()}
+                    </TableText>
 
                     {/* 最低 */}
-                    <TableText
-                      classes={classes}
-                      text={low}
-                    />
+                    <TableText className={classes}>
+                      {parseFloat(item.low_24h.toFixed(3)).toLocaleString()}
+                    </TableText>
                   </tr>
                 );
               },

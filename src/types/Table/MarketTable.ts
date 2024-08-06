@@ -1,17 +1,19 @@
+import { CryptoProps } from '../Market/Merket';
+
 export interface TableProps {
   // data: any;
   className?: string;
   head: string[];
   rows: {
-    img: string;
     name: string;
-    full_name: string;
-    price: number;
-    vol24h: number;
-    vol24p: number;
-    high: number;
-    low: number;
+    image: string;
+    current_price: number;
+    price_change_percentage_24h: number;
+    total_volume: number;
+    high_24h: number;
+    low_24h: number;
   }[];
+  data: CryptoProps[];
   tab: {
     label: string;
     value: string;
