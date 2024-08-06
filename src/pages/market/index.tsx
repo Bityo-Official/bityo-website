@@ -84,7 +84,7 @@ const Markets = ({ coinInfo }: MarketsProps) => {
         {
           cryptos.length > 0 ?
             <MarketTable
-              head={['幣種', '交易所', '價格', '24h%', '24h成交量', '最高', '最低']}
+              head={['幣種', '交易所', '價格', '24h%', '24h成交量', '24h最高', '24h最低']}
               rows={cryptos.length > 0 ? cryptos.map(crypto => ({
                 name: crypto.name,
                 image: crypto.image,

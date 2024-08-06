@@ -85,7 +85,7 @@ const MarketTable = (props: TableProps) => {
 
   useEffect(() => {
     setFilteredData(searchName(cache, props.data));
-  }, [cache, props.rows]);
+  }, [cache, props.rows, props.data]);
 
   useEffect(() => {
     let sortedData = [...filteredData];
@@ -201,11 +201,13 @@ const MarketTable = (props: TableProps) => {
                   disabled={disabled}
                   key={value}
                   onClick={() => {
-                    props.setSelectedTab({ label, value, color, bgColor, disabled })
-                    toast.success(`切換至 ${label} 交易所成功！`, {
-                      duration: 2000,
-                      position: 'top-center',
-                    })
+                    if (props.selectedTab.value !== value) {
+                      props.setSelectedTab({ label, value, color, bgColor, disabled })
+                      toast.success(`切換至 ${label} 交易所成功！`, {
+                        duration: 2000,
+                        position: 'top-center',
+                      })
+                    }
                   }}
                   value={value}
                   nonce={undefined}
@@ -570,7 +572,11 @@ const MarketTable = (props: TableProps) => {
                               onPointerEnterCapture={undefined}
                               onPointerLeaveCapture={undefined}
                             >
-                              {item.full_name}
+                              {
+                                item.full_name ?
+                                  item.full_name :
+                                  item.name
+                              }
                             </Typography>
                           </div>
                         </div>
