@@ -289,6 +289,30 @@ const MarketTable = (props: TableProps) => {
               </th>
               <th
                 className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
+                onClick={() => requestSort('market_cap')}
+              >
+                <div className="flex items-center">
+                  <Typography
+                    variant="small"
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
+                    nonce={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    市值
+                  </Typography>
+                  {sortConfig && sortConfig.key === 'market_cap' && (
+                    sortConfig.direction === 'ascending' ?
+                      <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+                      <ArrowDownIcon className="ml-1 h-4 w-4" />
+                  )}
+                </div>
+              </th>
+              <th
+                className="border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer"
                 onClick={() => requestSort('current_price')}
               >
                 <div className="flex items-center">
@@ -521,6 +545,11 @@ const MarketTable = (props: TableProps) => {
                       </div>
                     </td>
 
+                    {/* 市值 */}
+                    <TableText className={classes}>
+                      {parseFloat(item.market_cap.toFixed(3)).toLocaleString()}
+                    </TableText>
+                    
                     {/* 價格 */}
                     <TableText className={classes}>
                       {parseFloat(item.current_price.toFixed(3)).toLocaleString()}

@@ -44,7 +44,8 @@ const Markets = ({ coinInfo }: MarketsProps) => {
             ath_change_percentage: matchingCoin ? matchingCoin.ath_change_percentage : 0,
           };
         });
-      updatedCryptos.sort((a: CryptoProps, b: CryptoProps) => b.current_price - a.current_price); // 按價格降序排序
+      // 按市值降序排序
+      updatedCryptos.sort((a: CryptoProps, b: CryptoProps) => b.market_cap - a.market_cap);
       tempData.current = updatedCryptos;
     };
 
