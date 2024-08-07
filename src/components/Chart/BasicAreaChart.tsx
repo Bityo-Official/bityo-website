@@ -1,9 +1,9 @@
-// components/GaugeSimple.tsx
-import { GaugeSimpleProps } from '@/types/Chart/GaugeSimple';
+// components/BasicAreaChart.tsx
+import { BasicAreaChartProps } from '@/types/Chart/BasicAreaChart';
 import ReactECharts from 'echarts-for-react';
 import { useEffect, useState } from 'react';
 
-const GaugeSimple = (props: GaugeSimpleProps) => {
+const BasicAreaChart = (props: BasicAreaChartProps) => {
   const [isDark, setIsDark] = useState(false);
 
   // 监听主题模式变化
@@ -35,15 +35,15 @@ const GaugeSimple = (props: GaugeSimpleProps) => {
       observer.disconnect();
     };
   }, []);
-  
+
   return (
     <ReactECharts
       option={props.option}
-      className='w-full lg:w-[50%]'
-      style={{ height: '460px' }}
+      style={{ height: '460px', width: '100%' }}
       theme={isDark ? 'dark' : 'light'}
+      onEvents={props.onEvents} 
     />
-  )
+  );
 };
 
-export default GaugeSimple;
+export default BasicAreaChart;
