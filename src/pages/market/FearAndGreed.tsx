@@ -87,7 +87,9 @@ const FearAndGreed = () => {
     },
     toolbox: {
       feature: {
-        saveAsImage: {}
+        saveAsImage: {
+          name: '恐懼與貪婪指數'
+        }
       }
     },
     grid: {
@@ -162,7 +164,7 @@ const FearAndGreed = () => {
         detail: {
           valueAnimation: true,
           formatter: function (value: number) {
-            return '{value|' + value.toFixed(0) + '}{unit|'+ convertFngLevel(value.toFixed(0)) + '}';
+            return '{value|' + value.toFixed(0) + '}{unit|'+ convertFngLevel(value) + '}';
           },
           fontSize: 45,
           rich: {
