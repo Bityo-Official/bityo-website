@@ -9,7 +9,7 @@ const BasicAreaChart = (props: BasicAreaChartProps) => {
   return (
     <ReactECharts
       option={props.option}
-      style={{ height: '460px', width: '100%' }}
+      className='w-full'
       theme={theme}
       onEvents={props.onEvents} 
     />

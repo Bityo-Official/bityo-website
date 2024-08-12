@@ -8,8 +8,7 @@ const GaugeSimple = (props: GaugeSimpleProps) => {
   return (
     <ReactECharts
       option={props.option}
-      className='w-full lg:w-[50%]'
-      style={{ height: '460px' }}
+      className='w-full'
       theme={theme}
     />
   )

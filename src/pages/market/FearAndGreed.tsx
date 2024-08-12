@@ -4,8 +4,9 @@ import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import GaugeSimple from "@/components/Chart/GaugeSimple";
 import BasicAreaChart from "@/components/Chart/BasicAreaChart";
-import { FearAndGreedProps } from "@/types/Chart/GaugeSimple";
+import { BitcoinHistoryPriceProps, FearAndGreedProps, MergedDataItem } from "@/types/Chart/GaugeSimple";
 
+// 轉換恐懼與貪婪指數等級
 const convertFngLevel = (value: number): string => {
   switch (true) {
     case value >= 0 && value < 20:
@@ -23,51 +24,90 @@ const convertFngLevel = (value: number): string => {
   }
 }
 
+// 計算恐懼與貪婪指數等級天數
+const calculateDays = (mergedData: MergedDataItem[], min: number, max: number): number => {
+  return mergedData.map(
+    item => item.fngValue >= min && item.fngValue < max ? 1 : 0
+  ).reduce((acc: number, cur: number) => acc + cur, 0);
+}
+
 const FearAndGreed = () => {
   const [value, setValue] = useState(0);
   const [fngLevel, setFngLevel] = useState('');
-  const [fngData, setFngData] = useState<FearAndGreedProps[]>([]);
+  const [mergedData, setMergedData] = useState<MergedDataItem[]>([]);
 
+  // 取得恐懼與貪婪指數與比特幣價格
   useEffect(() => {
-    const fetchFearAndGreedIndex = async () => {
+    const fetchAndMergeData = async () => {
       try {
-        const response = await axios.get('https://api.alternative.me/fng/?limit=365&date_format=cn');
-        const data = response.data.data;
-        setFngData(data);
+        const [fngResponse, btcResponse] = await Promise.all([
+          axios.get('https://api.alternative.me/fng/?limit=365&date_format=cn'),
+          axios.get('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=365')
+        ]);
+
+        const fngData: FearAndGreedProps[] = fngResponse.data.data;
+        const bitcoinHistoryPrice: BitcoinHistoryPriceProps[] = btcResponse.data.Data.Data;
+
+        const fngMap = new Map();
+        fngData.forEach(item => {
+          const date = new Date(item.timestamp).toLocaleDateString();
+          fngMap.set(date, item.value);
+        });
+
+        const mergedData: MergedDataItem[] = bitcoinHistoryPrice.map(item => {
+          const date = new Date(Number(item.time) * 1000).toLocaleDateString();
+          if (fngMap.has(date)) {
+            return {
+              date,
+              fngValue: fngMap.get(date),
+              open: item.open,
+              close: item.close,
+              low: item.low,
+              high: item.high,
+            };
+          }
+          return null;
+        }).filter(item => item !== null) as MergedDataItem[];
+
+        setMergedData(mergedData);
       } catch (error) {
-        console.error('Error fetching Fear and Greed Index:', error);
-        setValue(0);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchFearAndGreedIndex();
+    fetchAndMergeData();
   }, []);
 
+  // 更新最新貪婪程度
   useEffect(() => {
-    if (fngData && fngData.length > 0) {
-      const latestData = fngData[0].value;
+    if (mergedData && mergedData.length > 0) {
+      const latestData = mergedData[mergedData.length - 1].fngValue;
       setValue(latestData);
     }
-  }, [fngData]);
+  }, [mergedData]);
 
+  // 更新貪婪程度
   useEffect(() => {
     setFngLevel(convertFngLevel(value));
   }, [value]);
 
+  // 圖表滑鼠懸停事件
   const handleChartHover = (params: any) => {
     if (params && params[0]) {
       setValue(params[0].value[1]);
     }
   }
 
+  // 圖表滑鼠離開事件
   const handleChartMouseOut = useCallback(() => {
-    setValue(fngData[0].value);
-  }, [fngData]);
+    setValue(mergedData[mergedData.length - 1].fngValue);
+  }, [mergedData]);
 
+  // 貪婪圖表選項
   const areaChartOption = {
     backgroundColor: 'transparent',
     title: {
-      text: '恐懼與貪婪指數',
+      text: '恐懼與貪婪指數與比特幣價格走勢圖',
     },
     tooltip: {
       trigger: 'axis',
@@ -76,17 +116,28 @@ const FearAndGreed = () => {
       },
       formatter: function (params: any) {
         handleChartHover(params);
+        const date = params[0].data[0];
+        const fngValue = params[0].data[1] ?? 'N/A';
+        const open = params[1].data[1] ?? 'N/A';
+        const close = params[1].data[2] ?? 'N/A';
+        const low = params[1].data[3] ?? 'N/A';
+        const high = params[1].data[4] ?? 'N/A';
+
         return `
-          ${new Date(params[0].axisValue).toLocaleDateString()} <br/>
-          恐懼貪婪指數: ${params[0].data[1]} <br />
-          程度: ${convertFngLevel(params[0].data[1])} <br />
+          ${date} <br/>
+          恐懼貪婪指數: ${fngValue} <br />
+          程度: ${convertFngLevel(fngValue)} <br />
+          開盤價: $${open} <br />
+          收盤價: $${close} <br />
+          最低價: $${low} <br />
+          最高價: $${high} <br />
         `;
       }
     },
     toolbox: {
       feature: {
         saveAsImage: {
-          name: '恐懼與貪婪指數'
+          name: '恐懼與貪婪指數與比特幣價格走勢圖'
         }
       }
     },
@@ -98,7 +149,6 @@ const FearAndGreed = () => {
     },
     xAxis: {
       type: 'time',
-      data: fngData.reverse().map(item => new Date(item.timestamp).toLocaleDateString()),
       axisLabel: {
         rotate: 45,
       },
@@ -106,14 +156,36 @@ const FearAndGreed = () => {
         show: false
       }
     },
-    yAxis: {
-      type: 'value',
-      boundaryGap: [0, '100%'],
-      splitLine: {
-        show: false
+    yAxis: [
+      {
+        type: 'value',
+        boundaryGap: [0, '100%'],
+        splitLine: {
+          show: false
+        },
+        max: 100,
+        name: '恐懼貪婪指數',
       },
-      max: 100
-    },
+      {
+        type: 'value',
+        splitLine: {
+          show: false
+        },
+        name: '比特幣價格',
+        position: 'right',
+        axisLabel: {
+          formatter: function (value: number) {
+            return value / 1000 + 'K'; // 使用 K 為單位顯示
+          }
+        },
+        min: function (value: { min: number; max: number }) {
+          return Math.floor(value.min / 10000) * 10000; // 將最小值設置為最接近的 10,000
+        },
+        max: function (value: { min: number; max: number }) {
+          return Math.ceil(value.max / 10000) * 10000; // 將最大值設置為最接近的 10,000
+        }
+      }
+    ],
     visualMap: {
       show: false,
       type: 'piecewise',
@@ -138,16 +210,43 @@ const FearAndGreed = () => {
         emphasis: {
           focus: 'series'
         },
-        data: fngData.reverse().map(item => [new Date(item.timestamp).toLocaleDateString(), item.value])
+        data: mergedData.map(item => [item.date, item.fngValue])
+      },
+      {
+        name: '比特幣價格',
+        type: 'candlestick', // 使用K線圖
+        yAxisIndex: 1,
+        data: mergedData.map(item => [
+          item.date,
+          item.open, // 開盤價
+          item.close, // 收盤價
+          item.low, // 最低價
+          item.high // 最高價
+        ]),
+        itemStyle: {
+          color: 'rgba(0, 0, 255, 1)',  // 陽線顏色
+          color0: 'rgba(255, 0, 0, 1)', // 陰線顏色
+          borderColor: 'rgba(0, 0, 255, 1)',  // 陽線邊框顏色
+          borderColor0: 'rgba(255, 0, 0, 1)' // 陰線邊框顏色
+        },
+        zlevel: 1
       }
     ]
   };
 
+  // 恐懼與貪婪指數儀表板選項
   const gaugeOption = {
     backgroundColor: 'transparent',
     color: ['transparent'],
     tooltip: {
       formatter: `{a} <br/>{b}&emsp;{c}%<br />程度：${fngLevel}`,
+    },
+    toolbox: {
+      feature: {
+        saveAsImage: {
+          name: '恐懼與貪婪指數與比特幣價格走勢圖'
+        }
+      }
     },
     series: [
       {
@@ -237,6 +336,7 @@ const FearAndGreed = () => {
     ]
   };
 
+  // 圖表事件
   const onEvents = {
     'globalout': handleChartMouseOut,
   };
@@ -254,14 +354,75 @@ const FearAndGreed = () => {
         <meta name="twitter:description" content={SEO.FNG.description} />
         <meta name="twitter:image" content={SEO.FNG.image} />
       </Head>
-      <div className="mx-5 my-2 flex flex-col lg:flex-row items-center">
-        <GaugeSimple
-          option={gaugeOption}
-        />
-        <BasicAreaChart
-          option={areaChartOption}
-          onEvents={onEvents}
-        />
+      <div className="m-5 p-5 rounded-2xl bg-neutral-200 dark:bg-neutral-800/50">
+        <div className="grid grid-cols-2 justify-items-center">
+          <div className="w-full">
+            <GaugeSimple
+              option={gaugeOption}
+            />
+          </div>
+          <div className="w-full items-center">
+            <p className="text-xl">恐懼與貪婪指數</p>
+            <table className="w-full border-collapse table-fixed">
+              <tbody>
+                <tr>
+                  <td className="text-neutral-900 dark:text-neutral-300">極度恐懼</td>
+                  {/* 統計 */}
+                  <td>
+                    {calculateDays(mergedData, 0, 20)} 天
+                    ({(calculateDays(mergedData, 0, 20) / 365 * 100).toFixed(2)}%)
+                  </td>
+                </tr>
+                <tr>
+                  <td className="text-neutral-900 dark:text-neutral-300">恐懼</td>
+                  <td>
+                    {calculateDays(mergedData, 20, 40)} 天
+                    ({(calculateDays(mergedData, 20, 40) / 365 * 100).toFixed(2)}%)
+                  </td>
+                </tr>
+                <tr>
+                  <td className="text-neutral-900 dark:text-neutral-300">中性</td>
+                  <td>
+                    {calculateDays(mergedData, 40, 60)} 天
+                    ({(calculateDays(mergedData, 40, 60) / 365 * 100).toFixed(2)}%)
+                  </td>
+                </tr>
+                <tr>
+                  <td className="text-neutral-900 dark:text-neutral-300">貪婪</td>
+                  <td>
+                    {calculateDays(mergedData, 60, 80)} 天
+                    ({(calculateDays(mergedData, 60, 80) / 365 * 100).toFixed(2)}%)
+                  </td>
+                </tr>
+                <tr>
+                  <td className="text-neutral-900 dark:text-neutral-300">極度貪婪</td>
+                  <td>
+                    {calculateDays(mergedData, 80, 100)} 天
+                    ({(calculateDays(mergedData, 80, 100) / 365 * 100).toFixed(2)}%)
+                  </td>
+                </tr>
+                <tr>
+                  <td className="text-neutral-900 dark:text-neutral-300">平均</td>
+                  <td>
+                    {(mergedData.map(item => parseInt(item.fngValue.toString())).reduce((acc, cur) => acc + cur, 0) / mergedData.length).toFixed(2)}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="text-neutral-900 dark:text-neutral-300">近 365 天</td>
+                  <td>
+                    {convertFngLevel(mergedData.map(item => parseInt(item.fngValue.toString())).reduce((acc, cur) => acc + cur, 0) / mergedData.length)}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="mx-5 my-2 flex flex-col lg:flex-row items-center">
+          <BasicAreaChart
+            option={areaChartOption}
+            onEvents={onEvents}
+          />
+        </div>
       </div>
     </>
   );
