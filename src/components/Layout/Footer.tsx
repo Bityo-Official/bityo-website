@@ -62,7 +62,7 @@ const Footer = () => {
                             <li key={index}>
                               <Link
                                 href={item.link}
-                                className={`mb-4 inline-block text-base  duration-300 hover:text-web-green dark:hover:text-web-green ${item.disabled ? 'pointer-events-none text-[#53596c]' : 'text-body dark:text-body-dark'}`}
+                                className={`mb-4 inline-block text-base duration-300 hover:text-web-green dark:hover:text-web-green ${item.disabled ? 'pointer-events-none text-neutral-500 dark:text-neutral-900' : 'text-neutral-800 dark:text-neutral-600'}`}
                               >
                                 {item.title}
                               </Link>

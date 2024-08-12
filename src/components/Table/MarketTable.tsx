@@ -177,7 +177,7 @@ const MarketTable = (props: TableProps) => {
 
   return (
     <Card
-      className={`h-full w-full ${props.className} dark:bg-txt-dark`}
+      className={`h-full w-full ${props.className} bg-neutral-200 dark:bg-txt-dark`}
       nonce={undefined}
       onResize={undefined}
       onResizeCapture={undefined}
@@ -188,7 +188,7 @@ const MarketTable = (props: TableProps) => {
       <CardHeader
         floated={false}
         shadow={false}
-        className="rounded-none dark:bg-txt-dark"
+        className="rounded-none bg-neutral-200 dark:bg-txt-dark"
         nonce={undefined}
         onResize={undefined}
         onResizeCapture={undefined}
@@ -196,7 +196,7 @@ const MarketTable = (props: TableProps) => {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <div className="mb-8 flex items-center justify-between gap-8">
+        <div className="mb-2 flex items-center justify-between gap-8">
           <div>
             <Typography
               variant="h3"
@@ -237,7 +237,7 @@ const MarketTable = (props: TableProps) => {
               className="border-[1px] border-neutral-300 dark:border-neutral-700"
               indicatorProps={{
                 className:
-                  "border-b-2 bg-neutral-200 rounded-md shadow-sm",
+                  "border-b-2 bg-neutral-300 dark:bg-neutral-200 rounded-md shadow-sm",
               }}
 
             >
@@ -289,7 +289,7 @@ const MarketTable = (props: TableProps) => {
 
       {/* 表格內容 */}
       <CardBody
-        className="overflow-scroll px-0"
+        className=" px-0"
         nonce={undefined}
         onResize={undefined}
         onResizeCapture={undefined}
@@ -297,7 +297,7 @@ const MarketTable = (props: TableProps) => {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <table className="mt-4 w-full min-w-max table-auto text-left">
+        <table className="w-full min-w-max table-auto text-left">
 
           {/* 表格的標題 */}
           <thead>

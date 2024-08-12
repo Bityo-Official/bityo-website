@@ -53,7 +53,7 @@ const Markets = ({ coinInfo }: MarketsProps) => {
 
     const interval = setInterval(() => {
       setCryptos([...tempData.current]);
-    }, 2000);
+    }, 100);
 
     return () => {
       ws.close();
