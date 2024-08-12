@@ -25,7 +25,6 @@ const convertFngLevel = (value: number): string => {
 
 const FearAndGreed = () => {
   const [value, setValue] = useState(0);
-  const [latestValue, setLatestValue] = useState(0);  // 新增最新的值
   const [fngLevel, setFngLevel] = useState('');
   const [fngData, setFngData] = useState<FearAndGreedProps[]>([]);
 
@@ -33,7 +32,7 @@ const FearAndGreed = () => {
     const fetchFearAndGreedIndex = async () => {
       try {
         const response = await axios.get('https://api.alternative.me/fng/?limit=365&date_format=cn');
-        const data = response.data.data // Reverse data once on fetch
+        const data = response.data.data;
         setFngData(data);
       } catch (error) {
         console.error('Error fetching Fear and Greed Index:', error);
@@ -48,7 +47,6 @@ const FearAndGreed = () => {
     if (fngData && fngData.length > 0) {
       const latestData = fngData[0].value;
       setValue(latestData);
-      setLatestValue(latestData);
     }
   }, [fngData]);
 
@@ -56,15 +54,15 @@ const FearAndGreed = () => {
     setFngLevel(convertFngLevel(value));
   }, [value]);
 
-  const handleChartHover = useCallback((params: any) => {
+  const handleChartHover = (params: any) => {
     if (params && params[0]) {
       setValue(params[0].value[1]);
     }
-  }, []);
+  }
 
-  // const handleChartMouseOut = useCallback(() => {
-  //   setValue(latestValue);
-  // }, [latestValue]);
+  const handleChartMouseOut = useCallback(() => {
+    setValue(fngData[0].value);
+  }, [fngData]);
 
   const areaChartOption = {
     backgroundColor: 'transparent',
@@ -114,7 +112,7 @@ const FearAndGreed = () => {
       splitLine: {
         show: false
       },
-      max: (value: { max: number, min: number }) => Math.max(100, value.max)
+      max: 100
     },
     visualMap: {
       show: false,
@@ -164,7 +162,7 @@ const FearAndGreed = () => {
         detail: {
           valueAnimation: true,
           formatter: function (value: number) {
-            return '{value|' + value.toFixed(0) + '}{unit|'+ convertFngLevel(value) + '}';
+            return '{value|' + value.toFixed(0) + '}{unit|' + convertFngLevel(value) + '}';
           },
           fontSize: 45,
           rich: {
@@ -239,9 +237,9 @@ const FearAndGreed = () => {
     ]
   };
 
-  // const onEvents = {
-  //   onmouseout: handleChartMouseOut,
-  // };
+  const onEvents = {
+    'globalout': handleChartMouseOut,
+  };
 
   return (
     <>
@@ -262,7 +260,7 @@ const FearAndGreed = () => {
         />
         <BasicAreaChart
           option={areaChartOption}
-        // onEvents={onEvents}
+          onEvents={onEvents}
         />
       </div>
     </>
