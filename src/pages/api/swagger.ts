@@ -14,13 +14,11 @@ const swaggerHandler = (req: NextApiRequest, res: NextApiResponse) => {
         version: '1.0.0',
       },
     },
-    apis: [apiPath],
+    apiFolder: "pages/api",
+    // apis: [apiPath],
   });
   res.status(200).json(
-    {
-      spec,
-      paths: apiPath,
-    }
+      spec
   );
 };
 
