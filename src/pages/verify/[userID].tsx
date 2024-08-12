@@ -11,7 +11,7 @@ const UserVerification = () => {
       <Head>
         <title> 官方驗證｜Bityo</title>
       </Head>
-          <p>{ userID }</p>
+      <p>{userID}</p>
     </>
   )
 };
