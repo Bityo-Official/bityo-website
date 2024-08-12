@@ -20,7 +20,7 @@ const AreaChartSection = (
   // 圖表滑鼠離開事件
   const handleChartMouseOut = useCallback(() => {
     props.setValue(props.mergedData[props.mergedData.length - 1].fngValue);
-  }, [props.mergedData]);
+  }, [props, props.mergedData]);
 
   // 貪婪圖表選項
   const areaChartOption = {

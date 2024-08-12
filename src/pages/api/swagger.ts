@@ -3,6 +3,9 @@ import { createSwaggerSpec } from 'next-swagger-doc';
 import path from 'path';
 
 const swaggerHandler = (req: NextApiRequest, res: NextApiResponse) => {
+  const apiPath = path.resolve(process.cwd(), 'src/pages/api/**/*.ts');
+  console.log("Resolved API path:", apiPath); // 记录路径，便于在Vercel日志中查看
+
   const spec = createSwaggerSpec({
     definition: {
       openapi: '3.0.0',
@@ -11,9 +14,14 @@ const swaggerHandler = (req: NextApiRequest, res: NextApiResponse) => {
         version: '1.0.0',
       },
     },
-    apis: [path.resolve(process.cwd(), 'src/pages/api/**/*.ts')],
+    apis: [apiPath],
   });
-  res.status(200).json(spec);
+  res.status(200).json(
+    {
+      spec,
+      paths: apiPath,
+    }
+  );
 };
 
 export default swaggerHandler;
