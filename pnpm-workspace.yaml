@@ -1,0 +1,15 @@
+# 允許執行安裝腳本的套件（pnpm 10+ 預設封鎖所有 postinstall）
+allowBuilds:
+  # 需要建置 / 挑選平台原生二進位檔
+  sharp: true            # next/image 影像處理
+  protobufjs: true       # firebase-admin -> google-gax
+  unrs-resolver: true    # eslint-import-resolver-typescript 的原生解析器
+
+  # 純遙測或宣傳訊息，不影響功能
+  '@scarf/scarf': false  # swagger-ui-react / swagger-client 遙測
+  core-js-pure: false    # 只有捐款訊息的 postinstall
+
+  # swagger-ui-react 的 optional 原生解析器，有 web-tree-sitter (WASM) 備援
+  tree-sitter: false
+  tree-sitter-json: false
+  '@tree-sitter-grammars/tree-sitter-yaml': false
