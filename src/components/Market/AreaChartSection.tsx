@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import BasicAreaChart from "../Chart/BasicAreaChart";
 import { MergedDataItem } from "@/types/Chart/GaugeSimple";
 
@@ -12,11 +12,11 @@ const AreaChartSection = (
   const { mergedData, setValue, convertFngLevel } = props;
 
   // 圖表滑鼠懸停事件
-  const handleChartHover = (params: any) => {
+  const handleChartHover = useCallback((params: any) => {
     if (params && params[0]) {
       setValue(params[0].value[1]);
     }
-  }
+  }, [setValue]);
 
   // 圖表滑鼠離開事件
   const handleChartMouseOut = useCallback(() => {
@@ -25,7 +25,10 @@ const AreaChartSection = (
   }, [mergedData, setValue]);
 
   // 貪婪圖表選項
-  const areaChartOption = {
+  // 用 useMemo 固定 option 物件。
+  // 滑過圖表會透過 setValue 更新父層 state，導致本元件重繪；
+  // 若每次都產生新的 option，BasicAreaChart 的 memo 就會失效，整張圖表重畫。
+  const areaChartOption = useMemo(() => ({
     backgroundColor: 'transparent',
     title: {
       text: '恐懼與貪婪指數與比特幣價格走勢圖',
@@ -153,12 +156,12 @@ const AreaChartSection = (
         zlevel: 1
       }
     ]
-  };
+  }), [mergedData, convertFngLevel, handleChartHover]);
 
   // 圖表事件
-  const onEvents = {
+  const onEvents = useMemo(() => ({
     'globalout': handleChartMouseOut,
-  };
+  }), [handleChartMouseOut]);
 
   return (
     <BasicAreaChart

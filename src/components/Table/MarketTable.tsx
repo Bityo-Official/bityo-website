@@ -13,7 +13,7 @@ import { useMemo, useState } from "react";
 import Chip from "@/components/Chip/Chip";
 import Image from "next/image";
 import BityoIcon from "@/images/icon/bityo_bg2.png";
-import { CryptoProps } from "@/types/Market/Merket";
+import { CryptoProps } from "@/types/Market/Market";
 import toast from "react-hot-toast";
 
 
@@ -325,7 +325,8 @@ const MarketTable = (props: TableProps) => {
           <tbody>
             {currentItems.map(
               (item, index) => {
-                const isLast = index === props.rows.length - 1;
+                // 這裡走訪的是當前分頁（currentItems），不能拿全部資料的長度來比
+                const isLast = index === currentItems.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50 dark:border-blue-gray-800";
