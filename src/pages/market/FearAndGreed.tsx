@@ -1,63 +1,46 @@
 import Head from "next/head";
 import SEO from "@/config/SEO.json";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { BitcoinHistoryPriceProps, FearAndGreedProps, MergedDataItem } from "@/types/Chart/GaugeSimple";
+import { MergedDataItem } from "@/types/Chart/GaugeSimple";
 import GaugeSection from "@/components/Market/GaugeSection";
 import AreaChartSection from "@/components/Market/AreaChartSection";
+import SkeletionTable from "@/components/Skeletion/SkeletionTable";
 import { calculateDays, convertFngLevel } from "@/util/Market/FNG";
 
 const FearAndGreed = () => {
   // value 除了資料載入時的初始值外，也會被圖表 hover 事件改寫，所以必須是 state
   const [value, setValue] = useState(0);
   const [mergedData, setMergedData] = useState<MergedDataItem[]>([]);
+  const [loadFailed, setLoadFailed] = useState(false);
 
   // 純粹由 value 推導，不需要額外的 state + effect
   const fngLevel = convertFngLevel(value);
 
-  // 取得恐懼與貪婪指數與比特幣價格
+  // 取得恐懼與貪婪指數與比特幣價格。
+  // 資料合併改在 /api/getFearAndGreed 的伺服器端做：
+  // 原本前端直接打的 cryptocompare 現在需要 API key（回 401），整頁因此空白。
   useEffect(() => {
-    const fetchAndMergeData = async () => {
+    let cancelled = false;
+
+    (async () => {
       try {
-        const [fngResponse, btcResponse] = await Promise.all([
-          axios.get('https://api.alternative.me/fng/?limit=365&date_format=cn'),
-          axios.get('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=365')
-        ]);
+        const res = await fetch('/api/getFearAndGreed');
+        if (!res.ok) throw new Error(`API responded ${res.status}`);
 
-        const fngData: FearAndGreedProps[] = fngResponse.data.data;
-        const bitcoinHistoryPrice: BitcoinHistoryPriceProps[] = btcResponse.data.Data.Data;
+        const data: MergedDataItem[] = await res.json();
+        if (cancelled) return;
 
-        const fngMap = new Map();
-        fngData.forEach(item => {
-          const date = new Date(item.timestamp).toLocaleDateString();
-          fngMap.set(date, item.value);
-        });
-
-        const mergedData: MergedDataItem[] = bitcoinHistoryPrice.map(item => {
-          const date = new Date(Number(item.time) * 1000).toLocaleDateString();
-          if (fngMap.has(date)) {
-            return {
-              date,
-              fngValue: fngMap.get(date),
-              open: item.open,
-              close: item.close,
-              low: item.low,
-              high: item.high,
-            };
-          }
-          return null;
-        }).filter(item => item !== null) as MergedDataItem[];
-
-        setMergedData(mergedData);
-        if (mergedData.length > 0) {
-          setValue(mergedData[mergedData.length - 1].fngValue);
+        setMergedData(data);
+        if (data.length > 0) {
+          setValue(data[data.length - 1].fngValue);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching fear and greed data:', error);
+        if (!cancelled) setLoadFailed(true);
       }
-    };
+    })();
 
-    fetchAndMergeData();
+    return () => { cancelled = true; };
   }, []);
 
   return (
@@ -73,6 +56,18 @@ const FearAndGreed = () => {
         <meta name="twitter:description" content={SEO.FNG.description} />
         <meta name="twitter:image" content={SEO.FNG.image} />
       </Head>
+      {loadFailed ? (
+        <div className="m-5 rounded-2xl bg-neutral-200 p-8 text-center dark:bg-neutral-800/50">
+          <p className="text-lg font-medium">目前無法取得恐懼與貪婪指數資料</p>
+          <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+            請稍後再試，或重新整理頁面。
+          </p>
+        </div>
+      ) : mergedData.length === 0 ? (
+        <div className="m-5 rounded-2xl bg-neutral-200 p-5 dark:bg-neutral-800/50">
+          <SkeletionTable />
+        </div>
+      ) : (
       <div className="m-5 p-5 rounded-2xl bg-neutral-200 dark:bg-neutral-800/50">
         <div className="grid grid-cols-2 justify-items-center">
           <div className="w-full">
@@ -146,6 +141,7 @@ const FearAndGreed = () => {
           />
         </div>
       </div>
+      )}
     </>
   );
 };

@@ -20,6 +20,7 @@ const AreaChartSection = (
 
   // 圖表滑鼠離開事件
   const handleChartMouseOut = useCallback(() => {
+    if (mergedData.length === 0) return;
     setValue(mergedData[mergedData.length - 1].fngValue);
   }, [mergedData, setValue]);
 
