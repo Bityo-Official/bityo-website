@@ -207,11 +207,31 @@ export default function Particles({
       animate();
       frame = window.requestAnimationFrame(loop);
     };
-    frame = window.requestAnimationFrame(loop);
+    const start = () => {
+      if (!frame) frame = window.requestAnimationFrame(loop);
+    };
+    const stop = () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+      }
+    };
+
+    // 分頁切到背景時停掉動畫，不然會一直空轉吃 CPU
+    const onVisibilityChange = () => (document.hidden ? stop() : start());
+
+    // 使用者若偏好減少動態效果，就只畫一次靜態畫面
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!prefersReducedMotion) {
+      start();
+      document.addEventListener("visibilitychange", onVisibilityChange);
+    }
 
     return () => {
       window.removeEventListener("resize", initCanvas);
-      window.cancelAnimationFrame(frame);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      stop();
     };
   }, [initCanvas, animate]);
 
