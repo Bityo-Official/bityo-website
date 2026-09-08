@@ -1,6 +1,6 @@
-import withMT from '@material-tailwind/react/utils/withMT'
+import type { Config } from 'tailwindcss'
 
-const config = withMT({
+const config: Config = {
   darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -27,6 +27,20 @@ const config = withMT({
         'h6': ['1.75rem', '2.625rem'],
       },
       colors: {
+        // 原本由 @material-tailwind 的 withMT() 提供，移除該套件後在此自行定義
+        // （值為 Material Design 的 Blue Grey 色階）
+        'blue-gray': {
+          50: '#eceff1',
+          100: '#cfd8dc',
+          200: '#b0bec5',
+          300: '#90a4ae',
+          400: '#78909c',
+          500: '#607d8b',
+          600: '#546e7a',
+          700: '#455a64',
+          800: '#37474f',
+          900: '#263238',
+        },
         "web-green": "#4ECE80",
         "bityo": "#17FFAD",
         "body": "#788293",
@@ -81,6 +95,6 @@ const config = withMT({
   },
   plugins: [
   ],
-})
+}
 
 export default config;

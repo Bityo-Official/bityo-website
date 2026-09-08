@@ -7,6 +7,7 @@ const TailwindToaster = () => {
     <Toaster position="top-right">
       {(t) => (
         <Transition
+          as="div"
           appear
           show={t.visible}
           className="transform p-4 flex bg-white dark:bg-[#333] rounded shadow-xl"

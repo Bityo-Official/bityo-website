@@ -1,5 +1,5 @@
 import { DescriptionProps, FooterProps, IntroCardProps } from "@/types/Card/IntroCard";
-import { Tooltip } from "@material-tailwind/react";
+import Tooltip from "@/components/ui/Tooltip";
 import Image from "next/image";
 
 const IntroCard = (props: IntroCardProps) => {

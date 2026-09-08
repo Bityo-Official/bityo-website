@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { useState } from 'react';
 import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/solid';
-import { IconButton } from '@material-tailwind/react';
+import { IconButton } from '@/components/ui/Button';
 import { SidebarListItemProps } from '@/types/Sidebar/Sidebar';
 
 import {
@@ -118,12 +118,6 @@ const Navbar = () => {
                   variant="text"
                   size="lg"
                   onClick={() => setIsDrawerOpen(true)}
-                  nonce={undefined}
-                  onResize={undefined}
-                  onResizeCapture={undefined}
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
                 >
                   <Bars3Icon className="h-8 w-8 stroke-2 dark:invert" />
                 </IconButton>

@@ -1,5 +1,7 @@
 import Head from 'next/head';
-import { Tooltip, Avatar, Typography, dialog } from "@material-tailwind/react";
+import Tooltip from "@/components/ui/Tooltip";
+import Avatar from "@/components/ui/Avatar";
+import Typography from "@/components/ui/Typography";
 import Input from "@/components/Input/Input";
 import { faCircleCheck, faCircleXmark, faMagnifyingGlass, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import AuthList from "@/config/AuthList.json";
@@ -77,14 +79,8 @@ const UserVerification = () => {
           src="/icon/bityo_bg2.png"
           alt="avatar"
           size="xxl"
-          nonce={undefined}
-          onResize={undefined}
-          onResizeCapture={undefined}
           withBorder={true}
           className="p-1 border-bityo"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
         />
         <p className="mt-4 text-3xl tracking-tighter sm:tracking-widest">幣友 BITYO｜官方驗證渠道</p>
 
@@ -101,18 +97,8 @@ const UserVerification = () => {
             variant="small"
             color="gray"
             className="mt-2 flex items-center gap-1 font-normal dark:text-body"
-            nonce={undefined}
-            onResize={undefined}
-            onResizeCapture={undefined}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           >
             <Tooltip
-              animate={{
-                mount: { scale: 1, y: 0 },
-                unmount: { scale: 0, y: 25 },
-              }}
               placement="bottom-start"
               className="dark:bg-[rgba(50,53,64,0.92)] border-2 border-web-green"
               content={
@@ -120,12 +106,6 @@ const UserVerification = () => {
                   <Typography
                     color="white"
                     className="font-medium flex gap-1"
-                    nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
                   >
                     <FontAwesomeIcon icon={faTriangleExclamation} className='w-5' />
                     請檢查您輸入的內容
@@ -134,12 +114,6 @@ const UserVerification = () => {
                     variant="small"
                     color="white"
                     className="font-normal opacity-80"
-                    nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
                   >
                     <ul className="list-disc pl-5">
                       <li>IG：前面必須加入「@」</li>

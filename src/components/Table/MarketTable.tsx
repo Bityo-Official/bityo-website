@@ -1,20 +1,13 @@
 import { TableProps } from "@/types/Table/MarketTable";
 import { MagnifyingGlassIcon, HeartIcon as HeartIconOutLine } from "@heroicons/react/24/outline";
 import { ArrowUpIcon, ArrowDownIcon, HeartIcon } from "@heroicons/react/24/solid";
-import {
-  Card,
-  CardHeader,
-  Input,
-  Typography,
-  Button,
-  CardBody,
-  CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Avatar,
-  Tooltip,
-} from "@material-tailwind/react";
+import { Card, CardHeader, CardBody, CardFooter } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import Typography from "@/components/ui/Typography";
+import Tooltip from "@/components/ui/Tooltip";
+import Avatar from "@/components/ui/Avatar";
+import Tabs from "@/components/ui/Tabs";
+import SearchInput from "@/components/ui/SearchInput";
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from "react";
 import Chip from "@/components/Chip/Chip";
@@ -45,12 +38,6 @@ const TableText = (props: { className: string, children: React.ReactNode, onClic
         <Typography
           variant="small"
           className="font-normal text-gray-800 dark:text-gray-100"
-          nonce={undefined}
-          onResize={undefined}
-          onResizeCapture={undefined}
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
         >
           {props.children}
         </Typography>
@@ -154,12 +141,6 @@ const MarketTable = (props: TableProps) => {
           <Typography
             variant="small"
             className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
-            nonce={undefined}
-            onResize={undefined}
-            onResizeCapture={undefined}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           >
             {props.text}
           </Typography>
@@ -178,46 +159,23 @@ const MarketTable = (props: TableProps) => {
   return (
     <Card
       className={`h-full w-full ${props.className} bg-neutral-200 dark:bg-txt-dark`}
-      nonce={undefined}
-      onResize={undefined}
-      onResizeCapture={undefined}
-      placeholder={undefined}
-      onPointerEnterCapture={undefined}
-      onPointerLeaveCapture={undefined}
     >
       <CardHeader
         floated={false}
         shadow={false}
         className="rounded-none bg-neutral-200 dark:bg-txt-dark"
-        nonce={undefined}
-        onResize={undefined}
-        onResizeCapture={undefined}
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
       >
         <div className="mb-2 flex items-center justify-between gap-8">
           <div>
             <Typography
               variant="h3"
               className="text-black dark:text-white"
-              nonce={undefined}
-              onResize={undefined}
-              onResizeCapture={undefined}
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             >
               加密貨幣市場
             </Typography>
             <Typography
               color="gray"
               className="mt-1 font-normal dark:text-gray-500"
-              nonce={undefined} onResize={undefined}
-              onResizeCapture={undefined}
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
             >
               查看最近火熱的加密貨幣市場
             </Typography>
@@ -226,62 +184,28 @@ const MarketTable = (props: TableProps) => {
 
         {/* 交易所選擇 */}
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <Tabs value="pionex" className="w-full md:w-max">
-            <TabsHeader
-              nonce={undefined}
-              onResize={undefined}
-              onResizeCapture={undefined}
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              className="border-[1px] border-neutral-300 dark:border-neutral-700"
-              indicatorProps={{
-                className:
-                  "border-b-2 bg-neutral-300 dark:bg-neutral-200 rounded-md shadow-sm",
-              }}
-
-            >
-              {props.tab.map(({ label, value, disabled }) => (
-                <Tab
-                  disabled={disabled}
-                  key={value}
-                  className=""
-                  onClick={() => {
-                    if (props.selectedTab.value !== value) {
-                      props.setSelectedTab({ label, value, disabled })
-                      toast.success(`切換至 ${label} 交易所成功！`, {
-                        duration: 2000,
-                        position: 'top-center',
-                      })
-                    }
-                  }}
-                  value={value}
-                  nonce={undefined}
-                  onResize={undefined}
-                  onResizeCapture={undefined}
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                </Tab>
-              ))}
-            </TabsHeader>
-          </Tabs>
+          <Tabs
+            className="w-full md:w-max"
+            tabs={props.tab}
+            value={props.selectedTab.value}
+            onChange={(tab) => {
+              if (props.selectedTab.value !== tab.value) {
+                props.setSelectedTab(tab);
+                toast.success(`切換至 ${tab.label} 交易所成功！`, {
+                  duration: 2000,
+                  position: 'top-center',
+                });
+              }
+            }}
+          />
 
           {/* 搜尋對話框 */}
           <div className="w-full md:w-72">
-            <Input
+            <SearchInput
               label="搜尋加密貨幣"
-              color={theme === 'dark' ? 'white' : 'black'}
+              value={cache}
               onChange={(e) => setCache(e.target.value)}
-              icon={<MagnifyingGlassIcon className="h-5 w-5 dark:text-neutral-300" />}
-              nonce={undefined}
-              onResize={undefined}
-              onResizeCapture={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
+              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
             />
           </div>
         </div>
@@ -290,12 +214,6 @@ const MarketTable = (props: TableProps) => {
       {/* 表格內容 */}
       <CardBody
         className=" px-0"
-        nonce={undefined}
-        onResize={undefined}
-        onResizeCapture={undefined}
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
       >
         <table className="w-full min-w-max table-auto text-left">
 
@@ -310,12 +228,7 @@ const MarketTable = (props: TableProps) => {
                 <div className="flex items-center">
                   <Typography
                     variant="small"
-                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined}
-                    onResize={undefined}
-                    onResizeCapture={undefined}
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
+                    className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
                   >
                     自選
                   </Typography>
@@ -337,12 +250,7 @@ const MarketTable = (props: TableProps) => {
                     <div className="flex items-center">
                       <Typography
                         variant="small"
-                        className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100" nonce={undefined}
-                        onResize={undefined}
-                        onResizeCapture={undefined}
-                        placeholder={undefined}
-                        onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}
+                        className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
                       >
                         {row.label}
                       </Typography>
@@ -454,38 +362,38 @@ const MarketTable = (props: TableProps) => {
                         className="bg-[rgba(50,53,64,0.6)] dark:bg-[rgba(50,53,64,0.92)] border-2 border-web-green"
                         placement="right-start"
                         content={
-                          <p className="font-medium">
-                            <table>
+                          <table className="font-medium">
+                            <tbody>
                               <tr>
-                                <td>市值排名</td>
+                                <td className="pr-3">市值排名</td>
                                 <td>{item.market_cap_rank}</td>
                               </tr>
                               <tr>
-                                <td>市值</td>
+                                <td className="pr-3">市值</td>
                                 <td>{parseFloat(item.market_cap.toFixed(3)).toLocaleString()}</td>
                               </tr>
                               <tr>
-                                <td>流通供給量</td>
+                                <td className="pr-3">流通供給量</td>
                                 <td>{parseFloat(item.circulating_supply.toFixed(3)).toLocaleString()}</td>
                               </tr>
                               <tr>
-                                <td>總供給量</td>
+                                <td className="pr-3">總供給量</td>
                                 <td>{parseFloat(item.total_supply.toFixed(3)).toLocaleString()}</td>
                               </tr>
                               <tr>
-                                <td>最大供給量</td>
-                                <td>{parseFloat(item.max_supply?.toFixed(3)).toLocaleString()}</td>
+                                <td className="pr-3">最大供給量</td>
+                                <td>{item.max_supply ? parseFloat(item.max_supply.toFixed(3)).toLocaleString() : '—'}</td>
                               </tr>
                               <tr>
-                                <td>ATH</td>
+                                <td className="pr-3">ATH</td>
                                 <td>{parseFloat(item.ath.toFixed(3)).toLocaleString()}</td>
                               </tr>
                               <tr>
-                                <td>ATH%</td>
-                                {item.ath_change_percentage.toFixed(2)}%
+                                <td className="pr-3">ATH%</td>
+                                <td>{item.ath_change_percentage.toFixed(2)}%</td>
                               </tr>
-                            </table>
-                          </p>
+                            </tbody>
+                          </table>
                         }
                       >
                         <div className="flex items-center gap-3">
@@ -495,13 +403,7 @@ const MarketTable = (props: TableProps) => {
                                 src={item.image}
                                 alt={item.name}
                                 size="sm"
-                                nonce={undefined}
-                                onResize={undefined}
-                                onResizeCapture={undefined}
                                 className="w-9 h-9"
-                                placeholder={undefined}
-                                onPointerEnterCapture={undefined}
-                                onPointerLeaveCapture={undefined}
                               />
                               :
                               <Image
@@ -521,12 +423,6 @@ const MarketTable = (props: TableProps) => {
                             <Typography
                               variant="small"
                               className="font-normal opacity-70 text-gray-800 dark:text-gray-100"
-                              nonce={undefined}
-                              onResize={undefined}
-                              onResizeCapture={undefined}
-                              placeholder={undefined}
-                              onPointerEnterCapture={undefined}
-                              onPointerLeaveCapture={undefined}
                             >
                               {
                                 item.full_name ?
@@ -611,22 +507,10 @@ const MarketTable = (props: TableProps) => {
       </CardBody>
       <CardFooter
         className="flex items-center justify-between border-t border-blue-gray-50 dark:border-blue-gray-900 p-4"
-        nonce={undefined}
-        onResize={undefined}
-        onResizeCapture={undefined}
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
       >
         <Typography
           variant="small"
           className="font-normal text-gray-800 dark:text-gray-100"
-          nonce={undefined}
-          onResize={undefined}
-          onResizeCapture={undefined}
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
         >
           第 {currentPage} 頁，共 {Math.ceil(filteredData.length / itemsPerPage)} 頁。 <br />
           共 {filteredData.length} 個加密貨幣
@@ -635,25 +519,13 @@ const MarketTable = (props: TableProps) => {
           <Button
             className="text-gray-800 dark:text-gray-100 border-gray-400"
             variant="outlined"
-            size="sm"
-            nonce={undefined}
-            onResize={undefined}
-            onResizeCapture={undefined} onClick={prevPage}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
+            size="sm" onClick={prevPage}
           >
             上一頁
           </Button>
           <Button className="text-gray-800 dark:text-gray-100 border-gray-400"
             variant="outlined" size="sm"
-            nonce={undefined}
-            onResize={undefined}
-            onResizeCapture={undefined}
             onClick={nextPage}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           >
             下一頁
           </Button>

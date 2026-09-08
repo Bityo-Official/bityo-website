@@ -1,5 +1,5 @@
 import { FooterProps, HeaderProps, InfomartionProps, ProfileCardProps, SocialProps } from "@/types/Card/ProfileCard";
-import { Tooltip } from "@material-tailwind/react";
+import Tooltip from "@/components/ui/Tooltip";
 import Image from "next/image";
 
 const ProfileCard = (props: ProfileCardProps) => {
