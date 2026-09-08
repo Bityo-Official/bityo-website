@@ -53,6 +53,9 @@ const Tooltip = ({ content, placement = "top", className = "", children }: Toolt
 
   // 合併 children 原有的 ref（React 19 起 ref 就是一般的 prop）
   const childRef = (children.props as { ref?: React.Ref<unknown> }).ref;
+  // Floating UI 的 refs.setReference / setFloating 是 callback ref（函式），不是 ref.current，
+  // 在 render 期間傳給 ref= 正是正確用法；react-hooks/refs 在這裡是誤判。
+  // eslint-disable-next-line react-hooks/refs
   const referenceRef = useMergeRefs([refs.setReference, childRef ?? null]);
 
   if (!isValidElement(children)) return children;
@@ -65,6 +68,7 @@ const Tooltip = ({ content, placement = "top", className = "", children }: Toolt
       {isMounted && (
         <FloatingPortal>
           <div
+            // eslint-disable-next-line react-hooks/refs -- 同上：setFloating 是 callback ref
             ref={refs.setFloating}
             style={floatingStyles}
             {...getFloatingProps()}

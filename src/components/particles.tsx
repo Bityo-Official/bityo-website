@@ -3,6 +3,30 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import { useMousePosition } from "@/util/mouse";
 
+type Circle = {
+  x: number;
+  y: number;
+  translateX: number;
+  translateY: number;
+  size: number;
+  alpha: number;
+  targetAlpha: number;
+  dx: number;
+  dy: number;
+  magnetism: number;
+};
+
+const remapValue = (
+  value: number,
+  start1: number,
+  end1: number,
+  start2: number,
+  end2: number,
+): number => {
+  const remapped = ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
+  return remapped > 0 ? remapped : 0;
+};
+
 interface ParticlesProps {
   className?: string;
   quantity?: number;
@@ -41,6 +65,12 @@ export default function Particles({
     }
   }, [mousePosition]);
   
+  const clearContext = useCallback(() => {
+    if (context.current) {
+      context.current.clearRect(0, 0, canvasSize.current.w, canvasSize.current.h);
+    }
+  }, []);
+
   const resizeCanvas = useCallback(() => {
     if (canvasContainerRef.current && canvasRef.current && context.current) {
       circles.current.length = 0;
@@ -53,19 +83,6 @@ export default function Particles({
       context.current.scale(dpr, dpr);
     }
   }, [dpr]);
-
-  type Circle = {
-    x: number;
-    y: number;
-    translateX: number;
-    translateY: number;
-    size: number;
-    alpha: number;
-    targetAlpha: number;
-    dx: number;
-    dy: number;
-    magnetism: number;
-  };
 
   const drawCircle = useCallback((circle: Circle, update = false) => {
     if (context.current) {
@@ -115,7 +132,7 @@ export default function Particles({
       const circle = circleParams();
       drawCircle(circle);
     }
-  }, [circleParams, drawCircle, quantity]);
+  }, [clearContext, circleParams, drawCircle, quantity]);
 
   const animate = useCallback(() => {
     clearContext();
@@ -170,8 +187,7 @@ export default function Particles({
         );
       }
     });
-    window.requestAnimationFrame(animate);
-  }, [ease, staticity, circleParams, drawCircle]);
+  }, [clearContext, ease, staticity, circleParams, drawCircle]);
 
   const initCanvas = useCallback(() => {
     resizeCanvas();
@@ -183,11 +199,19 @@ export default function Particles({
       context.current = canvasRef.current.getContext("2d");
     }
     initCanvas();
-    animate();
     window.addEventListener("resize", initCanvas);
+
+    // 迴圈改由 effect 驅動，才能在 unmount / 重跑時確實停下來
+    let frame = 0;
+    const loop = () => {
+      animate();
+      frame = window.requestAnimationFrame(loop);
+    };
+    frame = window.requestAnimationFrame(loop);
 
     return () => {
       window.removeEventListener("resize", initCanvas);
+      window.cancelAnimationFrame(frame);
     };
   }, [initCanvas, animate]);
 
@@ -198,29 +222,6 @@ export default function Particles({
   useEffect(() => {
     initCanvas();
   }, [refresh, initCanvas]);
-
-  const remapValue = (
-    value: number,
-    start1: number,
-    end1: number,
-    start2: number,
-    end2: number,
-  ): number => {
-    const remapped =
-      ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
-    return remapped > 0 ? remapped : 0;
-  };
-
-  const clearContext = () => {
-    if (context.current) {
-      context.current.clearRect(
-        0,
-        0,
-        canvasSize.current.w,
-        canvasSize.current.h,
-      );
-    }
-  };
 
   return (
     <div className={className} ref={canvasContainerRef} aria-hidden="true">

@@ -8,9 +8,12 @@ import AreaChartSection from "@/components/Market/AreaChartSection";
 import { calculateDays, convertFngLevel } from "@/util/Market/FNG";
 
 const FearAndGreed = () => {
+  // value 除了資料載入時的初始值外，也會被圖表 hover 事件改寫，所以必須是 state
   const [value, setValue] = useState(0);
-  const [fngLevel, setFngLevel] = useState('');
   const [mergedData, setMergedData] = useState<MergedDataItem[]>([]);
+
+  // 純粹由 value 推導，不需要額外的 state + effect
+  const fngLevel = convertFngLevel(value);
 
   // 取得恐懼與貪婪指數與比特幣價格
   useEffect(() => {
@@ -46,6 +49,9 @@ const FearAndGreed = () => {
         }).filter(item => item !== null) as MergedDataItem[];
 
         setMergedData(mergedData);
+        if (mergedData.length > 0) {
+          setValue(mergedData[mergedData.length - 1].fngValue);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -53,19 +59,6 @@ const FearAndGreed = () => {
 
     fetchAndMergeData();
   }, []);
-
-  // 更新最新貪婪程度
-  useEffect(() => {
-    if (mergedData && mergedData.length > 0) {
-      const latestData = mergedData[mergedData.length - 1].fngValue;
-      setValue(latestData);
-    }
-  }, [mergedData]);
-
-  // 更新貪婪程度
-  useEffect(() => {
-    setFngLevel(convertFngLevel(value));
-  }, [value]);
 
   return (
     <>

@@ -1,18 +1,14 @@
 import { ExtendedInputProps } from "@/types/Input/Input";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useIsMounted } from "@/util/useIsMounted";
 
 const Input = (props: ExtendedInputProps) => {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
+  const mounted = useIsMounted();
   const [error, setError] = useState<boolean | null>(null);
   const [content, setContent] = useState<string>('');
-
-  // 掛載後設定 mounted 為 true
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // 如果按下 Enter 鍵，則執行 handleClick 函式
   const handleClick = () => {

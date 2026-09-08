@@ -9,18 +9,19 @@ const AreaChartSection = (
     convertFngLevel: (value: number) => string;
   }
 ) => {
+  const { mergedData, setValue, convertFngLevel } = props;
 
   // 圖表滑鼠懸停事件
   const handleChartHover = (params: any) => {
     if (params && params[0]) {
-      props.setValue(params[0].value[1]);
+      setValue(params[0].value[1]);
     }
   }
 
   // 圖表滑鼠離開事件
   const handleChartMouseOut = useCallback(() => {
-    props.setValue(props.mergedData[props.mergedData.length - 1].fngValue);
-  }, [props, props.mergedData]);
+    setValue(mergedData[mergedData.length - 1].fngValue);
+  }, [mergedData, setValue]);
 
   // 貪婪圖表選項
   const areaChartOption = {
@@ -45,7 +46,7 @@ const AreaChartSection = (
         return `
           ${date} <br/>
           恐懼貪婪指數: ${fngValue} <br />
-          程度: ${props.convertFngLevel(fngValue)} <br />
+          程度: ${convertFngLevel(fngValue)} <br />
           開盤價: $${open} <br />
           收盤價: $${close} <br />
           最低價: $${low} <br />
@@ -129,13 +130,13 @@ const AreaChartSection = (
         emphasis: {
           focus: 'series'
         },
-        data: props.mergedData.map(item => [item.date, item.fngValue])
+        data: mergedData.map(item => [item.date, item.fngValue])
       },
       {
         name: '比特幣價格',
         type: 'candlestick', // 使用K線圖
         yAxisIndex: 1,
-        data: props.mergedData.map(item => [
+        data: mergedData.map(item => [
           item.date,
           item.open, // 開盤價
           item.close, // 收盤價

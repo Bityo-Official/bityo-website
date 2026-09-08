@@ -1,6 +1,6 @@
 import { TableProps } from "@/types/Table/MarketTable";
-import { MagnifyingGlassIcon, HeartIcon as HeartIconOutLine } from "@heroicons/react/24/outline";
-import { ArrowUpIcon, ArrowDownIcon, HeartIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
 import { Card, CardHeader, CardBody, CardFooter } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import Typography from "@/components/ui/Typography";
@@ -9,11 +9,10 @@ import Avatar from "@/components/ui/Avatar";
 import Tabs from "@/components/ui/Tabs";
 import SearchInput from "@/components/ui/SearchInput";
 import { useRouter } from 'next/router';
-import { useEffect, useState, useRef } from "react";
+import { useMemo, useState } from "react";
 import Chip from "@/components/Chip/Chip";
 import Image from "next/image";
 import BityoIcon from "@/images/icon/bityo_bg2.png";
-import { useTheme } from "next-themes";
 import { CryptoProps } from "@/types/Market/Merket";
 import toast from "react-hot-toast";
 
@@ -46,17 +45,44 @@ const TableText = (props: { className: string, children: React.ReactNode, onClic
   )
 }
 
+// 表格的標題
+const RowTitle = (props: {
+  text: string;
+  name: string;
+  className?: string;
+  sortable?: boolean;
+  sortConfig: SortConfig | null;
+  onSort: (key: keyof CryptoProps) => void;
+}) => {
+  const active = props.sortable && props.sortConfig && props.sortConfig.key === props.name;
+
+  return (
+    <th
+      className={`${props.className ?? ''} border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer`}
+      onClick={() => props.sortable && props.onSort(props.name as keyof CryptoProps)}
+    >
+      <div className="flex items-center">
+        <Typography
+          variant="small"
+          className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
+        >
+          {props.text}
+        </Typography>
+        {active && (
+          props.sortConfig!.direction === 'ascending' ?
+            <ArrowUpIcon className="ml-1 h-4 w-4" /> :
+            <ArrowDownIcon className="ml-1 h-4 w-4" />
+        )}
+      </div>
+    </th>
+  );
+}
+
 const MarketTable = (props: TableProps) => {
   const router = useRouter();
 
   // 搜尋的暫存
   const [cache, setCache] = useState('');
-
-  // 搜尋後的資料
-  const [filteredData, setFilteredData] = useState<CryptoProps[]>([]);
-
-  // 排序後的資料
-  const [sortedData, setSortedData] = useState<CryptoProps[]>([]);
 
   // 分頁狀態
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,36 +91,25 @@ const MarketTable = (props: TableProps) => {
   // 排序狀態
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
 
+  // 搜尋後的資料（衍生值，不需要另外存成 state）
+  const filteredData = useMemo(() => searchName(cache, props.data), [cache, props.data]);
+
+  // 排序後的資料
+  const sortedData = useMemo(() => {
+    if (sortConfig === null) return filteredData;
+    return [...filteredData].sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+  }, [filteredData, sortConfig]);
+
   // 計算顯示的資料
   const currentItems = sortedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setFilteredData(searchName(cache, props.data));
-  }, [cache, props.rows, props.data]);
-
-  useEffect(() => {
-    let sortedData = [...filteredData];
-    if (sortConfig !== null) {
-      sortedData.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
-    setSortedData(sortedData);
-  }, [sortConfig, filteredData]);
-
-  useEffect(() => {
-    if (sortConfig === null) {
-      setSortedData(filteredData);
-    }
-  }, [filteredData, sortConfig]);
 
   // 換頁功能
   const nextPage = () => {
@@ -121,39 +136,6 @@ const MarketTable = (props: TableProps) => {
   // 切換到盤面
   const switchToMarket = (exchange: string, symbol: string) => {
     router.push(`/market/${exchange}/${symbol}`)
-  }
-
-  // 表格的標題
-  const RowTitle = (
-    props: {
-      text: string,
-      name: string,
-      className?: string,
-      sortable?: boolean
-    }) => {
-    return (
-
-      <th
-        className={`${props.className} border-y border-blue-gray-100 dark:border-blue-gray-700 bg-blue-gray-50/50 dark:bg-blue-gray-900/50 p-4 cursor-pointer`}
-        onClick={() => props.sortable && requestSort(props.name as keyof CryptoProps)}
-      >
-        <div className="flex items-center">
-          <Typography
-            variant="small"
-            className="font-normal leading-none opacity-70 text-gray-800 dark:text-gray-100"
-          >
-            {props.text}
-          </Typography>
-          {
-            props.sortable && sortConfig && sortConfig.key === props.name && (
-              sortConfig.direction === 'ascending' ?
-                <ArrowUpIcon className="ml-1 h-4 w-4" /> :
-                <ArrowDownIcon className="ml-1 h-4 w-4" />
-            )
-          }
-        </div>
-      </th>
-    )
   }
 
   return (
@@ -266,6 +248,8 @@ const MarketTable = (props: TableProps) => {
 
               {/* 市值排名 */}
               <RowTitle
+                sortConfig={sortConfig}
+                onSort={requestSort}
                 text="#"
                 name="market_cap_rank"
                 sortable={false}
@@ -273,6 +257,8 @@ const MarketTable = (props: TableProps) => {
 
               {/* 幣種 */}
               <RowTitle
+                sortConfig={sortConfig}
+                onSort={requestSort}
                 text="幣種名稱"
                 name="name"
                 className="w-[15%]"
@@ -281,6 +267,8 @@ const MarketTable = (props: TableProps) => {
 
               {/* 價格 */}
               <RowTitle
+                sortConfig={sortConfig}
+                onSort={requestSort}
                 text="價格"
                 name="current_price"
                 sortable={true}
@@ -288,6 +276,8 @@ const MarketTable = (props: TableProps) => {
 
               {/* 市值 */}
               <RowTitle
+                sortConfig={sortConfig}
+                onSort={requestSort}
                 text="市值"
                 name="market_cap"
                 sortable={true}
@@ -295,6 +285,8 @@ const MarketTable = (props: TableProps) => {
 
               {/* 24h% */}
               <RowTitle
+                sortConfig={sortConfig}
+                onSort={requestSort}
                 text="24h%"
                 name="price_change_percentage_24h"
                 sortable={true}
@@ -302,6 +294,8 @@ const MarketTable = (props: TableProps) => {
 
               {/* 24h 成交量 */}
               <RowTitle
+                sortConfig={sortConfig}
+                onSort={requestSort}
                 text="24h成交量"
                 name="total_volume"
                 sortable={true}
@@ -309,6 +303,8 @@ const MarketTable = (props: TableProps) => {
 
               {/* 24h 最高 */}
               <RowTitle
+                sortConfig={sortConfig}
+                onSort={requestSort}
                 text="最高"
                 name="high_24h"
                 sortable={true}
@@ -316,6 +312,8 @@ const MarketTable = (props: TableProps) => {
 
               {/* 24h 最低 */}
               <RowTitle
+                sortConfig={sortConfig}
+                onSort={requestSort}
                 text="最低"
                 name="low_24h"
                 sortable={true}

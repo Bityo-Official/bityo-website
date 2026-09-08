@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
+import { useIsMounted } from "@/util/useIsMounted";
 
 const Themes = () => {
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  // 掛載 mounted
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useIsMounted();
 
   // 切換主題
   const toggleTheme = () => {

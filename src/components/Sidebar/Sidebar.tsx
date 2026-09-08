@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Drawer from "@/components/ui/Drawer";
 import Typography from "@/components/ui/Typography";
 import Chip from "@/components/ui/Chip";
@@ -41,21 +41,13 @@ const SidebarListItem = (props: SidebarListItemProps) => {
 
 const Sidebar = (props: SidebarProps) => {
   const [openAlert, setOpenAlert] = useState(true);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(props.isDrawerOpen);
   const router = useRouter();
 
-  useEffect(() => {
-    setIsDrawerOpen(props.isDrawerOpen);
-  }, [props.isDrawerOpen]);
-
-  const closeDrawer = () => {
-    setIsDrawerOpen(false);
-    props.setIsDrawerOpen(false);
-  };
+  const closeDrawer = () => props.setIsDrawerOpen(false);
 
   return (
     <Drawer
-      open={isDrawerOpen}
+      open={props.isDrawerOpen}
       onClose={closeDrawer}
       placement="right"
       className="bg-white text-black dark:bg-txt-dark dark:text-white"
