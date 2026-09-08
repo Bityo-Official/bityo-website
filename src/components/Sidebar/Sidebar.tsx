@@ -61,7 +61,9 @@ const Sidebar = (props: SidebarProps) => {
             closeDrawer();
           }}
         >
-          <Image src={BityoIcon} alt="Bityo" className="h-8 w-8" />
+          {/* 原圖是 3636x3450（非正方形），用 w-8 強制成 1:1 會被橫向壓扁；
+              改用 w-auto 由高度決定寬度，與 Navbar 的 logo 一致 */}
+          <Image src={BityoIcon} alt="Bityo" className="h-8 w-auto" />
           <Typography variant="h5" className="text-black dark:text-white">
             Bityo
           </Typography>
