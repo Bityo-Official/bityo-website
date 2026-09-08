@@ -65,14 +65,14 @@ const GaugeSection = (
           length: 20,
           lineStyle: {
             width: 2,
-            color: 'auto'
+            color: 'inherit'
           }
         },
         axisLabel: {
           fontSize: 20,
           distance: -30,
           rotate: 'tangential',
-          color: 'auto',
+          color: 'inherit',
           formatter: function (value: number) {
             if (value === 10) {
               return '極度恐懼';

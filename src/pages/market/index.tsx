@@ -9,6 +9,9 @@ import type { TickerSnapshot } from "@/pages/api/getBinanceTickers";
 import SkeletionTable from "@/components/Skeletion/SkeletionTable";
 import Seo from "@/components/Seo";
 
+// data-stream.binance.vision 是 Binance 的公開市場資料端點，不需金鑰
+const WS_URL = 'wss://data-stream.binance.vision/ws/!miniTicker@arr';
+
 // Binance !miniTicker@arr 的單筆格式
 interface MiniTicker {
   s: string; // symbol
@@ -63,6 +66,9 @@ const Markets = ({ coinInfo }: MarketsProps) => {
 
   useEffect(() => {
     let cancelled = false;
+    let ws: WebSocket | null = null;
+    let reconnectTimer: ReturnType<typeof setTimeout> | undefined;
+    let retries = 0;
 
     // 1) 先用 REST 快照把表格填滿，不必等 WebSocket 第一次推送
     (async () => {
@@ -81,35 +87,55 @@ const Markets = ({ coinInfo }: MarketsProps) => {
     // 2) 再用 WebSocket 做增量更新
     //    原本的 !ticker@arr 已經不會推送資料（連得上但收不到），
     //    改用 !miniTicker@arr，payload 也從約 1.9MB 降到約 13KB
-    const ws = new WebSocket('wss://data-stream.binance.vision/ws/!miniTicker@arr');
+    const connect = () => {
+      if (cancelled) return;
 
-    ws.onmessage = (event) => {
-      let updates: MiniTicker[];
-      try {
-        updates = JSON.parse(event.data);
-      } catch {
-        return;
-      }
-      if (!Array.isArray(updates)) return;
+      ws = new WebSocket(WS_URL);
 
-      for (const u of updates) {
-        if (!u.s?.endsWith('USDT')) continue;
-        const open = parseFloat(u.o);
-        const close = parseFloat(u.c);
-        tickers.current.set(u.s, {
-          symbol: u.s,
-          price: close,
-          high: parseFloat(u.h),
-          low: parseFloat(u.l),
-          volume: parseFloat(u.v),
-          // miniTicker 沒有漲跌幅欄位，用開盤/現價換算
-          changePercent: open > 0 ? ((close - open) / open) * 100 : 0,
-        });
-      }
-      dirty.current = true;
+      ws.onopen = () => {
+        retries = 0;
+      };
+
+      ws.onmessage = (event) => {
+        let updates: MiniTicker[];
+        try {
+          updates = JSON.parse(event.data);
+        } catch {
+          return;
+        }
+        if (!Array.isArray(updates)) return;
+
+        for (const u of updates) {
+          if (!u.s?.endsWith('USDT')) continue;
+          const open = parseFloat(u.o);
+          const close = parseFloat(u.c);
+          tickers.current.set(u.s, {
+            symbol: u.s,
+            price: close,
+            high: parseFloat(u.h),
+            low: parseFloat(u.l),
+            volume: parseFloat(u.v),
+            // miniTicker 沒有漲跌幅欄位，用開盤/現價換算
+            changePercent: open > 0 ? ((close - open) / open) * 100 : 0,
+          });
+        }
+        dirty.current = true;
+      };
+
+      // onerror 之後一定會接著觸發 onclose，所以重連只在 onclose 處理；
+      // 也不在這裡印錯誤：React StrictMode 會在開發模式下重跑 effect，
+      // cleanup 在連線尚未建立時 close()，本來就會噴一次 error。
+      ws.onclose = () => {
+        if (cancelled) return;
+
+        // Binance 約每 24 小時會主動斷線，正式環境需要自動重連
+        const delay = Math.min(1000 * 2 ** retries, 30_000);
+        retries += 1;
+        reconnectTimer = setTimeout(connect, delay);
+      };
     };
 
-    ws.onerror = () => console.error('Binance WebSocket error');
+    connect();
 
     // 3) 每秒才更新一次畫面（原本是 100ms，等於每秒重繪整張表 10 次）
     const interval = setInterval(() => {
@@ -122,8 +148,9 @@ const Markets = ({ coinInfo }: MarketsProps) => {
 
     return () => {
       cancelled = true;
-      ws.close();
+      clearTimeout(reconnectTimer);
       clearInterval(interval);
+      ws?.close();
     };
   }, [toCrypto]);
 
