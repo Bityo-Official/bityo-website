@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import { cn } from "@/util/cn";
 
 export type TypographyVariant =
   | "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
@@ -41,7 +42,7 @@ const Typography = <T extends ElementType = "p">({
   variant = "paragraph",
   color,
   as,
-  className = "",
+  className,
   children,
   ...rest
 }: TypographyProps<T>) => {
@@ -49,7 +50,7 @@ const Typography = <T extends ElementType = "p">({
   const colorClass = color ? COLOR_CLASSES[color] ?? "" : "text-blue-gray-900";
 
   return (
-    <Tag className={`font-sans antialiased ${VARIANT_CLASSES[variant]} ${colorClass} ${className}`} {...rest}>
+    <Tag className={cn("font-sans antialiased", VARIANT_CLASSES[variant], colorClass, className)} {...rest}>
       {children}
     </Tag>
   );

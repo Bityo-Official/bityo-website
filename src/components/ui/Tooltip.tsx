@@ -15,6 +15,7 @@ import {
   type Placement,
 } from "@floating-ui/react";
 import { cloneElement, isValidElement, useState, type ReactElement, type ReactNode } from "react";
+import { cn } from "@/util/cn";
 
 interface TooltipProps {
   content: ReactNode;
@@ -28,7 +29,7 @@ interface TooltipProps {
  * 以 Floating UI 實作的 Tooltip，取代 @material-tailwind/react 的 Tooltip。
  * 會 clone children 而非外包 wrapper，以免破壞 table / flex 的版面。
  */
-const Tooltip = ({ content, placement = "top", className = "", children }: TooltipProps) => {
+const Tooltip = ({ content, placement = "top", className, children }: TooltipProps) => {
   const [open, setOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating({
@@ -76,7 +77,7 @@ const Tooltip = ({ content, placement = "top", className = "", children }: Toolt
           >
             <div
               style={transitionStyles}
-              className={`rounded-lg bg-black/80 px-3 py-2 text-sm font-normal text-white shadow-lg ${className}`}
+              className={cn("rounded-lg bg-black/80 px-3 py-2 text-sm font-normal text-white shadow-lg", className)}
             >
               {content}
             </div>

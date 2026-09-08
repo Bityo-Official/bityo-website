@@ -19,7 +19,7 @@ const DialogVerify = ({ open, onClose, title, message, type, content, icon, stat
 
         <DialogBody className="text-center text-lg font-medium text-black dark:text-white">
           <Chip
-            className="bg-[#0D0D13] text-base text-black dark:text-white"
+            className="bg-[#0D0D13] text-base lowercase text-black dark:text-white"
             color="light-blue"
             value={content}
             size="lg"

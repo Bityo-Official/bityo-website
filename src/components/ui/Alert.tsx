@@ -1,5 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import type { ReactNode } from "react";
+import { cn } from "@/util/cn";
 
 interface AlertProps {
   open?: boolean;
@@ -9,13 +10,13 @@ interface AlertProps {
 }
 
 /** 取代 @material-tailwind/react 的 Alert；有傳 onClose 時右上角顯示關閉鈕 */
-const Alert = ({ open = true, onClose, className = "", children }: AlertProps) => {
+const Alert = ({ open = true, onClose, className, children }: AlertProps) => {
   if (!open) return null;
 
   return (
     <div
       role="alert"
-      className={`relative w-full rounded-lg bg-gray-900 p-4 font-sans text-base text-white ${className}`}
+      className={cn("relative w-full rounded-lg bg-gray-900 p-4 font-sans text-base text-white", className)}
     >
       {children}
       {onClose && (

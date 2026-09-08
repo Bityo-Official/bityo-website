@@ -1,3 +1,5 @@
+import { cn } from "@/util/cn";
+
 export type ChipColor =
   | "blue-gray" | "gray" | "brown" | "deep-orange" | "orange" | "amber" | "yellow"
   | "lime" | "light-green" | "green" | "teal" | "cyan" | "light-blue" | "blue"
@@ -45,9 +47,14 @@ interface ChipProps {
 }
 
 /** 取代 @material-tailwind/react 的 Chip（目前只有用到 ghost 樣式） */
-const Chip = ({ value, color = "gray", size = "md", className = "" }: ChipProps) => (
+const Chip = ({ value, color = "gray", size = "md", className }: ChipProps) => (
   <div
-    className={`inline-block whitespace-nowrap rounded-lg text-center align-baseline font-sans font-bold leading-none ${GHOST_COLOR_CLASSES[color]} ${SIZE_CLASSES[size]} ${className}`}
+    className={cn(
+      "inline-block whitespace-nowrap rounded-lg text-center align-baseline font-sans font-bold uppercase leading-none",
+      GHOST_COLOR_CLASSES[color],
+      SIZE_CLASSES[size],
+      className,
+    )}
   >
     {value}
   </div>

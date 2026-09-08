@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef } from "react";
+import { cn } from "@/util/cn";
 
 type ButtonVariant = "filled" | "outlined" | "text" | "gradient";
 type ButtonSize = "sm" | "md" | "lg";
@@ -25,16 +26,10 @@ interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   size?: ButtonSize;
 }
 
-export const Button = ({
-  variant = "filled",
-  size = "md",
-  className = "",
-  type = "button",
-  ...rest
-}: ButtonProps) => (
+export const Button = ({ variant = "filled", size = "md", className, type = "button", ...rest }: ButtonProps) => (
   <button
     type={type}
-    className={`${BASE} ${VARIANT_CLASSES[variant]} ${SIZE_CLASSES[size]} ${className}`}
+    className={cn(BASE, VARIANT_CLASSES[variant], SIZE_CLASSES[size], className)}
     {...rest}
   />
 );
@@ -45,16 +40,10 @@ const ICON_SIZE_CLASSES: Record<ButtonSize, string> = {
   lg: "h-12 w-12",
 };
 
-export const IconButton = ({
-  variant = "filled",
-  size = "md",
-  className = "",
-  type = "button",
-  ...rest
-}: ButtonProps) => (
+export const IconButton = ({ variant = "filled", size = "md", className, type = "button", ...rest }: ButtonProps) => (
   <button
     type={type}
-    className={`${BASE} ${VARIANT_CLASSES[variant]} ${ICON_SIZE_CLASSES[size]} p-0 ${className}`}
+    className={cn(BASE, VARIANT_CLASSES[variant], ICON_SIZE_CLASSES[size], "p-0", className)}
     {...rest}
   />
 );
