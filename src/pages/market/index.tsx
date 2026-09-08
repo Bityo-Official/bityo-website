@@ -1,4 +1,3 @@
-import Head from "next/head";
 import MarketTable from "@/components/Table/MarketTable";
 import SEO from "@/config/SEO.json";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -8,6 +7,7 @@ import { MarketsProps } from "@/types/Market/Merket";
 import { CryptoProps } from "@/types/Market/Merket";
 import type { TickerSnapshot } from "@/pages/api/getBinanceTickers";
 import SkeletionTable from "@/components/Skeletion/SkeletionTable";
+import Seo from "@/components/Seo";
 
 // Binance !miniTicker@arr 的單筆格式
 interface MiniTicker {
@@ -129,17 +129,7 @@ const Markets = ({ coinInfo }: MarketsProps) => {
 
   return (
     <>
-      <Head>
-        <title>{SEO.Market.title}</title>
-        <meta name="description" content={SEO.Market.description} />
-        <meta property="og:title" content={SEO.Market.title} />
-        <meta property="og:description" content={SEO.Market.description} />
-        <meta property="og:image" content={SEO.Market.image} />
-        <meta property="og:type" content={SEO.Market.type} />
-        <meta name="twitter:title" content={SEO.Market.title} />
-        <meta name="twitter:description" content={SEO.Market.description} />
-        <meta name="twitter:image" content={SEO.Market.image} />
-      </Head>
+      <Seo meta={SEO.Market} />
       <div className="mx-5 my-2">
         {
           cryptos.length > 0 ?

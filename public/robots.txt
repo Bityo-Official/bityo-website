@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# API 路徑沒有索引價值
+Disallow: /api/
+
+Sitemap: https://bityo.tw/sitemap.xml

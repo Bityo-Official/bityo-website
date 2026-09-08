@@ -1,11 +1,11 @@
 import Intro from "@/components/About/Intro";
 import Member from "@/components/About/Member";
-import Head from "next/head";
 import SEO from "@/config/SEO.json";
 import { GetServerSideProps } from "next";
 import { MemberDataProps } from "@/types/Member/Member";
 import { getAdminBucket } from "../../lib/firebaseAdmin";
 import SkeletionMember from "@/components/Skeletion/SkeletionMember";
+import Seo from "@/components/Seo";
 
 interface AboutProps {
   members: MemberDataProps[];
@@ -14,17 +14,7 @@ interface AboutProps {
 const About = ({ members }: AboutProps) => {
   return (
     <>
-      <Head>
-        <title>{SEO.About.title}</title>
-        <meta name="description" content={SEO.About.description} />
-        <meta property="og:title" content={SEO.About.title} />
-        <meta property="og:description" content={SEO.About.description} />
-        <meta property="og:image" content={SEO.About.image} />
-        <meta property="og:type" content={SEO.About.type} />
-        <meta name="twitter:title" content={SEO.About.title} />
-        <meta name="twitter:description" content={SEO.About.description} />
-        <meta name="twitter:image" content={SEO.About.image} />
-      </Head>
+      <Seo meta={SEO.About} />
       <Intro />
       {
         members.length !== 0 ?

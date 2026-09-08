@@ -1,4 +1,3 @@
-import Head from "next/head";
 import SEO from "@/config/SEO.json";
 import { useEffect, useState } from "react";
 import { MergedDataItem } from "@/types/Chart/GaugeSimple";
@@ -6,6 +5,7 @@ import GaugeSection from "@/components/Market/GaugeSection";
 import AreaChartSection from "@/components/Market/AreaChartSection";
 import SkeletionTable from "@/components/Skeletion/SkeletionTable";
 import { calculateDays, convertFngLevel } from "@/util/Market/FNG";
+import Seo from "@/components/Seo";
 
 const FearAndGreed = () => {
   // value 除了資料載入時的初始值外，也會被圖表 hover 事件改寫，所以必須是 state
@@ -45,17 +45,7 @@ const FearAndGreed = () => {
 
   return (
     <>
-      <Head>
-        <title>{SEO.FNG.title}</title>
-        <meta name="description" content={SEO.FNG.description} />
-        <meta property="og:title" content={SEO.FNG.title} />
-        <meta property="og:description" content={SEO.FNG.description} />
-        <meta property="og:image" content={SEO.FNG.image} />
-        <meta property="og:type" content={SEO.FNG.type} />
-        <meta name="twitter:title" content={SEO.FNG.title} />
-        <meta name="twitter:description" content={SEO.FNG.description} />
-        <meta name="twitter:image" content={SEO.FNG.image} />
-      </Head>
+      <Seo meta={SEO.FNG} />
       {loadFailed ? (
         <div className="m-5 rounded-2xl bg-neutral-200 p-8 text-center dark:bg-neutral-800/50">
           <p className="text-lg font-medium">目前無法取得恐懼與貪婪指數資料</p>

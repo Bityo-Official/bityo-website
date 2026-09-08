@@ -1,8 +1,8 @@
 import React from 'react';
-import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faHandshake, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import SEO from "@/config/SEO.json";
+import Seo from "@/components/Seo";
 
 interface Feature {
   icon: JSX.Element;
@@ -40,19 +40,7 @@ const features: Feature[] = [
 const Contact = () => {
   return (
     <>
-      <Head>
-        <title>{SEO.Contact.title}</title>
-        <meta name="description" content={SEO.Contact.description} />
-        <meta property="og:title" content={SEO.Contact.title} />
-        <meta property="og:description" content={SEO.Contact.description} />
-        <meta property="og:image" content={SEO.Contact.image} />
-        {/* <meta property="og:url" content={`https://yourdomain.com/post/${post.frontMatter.id}`} /> */}
-        <meta property="og:type" content={SEO.Contact.type} />
-        {/* <meta name="twitter:card" content="summary_large_image" /> */}
-        <meta name="twitter:title" content={SEO.Contact.title} />
-        <meta name="twitter:description" content={SEO.Contact.description} />
-        <meta name="twitter:image" content={SEO.Contact.image} />
-      </Head>
+      <Seo meta={SEO.Contact} />
       <section className="p-5 sm:pt-10 sm:px-10 sm:pb-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
           {features.map((feature, index) => (

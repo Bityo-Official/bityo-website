@@ -1,12 +1,12 @@
 import { MemberDataProps } from "@/types/Member/Member";
-import Head from "next/head";
+import SEO from "@/config/SEO.json";
+import Seo from "@/components/Seo";
 
 const Member = (props: MemberDataProps) => {
   return (
     <>
-      <Head>
-        <title>sds</title>
-      </Head>
+      {/* 這頁尚未實作內容，暫不開放索引 */}
+      <Seo meta={{ ...SEO.About, title: `團隊成員｜幣友 Bityo` }} noindex />
     </>
   )
 }

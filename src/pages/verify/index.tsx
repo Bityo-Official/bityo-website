@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Tooltip from "@/components/ui/Tooltip";
 import Avatar from "@/components/ui/Avatar";
 import Typography from "@/components/ui/Typography";
@@ -9,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import DialogVerify from '@/components/Dialog/Dialog';
 import SEO from "@/config/SEO.json";
+import Seo from "@/components/Seo";
 
 const UserVerification = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -60,19 +60,7 @@ const UserVerification = () => {
 
   return (
     <>
-      <Head>
-        <title>{SEO.Verify.title}</title>
-        <meta name="description" content={SEO.Verify.description} />
-        <meta property="og:title" content={SEO.Verify.title} />
-        <meta property="og:description" content={SEO.Verify.description} />
-        <meta property="og:image" content={SEO.Verify.image} />
-        {/* <meta property="og:url" content={`https://yourdomain.com/post/${post.frontMatter.id}`} /> */}
-        <meta property="og:type" content={SEO.Verify.type} />
-        {/* <meta name="twitter:card" content="summary_large_image" /> */}
-        <meta name="twitter:title" content={SEO.Verify.title} />
-        <meta name="twitter:description" content={SEO.Verify.description} />
-        <meta name="twitter:image" content={SEO.Verify.image} />
-      </Head>
+      <Seo meta={SEO.Verify} />
 
       <section className="flex flex-col items-center pt-14 sm:pb-28 sm:justify-center h-[calc(100vh-64px)] text-center">
         <Avatar

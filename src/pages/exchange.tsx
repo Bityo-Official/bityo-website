@@ -1,25 +1,13 @@
 import IntroCard from "@/components/Card/IntroCard";
 import List from "@/components/List/CheckedList";
 import H2 from "@/components/Title/H2";
-import Head from "next/head";
 import SEO from "@/config/SEO.json";
+import Seo from "@/components/Seo";
 
 const exchange = () => {
   return (
     <>
-      <Head>
-        <title>{SEO.Exchange.title}</title>
-        <meta name="description" content={SEO.Exchange.description} />
-        <meta property="og:title" content={SEO.Exchange.title} />
-        <meta property="og:description" content={SEO.Exchange.description} />
-        <meta property="og:image" content={SEO.Exchange.image} />
-        {/* <meta property="og:url" content={`https://yourdomain.com/post/${post.frontMatter.id}`} /> */}
-        <meta property="og:type" content={SEO.Exchange.type} />
-        {/* <meta name="twitter:card" content="summary_large_image" /> */}
-        <meta name="twitter:title" content={SEO.Exchange.title} />
-        <meta name="twitter:description" content={SEO.Exchange.description} />
-        <meta name="twitter:image" content={SEO.Exchange.image} />
-      </Head>
+      <Seo meta={SEO.Exchange} />
       <section className="p-5 sm:pt-10 sm:px-10 sm:pb-20">
         <H2 className="text-center" title="幣友合作的交易所" />
         <p className="text-base text-center text-body dark:text-body-dark">提供市場最低手續費減免反傭</p>
