@@ -1,4 +1,4 @@
-import { FooterProps, HeaderProps, InfomartionProps, ProfileCardProps, SocialProps } from "@/types/Card/ProfileCard";
+import { FooterProps, HeaderProps, InformationProps, ProfileCardProps, SocialProps } from "@/types/Card/ProfileCard";
 import Tooltip from "@/components/ui/Tooltip";
 import Image from "next/image";
 
@@ -25,7 +25,7 @@ const Header = (props: HeaderProps) => {
   )
 }
 
-const Infomartion = (props: InfomartionProps) => {
+const Information = (props: InformationProps) => {
   return (
     <div className="text-center">
       {/* 姓名 */}
@@ -48,15 +48,28 @@ const Footer = (props: FooterProps) => {
   )
 }
 
+// 連結內只有一張圖，若圖沒有 alt 就等於沒有可存取名稱，
+// 這裡用網域當作標籤（網址格式不正確時退回原字串）
+const socialLabel = (link: string) => {
+  try {
+    return new URL(link).hostname.replace(/^www\./, '');
+  } catch {
+    return link;
+  }
+};
+
 const Socials = (props: SocialProps) => {
   return (
     <div className={props.link ? '' : 'hidden'}>
       <Tooltip content={props.link}>
         <a
-          href={props.link}>
+          href={props.link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image
             src={props.icon}
-            alt=""
+            alt={socialLabel(props.link)}
             width={20}
             height={20}
             className={props.className}
@@ -68,7 +81,7 @@ const Socials = (props: SocialProps) => {
 }
 
 ProfileCard.Header = Header;
-ProfileCard.Infomartion = Infomartion;
+ProfileCard.Information = Information;
 ProfileCard.Footer = Footer;
 ProfileCard.Socials = Socials;
 

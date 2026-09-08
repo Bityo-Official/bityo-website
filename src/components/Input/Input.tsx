@@ -7,14 +7,12 @@ import { useIsMounted } from "@/util/useIsMounted";
 const Input = (props: ExtendedInputProps) => {
   const { theme } = useTheme();
   const mounted = useIsMounted();
-  const [error, setError] = useState<boolean | null>(null);
   const [content, setContent] = useState<string>('');
 
   // 如果按下 Enter 鍵，則執行 handleClick 函式
   const handleClick = () => {
     if (props.validate) {
       const isValid = props.validate(content);
-      setError(!isValid);
       if (isValid) {
         props.onCorrect && props.onCorrect();
       } else {

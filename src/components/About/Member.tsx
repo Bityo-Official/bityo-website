@@ -29,7 +29,7 @@ const Member = ({ members }: MemberProps) => {
                     <div key={index}>
                       <ProfileCard uid={member.uid}>
                         <ProfileCard.Header img={member.img} />
-                        <ProfileCard.Infomartion name={member.name} position={member.position} />
+                        <ProfileCard.Information name={member.name} position={member.position} />
                         <ProfileCard.Footer>
                           {member.socials.facebook && (
                             <ProfileCard.Socials

@@ -9,7 +9,7 @@ export interface HeaderProps {
   img: string;
 }
 
-export interface InfomartionProps {
+export interface InformationProps {
   name: string;
   position: string;
 }

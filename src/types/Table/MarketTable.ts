@@ -1,8 +1,7 @@
-import { CryptoProps } from '../Market/Merket';
+import { CryptoProps } from '../Market/Market';
 
 export interface TableProps {
   className?: string;
-  head: string[];
   rows: {
     name: string;
     image: string;
