@@ -1,8 +1,8 @@
 import '@/styles/globals.css'
-import { ThemeProvider, useTheme } from 'next-themes';
+import { ThemeProvider } from 'next-themes';
 import Layout from '@/components/Layout/Layout';
 import type { AppProps } from 'next/app'
-import NextNProgress from "nextjs-progressbar";
+import ProgressBar from '@/components/Layout/ProgressBar';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import TailwindToaster from '@/components/Toast/Toast';
 import { useEffect, useState } from 'react';
@@ -18,16 +18,10 @@ config.autoAddCss = false;
 const App = ({ Component, pageProps }: AppProps) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const router = useRouter();
-  const currentPath = router.asPath;
 
   useEffect(() => {
-    const handleRouteChangeStart = () => {
-      setIsTransitioning(true);
-    };
-
-    const handleRouteChangeComplete = () => {
-      setIsTransitioning(false);
-    };
+    const handleRouteChangeStart = () => setIsTransitioning(true);
+    const handleRouteChangeComplete = () => setIsTransitioning(false);
 
     router.events.on('routeChangeStart', handleRouteChangeStart);
     router.events.on('routeChangeComplete', handleRouteChangeComplete);
@@ -44,7 +38,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ThemeProvider attribute="class" defaultTheme="dark">
       <div className={`transition-opacity duration-500 ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}>
         <Layout>
-          <NextNProgress height={2} color="#17FFAC" options={{ easing: 'ease', speed: 500 }} />
+          <ProgressBar height={2} color="#17FFAC" />
           <TailwindToaster />
           <Component {...pageProps} />
         </Layout>

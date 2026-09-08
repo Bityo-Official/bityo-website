@@ -4,8 +4,7 @@ import Head from "next/head";
 import SEO from "@/config/SEO.json";
 import { GetServerSideProps } from "next";
 import { MemberDataProps } from "@/types/Member/Member";
-import { initAdmin } from "../../lib/firebaseAdmin";
-import admin from "firebase-admin";
+import { getAdminBucket } from "../../lib/firebaseAdmin";
 import SkeletionMember from "@/components/Skeletion/SkeletionMember";
 
 interface AboutProps {
@@ -45,8 +44,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     : `https://${req.headers.host}`;
 
   try {
-    // 初始化 Firebase Admin
-    await initAdmin();
+    const bucket = await getAdminBucket();
 
     const res = await fetch(`${baseUrl}/api/getAllTeamMembers`);
     if (!res.ok) {
@@ -58,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     // 使用 Firebase Admin 獲取圖片 URL
     const membersWithImageUrls = await Promise.all(
       members.map(async (member) => {
-        const file = admin.storage().bucket().file(`TeamMember/${member.id}/${member.img}`);
+        const file = bucket.file(`TeamMember/${member.id}/${member.img}`);
         const [url] = await file.getSignedUrl({
           action: 'read',
           expires: '03-09-2491', // 選擇一個較長的過期時間

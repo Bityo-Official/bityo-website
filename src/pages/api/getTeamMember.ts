@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { initAdmin } from '../../../lib/firebaseAdmin';
+import { getAdminDb } from '../../../lib/firebaseAdmin';
 
 /**
  * @openapi
@@ -93,8 +93,7 @@ import { initAdmin } from '../../../lib/firebaseAdmin';
  */
 const getTeamMember = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const admin = await initAdmin();
-    const db = admin.firestore();
+    const db = await getAdminDb();
     
     const { username } = req.query;
     
