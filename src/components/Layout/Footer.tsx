@@ -6,9 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BityoLogo from "@/images/icon/bityo_with_icon.png";
 import { LinkData, IconData } from "@/config/FooterData";
 
-const fabIcons = require("@fortawesome/free-brands-svg-icons");
-const fasIcons = require("@fortawesome/free-solid-svg-icons");
-
 const Footer = () => {
 
   return (
@@ -37,9 +34,11 @@ const Footer = () => {
                         key={index}
                         href={data.link}
                         target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={data.label}
                         className="mr-6 text-body duration-300 hover:text-web-green dark:text-body-dark dark:hover:text-web-green"
                       >
-                        <FontAwesomeIcon icon={fasIcons[data.icon] || fabIcons[data.icon]} className={`${data.size}`} />
+                        <FontAwesomeIcon icon={data.icon} className={data.size} />
                       </a>
                     ))
                   }
