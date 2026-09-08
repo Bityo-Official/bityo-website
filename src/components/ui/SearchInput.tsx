@@ -22,7 +22,7 @@ const SearchInput = ({ label, icon, className = "", id, ...rest }: SearchInputPr
         placeholder=" "
         className={
           "peer h-11 w-full rounded-lg border border-blue-gray-200 bg-transparent px-3 pt-3 pb-1 text-sm " +
-          "text-blue-gray-900 outline-none transition-colors placeholder-shown:pt-1 " +
+          "text-blue-gray-900 outline-hidden transition-colors placeholder-shown:pt-1 " +
           "focus:border-web-green dark:border-neutral-600 dark:text-neutral-100 dark:focus:border-web-green " +
           (icon ? "pr-10 " : "") +
           className

@@ -34,7 +34,7 @@ const Tabs = ({ tabs, value, onChange, className = "" }: TabsProps) => (
             "flex-1 whitespace-nowrap rounded-md px-4 py-1.5 text-center font-sans text-base font-normal transition-colors " +
             "disabled:pointer-events-none disabled:opacity-50 " +
             (selected
-              ? "bg-neutral-300 text-blue-gray-900 shadow-sm dark:bg-neutral-200"
+              ? "bg-neutral-300 text-blue-gray-900 shadow-xs dark:bg-neutral-200"
               : "text-blue-gray-900 hover:bg-neutral-300/50 dark:text-neutral-300 dark:hover:bg-neutral-700/50")
           }
         >

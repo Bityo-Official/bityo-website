@@ -10,7 +10,7 @@ const TailwindToaster = () => {
           as="div"
           appear
           show={t.visible}
-          className="transform p-4 flex bg-white dark:bg-[#333] rounded shadow-xl"
+          className="transform p-4 flex bg-white dark:bg-[#333] rounded-sm shadow-xl"
           enter="transition-all duration-150"
           enterFrom="opacity-0 scale-50"
           enterTo="opacity-100 scale-100"

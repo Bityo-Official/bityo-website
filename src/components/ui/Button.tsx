@@ -5,7 +5,7 @@ type ButtonSize = "sm" | "md" | "lg";
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   filled: "bg-gray-900 text-white shadow-md hover:shadow-lg",
-  gradient: "bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md hover:shadow-lg",
+  gradient: "bg-linear-to-tr from-gray-900 to-gray-800 text-white shadow-md hover:shadow-lg",
   outlined: "border border-current bg-transparent",
   text: "bg-transparent hover:bg-current/10",
 };
@@ -18,7 +18,7 @@ const SIZE_CLASSES: Record<ButtonSize, string> = {
 
 const BASE =
   "inline-flex select-none items-center justify-center rounded-lg text-center align-middle font-sans font-bold uppercase " +
-  "transition-all disabled:pointer-events-none disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+  "transition-all disabled:pointer-events-none disabled:opacity-50 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2";
 
 interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   variant?: ButtonVariant;

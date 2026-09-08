@@ -84,7 +84,7 @@ const UserVerification = () => {
         />
         <p className="mt-4 text-3xl tracking-tighter sm:tracking-widest">幣友 BITYO｜官方驗證渠道</p>
 
-        <div className="w-full px-5 sm:w-[32rem] block justify-items-center mt-6">
+        <div className="w-full px-5 sm:w-lg block justify-items-center mt-6">
           <Input
             type="text"
             placeholder="官方驗證查詢"

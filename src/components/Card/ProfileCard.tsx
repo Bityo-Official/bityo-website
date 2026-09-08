@@ -33,7 +33,7 @@ const Infomartion = (props: InfomartionProps) => {
         {props.name}
       </p>
       {/* 職位 */}
-      <p className="block antialiased font-sans text-base leading-relaxed bg-clip-text text-transparent bg-gradient-to-tr from-blue-gray-600 to-blue-gray-400 dark:from-blue-gray-300 dark:to-blue-gray-200 font-medium">
+      <p className="block antialiased font-sans text-base leading-relaxed bg-clip-text text-transparent bg-linear-to-tr from-blue-gray-600 to-blue-gray-400 dark:from-blue-gray-300 dark:to-blue-gray-200 font-medium">
         {props.position}
       </p>
     </div>

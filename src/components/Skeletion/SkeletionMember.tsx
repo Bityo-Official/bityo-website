@@ -3,7 +3,7 @@ import { SkeletionMemberProps } from "@/types/Skelection/Skeletion";
 const SkeletionMember = (props: SkeletionMemberProps) => {
 
   return (
-    <div className={`${props.className} w-full p-4 space-y-4 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6  bg-black/30 dark:bg-white/20`}>
+    <div className={`${props.className} w-full p-4 space-y-4 divide-y divide-gray-200 rounded-sm shadow-sm animate-pulse dark:divide-gray-700 md:p-6  bg-black/30 dark:bg-white/20`}>
       <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[640px] mb-2.5 mx-auto"></div>
       <div className="h-2.5 mx-auto bg-gray-300 rounded-full dark:bg-gray-700 max-w-[540px]"></div>
       <div className="flex items-center justify-center mt-4">

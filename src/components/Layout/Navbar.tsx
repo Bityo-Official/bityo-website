@@ -91,7 +91,7 @@ const Navbar = () => {
             </div>
             {/* Logo */}
             <div className="flex flex-1 sm:items-stretch sm:justify-start">
-              <div className="flex flex-shrink-0 items-center">
+              <div className="flex shrink-0 items-center">
                 <button onClick={() => router.push('/')}>
                   <Image
                     src="/icon/bityo_with_icon.png"

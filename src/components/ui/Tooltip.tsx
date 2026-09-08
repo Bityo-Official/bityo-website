@@ -72,7 +72,7 @@ const Tooltip = ({ content, placement = "top", className = "", children }: Toolt
             ref={refs.setFloating}
             style={floatingStyles}
             {...getFloatingProps()}
-            className="z-[9999] max-w-xs"
+            className="z-9999 max-w-xs"
           >
             <div
               style={transitionStyles}

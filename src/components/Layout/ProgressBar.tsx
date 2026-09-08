@@ -59,7 +59,7 @@ const ProgressBar = ({ height = 2, color = "#17FFAC" }: ProgressBarProps) => {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-x-0 top-0 z-[9999]"
+      className="pointer-events-none fixed inset-x-0 top-0 z-9999"
       style={{ height }}
     >
       <div

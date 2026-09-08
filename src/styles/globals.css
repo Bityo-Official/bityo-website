@@ -1,32 +1,93 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-/* 在 globals.css 或相應的 CSS 模塊文件中 */
-.justify-text {
+/* next-themes 以 class 切換主題，對應 v3 的 darkMode: 'class' */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* --- 品牌色 --- */
+  --color-web-green: #4ece80;
+  --color-bityo: #17ffad;
+  --color-body: #788293;
+  --color-body-dark: rgb(149, 156, 177);
+  --color-txt-dark: rgb(41, 44, 53);
+
+  /* --- Material Blue Grey（原本由 material-tailwind 的 withMT() 提供）--- */
+  --color-blue-gray-50: #eceff1;
+  --color-blue-gray-100: #cfd8dc;
+  --color-blue-gray-200: #b0bec5;
+  --color-blue-gray-300: #90a4ae;
+  --color-blue-gray-400: #78909c;
+  --color-blue-gray-500: #607d8b;
+  --color-blue-gray-600: #546e7a;
+  --color-blue-gray-700: #455a64;
+  --color-blue-gray-800: #37474f;
+  --color-blue-gray-900: #263238;
+
+  /* --- primary --- */
+  --color-primary-black-100: #000000;
+  --color-primary-black-200: #373737;
+  --color-primary-black-300: #1c1c1c;
+  --color-primary-black-400: #cecece;
+  --color-primary-black-500: #eef0f6;
+
+  /* --- neutral（覆寫 Tailwind 預設同名階層）--- */
+  --color-neutral-white: #ffffff;
+  --color-neutral-black: #1a1a1a;
+  --color-neutral-900: #3d3d3d;
+  --color-neutral-800: #545454;
+  --color-neutral-700: #6b6b6b;
+  --color-neutral-600: #828282;
+  --color-neutral-500: #999999;
+  --color-neutral-400: #b0b0b0;
+  --color-neutral-300: #c7c7c7;
+  --color-neutral-200: #dedede;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-tone-700: #f2f3f5;
+
+  --color-wireframe-700: #bcbacd;
+
+  --color-func-error: #d82027;
+  --color-func-info: #208bd8;
+  --color-func-warning: #ede405;
+  --color-func-success: #20d880;
+
+  /* --- 標題字級 --- */
+  --text-h1: 5rem;
+  --text-h1--line-height: 7.5rem;
+  --text-h2: 4rem;
+  --text-h2--line-height: 6rem;
+  --text-h3: 3rem;
+  --text-h3--line-height: 4.5rem;
+  --text-h4: 2.5rem;
+  --text-h4--line-height: 3.75rem;
+  --text-h5: 2rem;
+  --text-h5--line-height: 3rem;
+  --text-h6: 1.75rem;
+  --text-h6--line-height: 2.625rem;
+
+  /* --- 陰影 --- */
+  --shadow-signUp: 0px 5px 10px rgba(4, 10, 34, 0.2);
+  --shadow-one: 0px 2px 3px rgba(7, 7, 77, 0.05);
+  --shadow-two: 0px 5px 10px rgba(6, 8, 15, 0.1);
+  --shadow-three: 0px 5px 15px rgba(6, 8, 15, 0.05);
+  --shadow-sticky: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+  --shadow-sticky-dark: inset 0 -1px 0 0 rgba(255, 255, 255, 0.1);
+  --shadow-feature-2: 0px 10px 40px rgba(48, 86, 211, 0.12);
+  --shadow-submit: 0px 5px 20px rgba(4, 10, 34, 0.1);
+  --shadow-submit-dark: 0px 5px 20px rgba(4, 10, 34, 0.1);
+  --shadow-btn: 0px 1px 2px rgba(4, 10, 34, 0.15);
+  --shadow-btn-hover: 0px 1px 2px rgba(0, 0, 0, 0.15);
+  --shadow-btn-light: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* v4 移除了 container 的設定項，改以 utility 重現 v3 的 center + padding */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* 最後一行文字置中的兩端對齊 */
+@utility justify-text {
   text-align: justify;
-  text-align-last: center; /* 這會使最後一行文字置中 */
+  text-align-last: center;
 }
-
-/* 或者使用 Tailwind 的 @layer 指令來擴展你的工具類 */
-@layer utilities {
-  .justify-text {
-    @apply text-justify;
-    text-align-last: center;
-  }
-}
-
-/* styles.css */
-/* body.no-scroll {
-  overflow: hidden;
-}
-
-.drawer-open {
-  height: 100vh;
-  overflow: hidden;
-}
-
-.drawer-content {
-  height: 100%;
-  overflow-y: auto;
-} */

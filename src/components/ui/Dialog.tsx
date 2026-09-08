@@ -25,15 +25,15 @@ interface DialogProps {
 
 /** 以 Headless UI 實作，取代 @material-tailwind/react 的 Dialog（含焦點鎖定與 Esc 關閉） */
 export const Dialog = ({ open, onClose, size = "md", className = "", children }: DialogProps) => (
-  <HeadlessDialog open={open} onClose={onClose} className="relative z-[9999]">
+  <HeadlessDialog open={open} onClose={onClose} className="relative z-9999">
     <DialogBackdrop
       transition
-      className="fixed inset-0 bg-black/60 transition-opacity duration-300 ease-out data-[closed]:opacity-0"
+      className="fixed inset-0 bg-black/60 transition-opacity duration-300 ease-out data-closed:opacity-0"
     />
     <div className="fixed inset-0 flex items-center justify-center p-4">
       <DialogPanel
         transition
-        className={`${SIZE_CLASSES[size]} rounded-xl transition-all duration-300 ease-out data-[closed]:scale-90 data-[closed]:opacity-0 ${className}`}
+        className={`${SIZE_CLASSES[size]} rounded-xl transition-all duration-300 ease-out data-closed:scale-90 data-closed:opacity-0 ${className}`}
       >
         {children}
       </DialogPanel>

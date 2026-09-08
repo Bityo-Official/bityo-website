@@ -13,8 +13,8 @@ export const ListItem = ({ className = "", disabled, ...rest }: ListItemProps) =
     type="button"
     disabled={disabled}
     className={
-      "flex w-full items-center rounded-lg p-3 text-start leading-tight outline-none transition-all " +
-      "hover:bg-blue-gray-50 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 " +
+      "flex w-full items-center rounded-lg p-3 text-start leading-tight outline-hidden transition-all " +
+      "hover:bg-blue-gray-50/80 focus:bg-blue-gray-50/80 " +
       "disabled:pointer-events-none disabled:opacity-50 " +
       className
     }

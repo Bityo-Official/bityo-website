@@ -36,19 +36,19 @@ const Home = () => {
                 <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                   幣友科技歡迎您 <br /> Welcome to Bityo Tech
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl justify-text">
+                <p className="mb-12 text-base leading-relaxed! text-body-color dark:text-body-color-dark sm:text-lg md:text-xl justify-text">
                   幣友科技，是一個由台灣區塊鏈相關人才於 2023 年成立的社群。幣友團隊主要由「區塊鏈工程師、加密貨幣交易員」組合而成，由區塊鏈技術派和交易派組成強大陣容。我們主打交易和技術雙並肩的「開源文化社群」，為想進入區塊鏈領域而不知從何下手的新手而生，也為了台灣的區塊鏈社群而共同努力。
                 </p>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Button
                     onClick={() => router.push('/about')}
-                    className="rounded-sm bg-web-green px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-web-green/80"
+                    className="rounded-xs bg-web-green px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-web-green/80"
                     text="查看更多">
                     <InformationCircleIcon className="w-5 mr-1"></InformationCircleIcon>
                   </Button>
                   <Button
                     onClick={() => router.push('https://dc.bityo.tw')}
-                    className="rounded-sm bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
+                    className="rounded-xs bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
                     text="加入 Discord">
                     <FontAwesomeIcon icon={ faDiscord } className='mr-1 w-5' />
                   </Button>

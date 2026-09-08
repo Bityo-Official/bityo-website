@@ -7,7 +7,7 @@ const IntroCard = (props: IntroCardProps) => {
     <>
       <div className="w-full">
       <div className="h-full group relative overflow-hidden rounded-lg bg-txt-dark/10 shadow-one duration-300 hover:shadow-two dark:hover:shadow-two hover:shadow-txt-dark dark:bg-txt-dark dark:hover:shadow-txt-dark transform transition-transform` hover:scale-105">
-          <a className="relative block aspect-[37/22] w-full" href={props.link} target="_blank">
+          <a className="relative block aspect-37/22 w-full" href={props.link} target="_blank">
             {
               props.type?.name !== undefined ? (
 
@@ -53,7 +53,7 @@ const Description = (props: DescriptionProps) => {
 
 const Footer = (props: FooterProps) => {
   return (
-    <div className="pt-6 border-t border-text-body border-opacity-10 dark:border-white dark:border-opacity-10">
+    <div className="pt-6 border-t border-body/10 dark:border-white/10">
       <div className="flex items-center">
         {
           props.data.map((item, index) => {
@@ -61,7 +61,7 @@ const Footer = (props: FooterProps) => {
               // 如果是最後一個就不要加右邊框
               <div
                 key={index}
-                className={`flex items-center dark:border-white dark:border-opacity-10 ${index !== props.data.length - 1 ? 'border-r border-text-body border-opacity-10' : ''}`}>
+                className={`flex items-center dark:border-white/10 ${index !== props.data.length - 1 ? 'border-r border-body/10' : ''}`}>
                 <Tooltip content={
                   <>
                     <p>{item.tooltip}</p>

@@ -20,7 +20,7 @@ const Member = ({ members }: MemberProps) => {
     <>
       <section id="about" className="pt-4 md:pt-5">
         <div className="container">
-          <div className="border-b border-body/[.15] pb-16 dark:border-white/[.15] md:pb-20 lg:pb-28">
+          <div className="border-b border-body/[.15] pb-16 dark:border-white/15 md:pb-20 lg:pb-28">
             <div className="-mx-4 flex flex-wrap items-center">
               <div className="w-full px-4">
                 <SectionTitle title="團隊陣容" mb="44px" />

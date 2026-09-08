@@ -11,7 +11,7 @@ const Layout = ({ children }: LayoutData) => {
       {/* Body */}
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-grow">
+        <main className="grow">
           <Particles
             className="fixed inset-0 -z-10 animate-fade-in"
             quantity={1000}

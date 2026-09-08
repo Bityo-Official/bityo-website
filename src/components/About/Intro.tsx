@@ -7,7 +7,7 @@ const Intro = () => {
     <>
       <section id="about" className="pt-4 md:pt-5">
         <div className="container">
-          <div className="border-b border-body/[.15] pb-16 dark:border-white/[.15] md:pb-20 lg:pb-28">
+          <div className="border-b border-body/[.15] pb-16 dark:border-white/15 md:pb-20 lg:pb-28">
             <div className="-mx-4 flex flex-wrap items-center">
               <div className="w-full px-4 lg:w-1/2">
                 <SectionTitle
@@ -37,7 +37,7 @@ const Intro = () => {
               </div>
 
               <div className="w-full px-4 lg:w-1/2">
-                <div className="relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0">
+                <div className="relative mx-auto aspect-25/24 max-w-[500px] lg:mr-0">
                   <Image
                     src="/icon/bityo.png"
                     alt="about-image"
