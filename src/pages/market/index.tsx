@@ -3,10 +3,10 @@ import SEO from "@/config/SEO.json";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { GetServerSideProps } from "next";
-import { MarketsProps } from "@/types/Market/Merket";
-import { CryptoProps } from "@/types/Market/Merket";
+import { MarketsProps } from "@/types/Market/Market";
+import { CryptoProps } from "@/types/Market/Market";
 import type { TickerSnapshot } from "@/pages/api/getBinanceTickers";
-import SkeletionTable from "@/components/Skeletion/SkeletionTable";
+import SkeletonTable from "@/components/Skeleton/SkeletonTable";
 import Seo from "@/components/Seo";
 
 // data-stream.binance.vision 是 Binance 的公開市場資料端點，不需金鑰
@@ -161,7 +161,6 @@ const Markets = ({ coinInfo }: MarketsProps) => {
         {
           cryptos.length > 0 ?
             <MarketTable
-              head={['#','幣種', '交易所', '價格', '24h%', '24h成交量', '24h最高', '24h最低']}
               rows={cryptos.length > 0 ? cryptos.map(crypto => ({
                 name: crypto.name,
                 image: crypto.image,
@@ -208,7 +207,7 @@ const Markets = ({ coinInfo }: MarketsProps) => {
               ]}
             />
             :
-            <SkeletionTable />
+            <SkeletonTable />
         }
       </div>
     </>

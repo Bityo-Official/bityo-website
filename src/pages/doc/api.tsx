@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import 'swagger-ui-react/swagger-ui.css';
 import SEO from "@/config/SEO.json";
 import useSWR from 'swr';
-import SkeletionTable from '@/components/Skeletion/SkeletionTable';
+import SkeletonTable from '@/components/Skeleton/SkeletonTable';
 import Seo from "@/components/Seo";
 
 const SwaggerUI = dynamic(() => import('swagger-ui-react'), { ssr: false });
@@ -23,7 +23,7 @@ const ApiDoc = () => {
           spec ?
             <SwaggerUI spec={spec} />
             :
-            <SkeletionTable />
+            <SkeletonTable />
         }
       </div>
     </>

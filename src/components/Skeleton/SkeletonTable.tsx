@@ -1,6 +1,6 @@
-import { SkeletionTableProps } from "@/types/Skelection/Skeletion";
+import { SkeletonTableProps } from "@/types/Skeleton/Skeleton";
 
-const SkeletionTable = (props: SkeletionTableProps) => {
+const SkeletonTable = (props: SkeletonTableProps) => {
 
   return (
     <div className={`${props.className} w-full p-4 space-y-4 divide-y divide-gray-200 rounded-sm shadow-sm animate-pulse dark:divide-gray-700 md:p-6  bg-black/30 dark:bg-white/20`}>
@@ -45,4 +45,4 @@ const SkeletionTable = (props: SkeletionTableProps) => {
 }
 
 
-export default SkeletionTable;
+export default SkeletonTable;

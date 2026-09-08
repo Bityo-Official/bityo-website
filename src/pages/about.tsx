@@ -4,7 +4,7 @@ import SEO from "@/config/SEO.json";
 import { GetServerSideProps } from "next";
 import { MemberDataProps } from "@/types/Member/Member";
 import { getAdminBucket } from "../../lib/firebaseAdmin";
-import SkeletionMember from "@/components/Skeletion/SkeletionMember";
+import SkeletonMember from "@/components/Skeleton/SkeletonMember";
 import Seo from "@/components/Seo";
 
 interface AboutProps {
@@ -21,7 +21,7 @@ const About = ({ members }: AboutProps) => {
           <Member members={members} />
           :
           <div className="container my-3">
-            <SkeletionMember />
+            <SkeletonMember />
           </div>
       }
     </>

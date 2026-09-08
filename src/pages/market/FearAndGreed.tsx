@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { MergedDataItem } from "@/types/Chart/GaugeSimple";
 import GaugeSection from "@/components/Market/GaugeSection";
 import AreaChartSection from "@/components/Market/AreaChartSection";
-import SkeletionTable from "@/components/Skeletion/SkeletionTable";
+import SkeletonTable from "@/components/Skeleton/SkeletonTable";
 import { calculateDays, convertFngLevel } from "@/util/Market/FNG";
 import Seo from "@/components/Seo";
 
@@ -55,7 +55,7 @@ const FearAndGreed = () => {
         </div>
       ) : mergedData.length === 0 ? (
         <div className="m-5 rounded-2xl bg-neutral-200 p-5 dark:bg-neutral-800/50">
-          <SkeletionTable />
+          <SkeletonTable />
         </div>
       ) : (
       <div className="m-5 p-5 rounded-2xl bg-neutral-200 dark:bg-neutral-800/50">

@@ -1,6 +1,6 @@
-import { SkeletionMemberProps } from "@/types/Skelection/Skeletion";
+import { SkeletonMemberProps } from "@/types/Skeleton/Skeleton";
 
-const SkeletionMember = (props: SkeletionMemberProps) => {
+const SkeletonMember = (props: SkeletonMemberProps) => {
 
   return (
     <div className={`${props.className} w-full p-4 space-y-4 divide-y divide-gray-200 rounded-sm shadow-sm animate-pulse dark:divide-gray-700 md:p-6  bg-black/30 dark:bg-white/20`}>
@@ -19,4 +19,4 @@ const SkeletionMember = (props: SkeletionMemberProps) => {
 }
 
 
-export default SkeletionMember;
+export default SkeletonMember;
